@@ -9,4 +9,8 @@ int main()
     // int *p = &3;
     // int **q = &p;
     printf("a = %d\n", **p);
+
+    int b;
+    *b= 20;
+
 }
