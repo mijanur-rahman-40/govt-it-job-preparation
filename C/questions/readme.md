@@ -1,13 +1,9 @@
-# All Format Specifiers in C
+## All Format Specifiers in C
 
 |Format Specifiers | Type of Output |
-
+|------------------|----------------|
 |%d or %i | A decimal integer or signed integer| 
-
-%c
-	
-
-Signed character 
+|%c |Signed character |
 
 %f
 	
