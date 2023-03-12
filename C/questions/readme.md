@@ -1,4 +1,67 @@
+# All Format Specifiers in C
+
+|Format Specifiers | Type of Output |
+
+|%d or %i | A decimal integer or signed integer| 
+
+%c
+	
+
+Signed character 
+
+%f
+	
+
+Signed float
+
+%e
+	
+
+A floating-point number
+
+%s 
+	
+
+A string or sequence of character 
+
+%lf
+	
+
+double
+
+%Lf
+	
+
+Long double 
+
+%o
+
+%u
+	
+
+Octal integer 
+
+Short unsigned integer
+
+%ld 
+	
+
+Long decimal integer
+
+%x
+	
+
+Hexadecimal integer
+
+%p
+	
+
+Print memory address in the hexadecimal form
+
+
 # Pointer
+
+A pointer is a variable that stores the memory address of another variable as its value. A pointer variable points to a data type (like int ) of the same type, and is created with the * operator.
 
 Pointers are one of the things that make C stand out from other programming languages, like Python and Java. They are important in C, because they allow us to manipulate the data in the computer's memory. This can reduce the code and improve the performance.
 
