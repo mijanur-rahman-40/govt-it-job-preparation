@@ -1,0 +1,6 @@
+/**
+ * This function performs a specific operation on the given input.
+ * 
+ * @param input The input value to be processed.
+ * @return The result of the operation.
+ */
