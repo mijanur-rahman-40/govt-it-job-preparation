@@ -2,7 +2,7 @@
     "type": "MySQLNotebook",
     "version": "1.0",
     "caption": "DB Notebook",
-    "content": "-- Query performing on Mosh Course database : sql_hr, sql_inventory, sql_invooicing, sql_store\nUSE sql_store;\n-- Retrieving all data of customers\n-- WHERE -> to filter the result\nSELECT * FROM customers;\n-- Another way\n-- SELECT * FROM `sql_store`.`customers`\n-- Retrieving specific colums of customers\nSELECT points, customer_id, first_name FROM customers; \n-- Filtering cutomers : \n-- KEYWORD order is important\nSELECT *  \nFROM customers\n-- WHERE customer_id = 1\n\n-- WHERE points > 3000\n\n-- Both uppercase and lowercase work perfectly\n-- WHERE state = 'VA'\n-- WHERE state = 'va'\n\n-- Search with date\n-- WHERE birth_date >= '1990-01-01'\n\n-- IN -> To specify multiple possible values for a column\n-- BETWEEN -> WHERE city IN ('Chicago','London')\n\n-- NOT EQUAL -> <> or != \n-- WHERE points <> 796\n-- Or : Same Effect -> WHERE points != 1899\n\n-- LIKE -> Search for a pattern> \n-- WHERE state LIKE 'f%'\n\n-- BETWEEN -> Between a certain range\n-- WHERE points BETWEEN 1000 AND 6000\n\n-- Multiple search condition in filtreing data\n-- WHERE birth_date >= '1990-01-01' AND points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 500 AND state = 'VA'\n\n-- AND operator execute first than OR\n-- Higer to Lower order : / -> * -> + -> - \n-- WHERE birth_date >= '1990-01-01' OR (points > 2500 AND state = 'VA')\n\n-- WHERE NOT (birth_date > '1990-01-01' OR points > 1000)\n-- Same query can be written as : \nWHERE birth_date <= '1990-01-01' AND points <= 1000\n\n-- The WHERE clause is not only used in SELECT statements, it is also used in UPDATE, DELETE, etc.\nORDER BY first_name;\n-- two columns and values\nSELECT 1, 2; \n-- SELECT clause in details\n-- SELECT last_name, first_name, points, points + 10\nSELECT \n  last_name, \n  first_name, \n  points,  \n  points * 10 + 100\nfrom customers;\nSELECT \n  last_name,  \n  first_name, \n  points, \n  (points + 10) * 100,\n  -- adding specific alias. to use alias, use 'AS' keyword before the given new name\n  -- Aliases are used to give a table, or a column in a table, a temporary name.\n  (points + 10) * 100 AS discount_factor,\n  (points + 10) * 100 AS 'discount factor',\n  (points + 10) * 100 AS \"discount factor\"\nfrom customers;\n-- Update column\n-- SELECT state FROM customers;\nUPDATE customers SET city = 'Sylhet' WHERE (customer_id = 2);\n-- Retrieving all distinct state data of customers \nSELECT DISTINCT city FROM customers;\nSELECT COUNT(DISTINCT city) FROM customers;\n-- \n\n\n\n",
+    "content": "-- Query performing on Mosh Course database : sql_hr, sql_inventory, sql_invooicing, sql_store\nUSE sql_store;\n-- Retrieving all data of customers\n-- WHERE -> to filter the result\nSELECT * FROM customers;\n-- Another way\n-- SELECT * FROM `sql_store`.`customers`\n-- Retrieving specific colums of customers\nSELECT points, customer_id, first_name FROM customers; \n-- Filtering cutomers : \n-- KEYWORD order is important\nSELECT *  \nFROM customers\n-- WHERE customer_id = 1\n\n-- WHERE points > 3000\n\n-- Both uppercase and lowercase work perfectly\n-- WHERE state = 'VA'\n-- WHERE state = 'va'\n\n-- Search with date\n-- WHERE birth_date >= '1990-01-01'\n\n-- IN -> To specify multiple possible values for a column\n-- BETWEEN -> WHERE city IN ('Chicago','London')\n\n-- NOT EQUAL -> <> or != \n-- WHERE points <> 796\n-- Or : Same Effect -> WHERE points != 1899\n\n-- LIKE -> Search for a pattern> \n-- WHERE state LIKE 'f%'\n\n-- BETWEEN -> Between a certain range\n-- WHERE points BETWEEN 1000 AND 6000\n\n-- Multiple search condition in filtreing data\n-- WHERE birth_date >= '1990-01-01' AND points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 500 AND state = 'VA'\n\n-- AND operator execute first than OR\n-- Higer to Lower order : / -> * -> + -> - \n-- WHERE birth_date >= '1990-01-01' OR (points > 2500 AND state = 'VA')\n\n-- WHERE NOT (birth_date > '1990-01-01' OR points > 1000)\n-- Same query can be written as : \n-- WHERE birth_date <= '1990-01-01' AND points <= 1000\n\n-- The WHERE clause is not only used in SELECT statements, it is also used in UPDATE, DELETE, etc.\nORDER BY first_name;\n-- two columns and values\nSELECT 1, 2; \n-- SELECT clause in details\n-- SELECT last_name, first_name, points, points + 10\nSELECT \n  last_name, \n  first_name, \n  points,  \n  points * 10 + 100\nfrom customers;\nSELECT \n  last_name,  \n  first_name, \n  points, \n  (points + 10) * 100,\n  -- adding specific alias. to use alias, use 'AS' keyword before the given new name\n  -- Aliases are used to give a table, or a column in a table, a temporary name.\n  (points + 10) * 100 AS discount_factor,\n  (points + 10) * 100 AS 'discount factor',\n  (points + 10) * 100 AS \"discount factor\"\nfrom customers;\n-- Update column\n-- SELECT state FROM customers;\nUPDATE customers SET city = 'Sylhet' WHERE (customer_id = 2);\n-- Retrieving all distinct state data of customers \nSELECT DISTINCT city FROM customers;\nSELECT COUNT(DISTINCT city) FROM customers;\n-- \n\n\n\n",
     "options": {
         "tabSize": 4,
         "insertSpaces": true,
@@ -15,22 +15,22 @@
             {
                 "inSelectionMode": false,
                 "selectionStart": {
-                    "lineNumber": 41,
-                    "column": 13
+                    "lineNumber": 49,
+                    "column": 4
                 },
                 "position": {
-                    "lineNumber": 41,
-                    "column": 13
+                    "lineNumber": 49,
+                    "column": 4
                 }
             }
         ],
         "viewState": {
             "scrollLeft": 0,
             "firstPosition": {
-                "lineNumber": 29,
+                "lineNumber": 36,
                 "column": 1
             },
-            "firstPositionDeltaTop": 0
+            "firstPositionDeltaTop": -9
         },
         "contributionsState": {
             "editor.contrib.folding": {},
@@ -108,7 +108,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "3e1dffab-5276-4d2d-bea4-6de966f6b806"
+                        "e189c07b-b969-48b8-e006-517868a9a6e3"
                     ]
                 },
                 "currentHeight": 36,
@@ -135,8 +135,8 @@
             },
             "data": [
                 {
-                    "tabId": "0de1b13f-75c8-4d5a-b248-50aa17ca1691",
-                    "resultId": "3e1dffab-5276-4d2d-bea4-6de966f6b806",
+                    "tabId": "b72a4c63-7bb3-4501-a751-b47a0d3f4da1",
+                    "resultId": "e189c07b-b969-48b8-e006-517868a9a6e3",
                     "rows": [
                         {
                             "0": 1,
@@ -333,7 +333,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "8d66401a-85fb-48ab-82b4-20bc88703ae0"
+                        "d93b78ed-6b78-45d3-c4bf-e830e5782673"
                     ]
                 },
                 "currentHeight": 36,
@@ -360,8 +360,8 @@
             },
             "data": [
                 {
-                    "tabId": "0de1b13f-75c8-4d5a-b248-50aa17ca1691",
-                    "resultId": "8d66401a-85fb-48ab-82b4-20bc88703ae0",
+                    "tabId": "b72a4c63-7bb3-4501-a751-b47a0d3f4da1",
+                    "resultId": "d93b78ed-6b78-45d3-c4bf-e830e5782673",
                     "rows": [
                         {
                             "0": 2273,
@@ -456,7 +456,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "5048dc4c-2a99-47a4-bf14-ffb256438d86"
+                        "6a3f9d34-7252-453a-e621-428844c91483"
                     ]
                 },
                 "currentHeight": 199,
@@ -465,7 +465,7 @@
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 1263
+                            "length": 1266
                         },
                         "contentStart": 55,
                         "state": 0
@@ -474,8 +474,8 @@
             },
             "data": [
                 {
-                    "tabId": "0de1b13f-75c8-4d5a-b248-50aa17ca1691",
-                    "resultId": "5048dc4c-2a99-47a4-bf14-ffb256438d86",
+                    "tabId": "b72a4c63-7bb3-4501-a751-b47a0d3f4da1",
+                    "resultId": "6a3f9d34-7252-453a-e621-428844c91483",
                     "rows": [
                         {
                             "0": 4,
@@ -595,7 +595,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "c7eae10e-ed49-4e6b-8d7e-873f4f47187a"
+                        "1a59d2c4-5956-4d40-fdfa-b2878e9d3f3d"
                     ]
                 },
                 "currentHeight": 36,
@@ -622,8 +622,8 @@
             },
             "data": [
                 {
-                    "tabId": "0de1b13f-75c8-4d5a-b248-50aa17ca1691",
-                    "resultId": "c7eae10e-ed49-4e6b-8d7e-873f4f47187a",
+                    "tabId": "b72a4c63-7bb3-4501-a751-b47a0d3f4da1",
+                    "resultId": "1a59d2c4-5956-4d40-fdfa-b2878e9d3f3d",
                     "rows": [
                         {
                             "0": 1,
@@ -665,7 +665,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "5b959c16-b590-4228-8f35-3415c7eac028"
+                        "0a432af5-bcbf-4cbb-bfca-a3548c76b57b"
                     ]
                 },
                 "currentHeight": 40,
@@ -683,8 +683,8 @@
             },
             "data": [
                 {
-                    "tabId": "0de1b13f-75c8-4d5a-b248-50aa17ca1691",
-                    "resultId": "5b959c16-b590-4228-8f35-3415c7eac028",
+                    "tabId": "b72a4c63-7bb3-4501-a751-b47a0d3f4da1",
+                    "resultId": "0a432af5-bcbf-4cbb-bfca-a3548c76b57b",
                     "rows": [
                         {
                             "0": "MacCaffrey",
@@ -796,7 +796,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "b91067e7-0708-4033-d1c2-2efd17665726"
+                        "4fee344c-e103-4a3a-86f7-2bcab92b8fb8"
                     ]
                 },
                 "currentHeight": 36.9375,
@@ -814,8 +814,8 @@
             },
             "data": [
                 {
-                    "tabId": "0de1b13f-75c8-4d5a-b248-50aa17ca1691",
-                    "resultId": "b91067e7-0708-4033-d1c2-2efd17665726",
+                    "tabId": "b72a4c63-7bb3-4501-a751-b47a0d3f4da1",
+                    "resultId": "4fee344c-e103-4a3a-86f7-2bcab92b8fb8",
                     "rows": [
                         {
                             "0": "MacCaffrey",
@@ -1009,8 +1009,8 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "d6872bc1-a20d-4765-cc29-af0d476ff24c",
-                        "2d20ffe5-02b7-4f22-ef56-89a2d2af941d"
+                        "d873b9c3-86f1-4a5f-8986-54a0b036b083",
+                        "8b0654ed-171d-4a70-d721-74f1534b33ae"
                     ]
                 },
                 "currentHeight": 39,
@@ -1038,8 +1038,8 @@
             },
             "data": [
                 {
-                    "tabId": "0de1b13f-75c8-4d5a-b248-50aa17ca1691",
-                    "resultId": "d6872bc1-a20d-4765-cc29-af0d476ff24c",
+                    "tabId": "b72a4c63-7bb3-4501-a751-b47a0d3f4da1",
+                    "resultId": "d873b9c3-86f1-4a5f-8986-54a0b036b083",
                     "rows": [
                         {
                             "0": "Orlando"
@@ -1088,8 +1088,8 @@
                     "sql": "-- Retrieving all distinct state data of customers \nSELECT DISTINCT city FROM customers"
                 },
                 {
-                    "tabId": "0de1b13f-75c8-4d5a-b248-50aa17ca1691",
-                    "resultId": "2d20ffe5-02b7-4f22-ef56-89a2d2af941d",
+                    "tabId": "b72a4c63-7bb3-4501-a751-b47a0d3f4da1",
+                    "resultId": "8b0654ed-171d-4a70-d721-74f1534b33ae",
                     "rows": [
                         {
                             "0": 9
