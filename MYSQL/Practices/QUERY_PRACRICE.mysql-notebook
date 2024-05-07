@@ -1,0 +1,1289 @@
+{
+    "type": "MySQLNotebook",
+    "version": "1.0",
+    "caption": "DB Notebook",
+    "content": "-- Query performing on Mosh Course database : sql_hr, sql_inventory, sql_invooicing, sql_store\nUSE sql_store;\n-- Retrieving all data of customers\n-- WHERE -> to filter the result\nSELECT * \nFROM customers;\n\n-- Another way\n-- SELECT * FROM `sql_store`.`customers`\n-- Retrieving specific colums of customers\nSELECT points, customer_id, first_name FROM customers; \n-- Filtering cutomers : \n-- KEYWORD order is important\nSELECT *  \nFROM customers\n-- WHERE customer_id = 1\n-- The WHERE clause is not only used in SELECT statements, it is also used in UPDATE, DELETE, etc.\nORDER BY first_name;\n-- two columns and values\nSELECT 1, 2; \n-- SELECT clause in details\n-- SELECT last_name, first_name, points, points + 10\nSELECT \n  last_name, \n  first_name, \n  points,  \n  points * 10 + 100\nfrom customers;\nSELECT \n  last_name,  \n  first_name, \n  points, \n  (points + 10) * 100,\n  -- adding specific alias. to use alias, use 'AS' keyword before the given new name\n  -- Aliases are used to give a table, or a column in a table, a temporary name.\n  (points + 10) * 100 AS discount_factor,\n  (points + 10) * 100 AS 'discount factor',\n  (points + 10) * 100 AS \"discount factor\"\nfrom customers;\n-- Update column\nSELECT state  \nFROM customers;\n-- Retrieving all distinct state data of customers \n-- \n\n\n\n",
+    "options": {
+        "tabSize": 4,
+        "insertSpaces": true,
+        "indentSize": 4,
+        "defaultEOL": "LF",
+        "trimAutoWhitespace": true
+    },
+    "viewState": {
+        "cursorState": [
+            {
+                "inSelectionMode": false,
+                "selectionStart": {
+                    "lineNumber": 13,
+                    "column": 30
+                },
+                "position": {
+                    "lineNumber": 13,
+                    "column": 30
+                }
+            }
+        ],
+        "viewState": {
+            "scrollLeft": 0,
+            "firstPosition": {
+                "lineNumber": 12,
+                "column": 1
+            },
+            "firstPositionDeltaTop": 84
+        },
+        "contributionsState": {
+            "editor.contrib.folding": {},
+            "editor.contrib.wordHighlighter": false
+        }
+    },
+    "contexts": [
+        {
+            "state": {
+                "start": 1,
+                "end": 1,
+                "language": "mysql",
+                "result": {
+                    "type": "text",
+                    "text": [
+                        {
+                            "type": 4,
+                            "index": 0,
+                            "resultId": "1216e8ef-72b9-48ab-f5b5-4ce3ec7fa0cf",
+                            "content": "OK, 0 records retrieved in 0.417ms"
+                        }
+                    ]
+                },
+                "currentHeight": 28,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 94
+                        },
+                        "contentStart": 0,
+                        "state": 1
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 2,
+                "end": 2,
+                "language": "mysql",
+                "result": {
+                    "type": "text",
+                    "text": [
+                        {
+                            "type": 4,
+                            "index": 0,
+                            "resultId": "866d7ca4-1190-4a09-ff86-62b2fbd89975",
+                            "content": "OK, 0 records retrieved in 0.442ms"
+                        }
+                    ]
+                },
+                "currentHeight": 28,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 14
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 3,
+                "end": 9,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "897cbf91-f0d1-447c-ed05-26ee8f2b8c05",
+                        "75dfe039-71b4-4bee-e4fc-0f1e3ff46f4d"
+                    ]
+                },
+                "currentHeight": 36,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 94
+                        },
+                        "contentStart": 69,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 94,
+                            "length": 57
+                        },
+                        "contentStart": 94,
+                        "state": 1
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "463117dc-dacc-41b9-a063-eebb111c040f",
+                    "resultId": "897cbf91-f0d1-447c-ed05-26ee8f2b8c05",
+                    "rows": [
+                        {
+                            "0": 1,
+                            "1": "Babara",
+                            "2": "MacCaffrey",
+                            "3": "1986-03-28",
+                            "4": "781-932-9754",
+                            "5": "0 Sage Terrace",
+                            "6": "Waltham",
+                            "7": "MA",
+                            "8": 2273
+                        },
+                        {
+                            "0": 2,
+                            "1": "Ines",
+                            "2": "Brushfield",
+                            "3": "1986-04-13",
+                            "4": "804-427-9456",
+                            "5": "14187 Commercial Trail",
+                            "6": "Hampton",
+                            "7": "VA",
+                            "8": 947
+                        },
+                        {
+                            "0": 3,
+                            "1": "Freddi",
+                            "2": "Boagey",
+                            "3": "1985-02-07",
+                            "4": "719-724-7869",
+                            "5": "251 Springs Junction",
+                            "6": "Colorado Springs",
+                            "7": "CO",
+                            "8": 2967
+                        },
+                        {
+                            "0": 4,
+                            "1": "Ambur",
+                            "2": "Roseburgh",
+                            "3": "1974-04-14",
+                            "4": "407-231-8017",
+                            "5": "30 Arapahoe Terrace",
+                            "6": "Orlando",
+                            "7": "FL",
+                            "8": 457
+                        },
+                        {
+                            "0": 5,
+                            "1": "Clemmie",
+                            "2": "Betchley",
+                            "3": "1973-11-07",
+                            "4": null,
+                            "5": "5 Spohn Circle",
+                            "6": "Arlington",
+                            "7": "TX",
+                            "8": 3675
+                        },
+                        {
+                            "0": 6,
+                            "1": "Elka",
+                            "2": "Twiddell",
+                            "3": "1991-09-04",
+                            "4": "312-480-8498",
+                            "5": "7 Manley Drive",
+                            "6": "Chicago",
+                            "7": "IL",
+                            "8": 3073
+                        },
+                        {
+                            "0": 7,
+                            "1": "Ilene",
+                            "2": "Dowson",
+                            "3": "1964-08-30",
+                            "4": "615-641-4759",
+                            "5": "50 Lillian Crossing",
+                            "6": "Nashville",
+                            "7": "TN",
+                            "8": 1672
+                        },
+                        {
+                            "0": 8,
+                            "1": "Thacher",
+                            "2": "Naseby",
+                            "3": "1993-07-17",
+                            "4": "941-527-3977",
+                            "5": "538 Mosinee Center",
+                            "6": "Sarasota",
+                            "7": "FL",
+                            "8": 205
+                        },
+                        {
+                            "0": 9,
+                            "1": "Romola",
+                            "2": "Rumgay",
+                            "3": "1992-05-23",
+                            "4": "559-181-3744",
+                            "5": "3520 Ohio Trail",
+                            "6": "Visalia",
+                            "7": "CA",
+                            "8": 1486
+                        },
+                        {
+                            "0": 10,
+                            "1": "Levy",
+                            "2": "Mynett",
+                            "3": "1969-10-13",
+                            "4": "404-246-3370",
+                            "5": "68 Lawn Avenue",
+                            "6": "Atlanta",
+                            "7": "GA",
+                            "8": 796
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "customer_id",
+                            "field": "0",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "first_name",
+                            "field": "1",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "last_name",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "birth_date",
+                            "field": "3",
+                            "dataType": {
+                                "type": 28
+                            }
+                        },
+                        {
+                            "title": "phone",
+                            "field": "4",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "address",
+                            "field": "5",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "city",
+                            "field": "6",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "state",
+                            "field": "7",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "points",
+                            "field": "8",
+                            "dataType": {
+                                "type": 4
+                            }
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 10 records retrieved in 0.619ms"
+                    },
+                    "totalRowCount": 10,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "-- Retrieving all data of customers\n-- WHERE -> to filter the result\nSELECT * \nFROM customers"
+                },
+                {
+                    "tabId": "463117dc-dacc-41b9-a063-eebb111c040f",
+                    "resultId": "75dfe039-71b4-4bee-e4fc-0f1e3ff46f4d",
+                    "rows": [],
+                    "executionInfo": {
+                        "text": "OK, 0 records retrieved in 0.451ms",
+                        "type": 4
+                    },
+                    "totalRowCount": 0,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 1,
+                    "sql": "\n\n-- Another way\n-- SELECT * FROM `sql_store`.`customers`"
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 10,
+                "end": 11,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "17562536-c37c-463d-f9c3-34b12eff5354"
+                    ]
+                },
+                "currentHeight": 278,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 97
+                        },
+                        "contentStart": 43,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 97,
+                            "length": 1
+                        },
+                        "contentStart": 96,
+                        "state": 3
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "463117dc-dacc-41b9-a063-eebb111c040f",
+                    "resultId": "17562536-c37c-463d-f9c3-34b12eff5354",
+                    "rows": [
+                        {
+                            "0": 2273,
+                            "1": 1,
+                            "2": "Babara"
+                        },
+                        {
+                            "0": 947,
+                            "1": 2,
+                            "2": "Ines"
+                        },
+                        {
+                            "0": 2967,
+                            "1": 3,
+                            "2": "Freddi"
+                        },
+                        {
+                            "0": 457,
+                            "1": 4,
+                            "2": "Ambur"
+                        },
+                        {
+                            "0": 3675,
+                            "1": 5,
+                            "2": "Clemmie"
+                        },
+                        {
+                            "0": 3073,
+                            "1": 6,
+                            "2": "Elka"
+                        },
+                        {
+                            "0": 1672,
+                            "1": 7,
+                            "2": "Ilene"
+                        },
+                        {
+                            "0": 205,
+                            "1": 8,
+                            "2": "Thacher"
+                        },
+                        {
+                            "0": 1486,
+                            "1": 9,
+                            "2": "Romola"
+                        },
+                        {
+                            "0": 796,
+                            "1": 10,
+                            "2": "Levy"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "points",
+                            "field": "0",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "customer_id",
+                            "field": "1",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "first_name",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17
+                            }
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 10 records retrieved in 0.741ms"
+                    },
+                    "totalRowCount": 10,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "-- Retrieving specific colums of customers\nSELECT points, customer_id, first_name FROM customers"
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 12,
+                "end": 18,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "245a75fb-1470-4cec-9c88-ab4143460a06"
+                    ]
+                },
+                "currentHeight": 318,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 225
+                        },
+                        "contentStart": 55,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "463117dc-dacc-41b9-a063-eebb111c040f",
+                    "resultId": "245a75fb-1470-4cec-9c88-ab4143460a06",
+                    "rows": [
+                        {
+                            "0": 4,
+                            "1": "Ambur",
+                            "2": "Roseburgh",
+                            "3": "1974-04-14",
+                            "4": "407-231-8017",
+                            "5": "30 Arapahoe Terrace",
+                            "6": "Orlando",
+                            "7": "FL",
+                            "8": 457
+                        },
+                        {
+                            "0": 1,
+                            "1": "Babara",
+                            "2": "MacCaffrey",
+                            "3": "1986-03-28",
+                            "4": "781-932-9754",
+                            "5": "0 Sage Terrace",
+                            "6": "Waltham",
+                            "7": "MA",
+                            "8": 2273
+                        },
+                        {
+                            "0": 5,
+                            "1": "Clemmie",
+                            "2": "Betchley",
+                            "3": "1973-11-07",
+                            "4": null,
+                            "5": "5 Spohn Circle",
+                            "6": "Arlington",
+                            "7": "TX",
+                            "8": 3675
+                        },
+                        {
+                            "0": 6,
+                            "1": "Elka",
+                            "2": "Twiddell",
+                            "3": "1991-09-04",
+                            "4": "312-480-8498",
+                            "5": "7 Manley Drive",
+                            "6": "Chicago",
+                            "7": "IL",
+                            "8": 3073
+                        },
+                        {
+                            "0": 3,
+                            "1": "Freddi",
+                            "2": "Boagey",
+                            "3": "1985-02-07",
+                            "4": "719-724-7869",
+                            "5": "251 Springs Junction",
+                            "6": "Colorado Springs",
+                            "7": "CO",
+                            "8": 2967
+                        },
+                        {
+                            "0": 7,
+                            "1": "Ilene",
+                            "2": "Dowson",
+                            "3": "1964-08-30",
+                            "4": "615-641-4759",
+                            "5": "50 Lillian Crossing",
+                            "6": "Nashville",
+                            "7": "TN",
+                            "8": 1672
+                        },
+                        {
+                            "0": 2,
+                            "1": "Ines",
+                            "2": "Brushfield",
+                            "3": "1986-04-13",
+                            "4": "804-427-9456",
+                            "5": "14187 Commercial Trail",
+                            "6": "Hampton",
+                            "7": "VA",
+                            "8": 947
+                        },
+                        {
+                            "0": 10,
+                            "1": "Levy",
+                            "2": "Mynett",
+                            "3": "1969-10-13",
+                            "4": "404-246-3370",
+                            "5": "68 Lawn Avenue",
+                            "6": "Atlanta",
+                            "7": "GA",
+                            "8": 796
+                        },
+                        {
+                            "0": 9,
+                            "1": "Romola",
+                            "2": "Rumgay",
+                            "3": "1992-05-23",
+                            "4": "559-181-3744",
+                            "5": "3520 Ohio Trail",
+                            "6": "Visalia",
+                            "7": "CA",
+                            "8": 1486
+                        },
+                        {
+                            "0": 8,
+                            "1": "Thacher",
+                            "2": "Naseby",
+                            "3": "1993-07-17",
+                            "4": "941-527-3977",
+                            "5": "538 Mosinee Center",
+                            "6": "Sarasota",
+                            "7": "FL",
+                            "8": 205
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "customer_id",
+                            "field": "0",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "first_name",
+                            "field": "1",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "last_name",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "birth_date",
+                            "field": "3",
+                            "dataType": {
+                                "type": 28
+                            }
+                        },
+                        {
+                            "title": "phone",
+                            "field": "4",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "address",
+                            "field": "5",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "city",
+                            "field": "6",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "state",
+                            "field": "7",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "points",
+                            "field": "8",
+                            "dataType": {
+                                "type": 4
+                            }
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 10 records retrieved in 0.626ms"
+                    },
+                    "totalRowCount": 10,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "-- Filtering cutomers : \n-- KEYWORD order is important\nSELECT *  \nFROM customers\n-- WHERE customer_id = 1\n-- The WHERE clause is not only used in SELECT statements, it is also used in UPDATE, DELETE, etc.\nORDER BY first_name;"
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 19,
+                "end": 20,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "9e3799b9-2a7c-41a1-f1aa-d190a8917785"
+                    ]
+                },
+                "currentHeight": 36,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 38
+                        },
+                        "contentStart": 26,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 38,
+                            "length": 1
+                        },
+                        "contentStart": 37,
+                        "state": 3
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "463117dc-dacc-41b9-a063-eebb111c040f",
+                    "resultId": "9e3799b9-2a7c-41a1-f1aa-d190a8917785",
+                    "rows": [
+                        {
+                            "0": 1,
+                            "1": 2
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "1",
+                            "field": "0",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "2",
+                            "field": "1",
+                            "dataType": {
+                                "type": 4
+                            }
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 1 record retrieved in 0.483ms"
+                    },
+                    "totalRowCount": 1,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT 1, 2"
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 21,
+                "end": 28,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "8c967e71-9e88-4db7-8bfc-ddae55bd4890"
+                    ]
+                },
+                "currentHeight": 324,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 165
+                        },
+                        "contentStart": 81,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "463117dc-dacc-41b9-a063-eebb111c040f",
+                    "resultId": "8c967e71-9e88-4db7-8bfc-ddae55bd4890",
+                    "rows": [
+                        {
+                            "0": "MacCaffrey",
+                            "1": "Babara",
+                            "2": 2273,
+                            "3": 22830
+                        },
+                        {
+                            "0": "Brushfield",
+                            "1": "Ines",
+                            "2": 947,
+                            "3": 9570
+                        },
+                        {
+                            "0": "Boagey",
+                            "1": "Freddi",
+                            "2": 2967,
+                            "3": 29770
+                        },
+                        {
+                            "0": "Roseburgh",
+                            "1": "Ambur",
+                            "2": 457,
+                            "3": 4670
+                        },
+                        {
+                            "0": "Betchley",
+                            "1": "Clemmie",
+                            "2": 3675,
+                            "3": 36850
+                        },
+                        {
+                            "0": "Twiddell",
+                            "1": "Elka",
+                            "2": 3073,
+                            "3": 30830
+                        },
+                        {
+                            "0": "Dowson",
+                            "1": "Ilene",
+                            "2": 1672,
+                            "3": 16820
+                        },
+                        {
+                            "0": "Naseby",
+                            "1": "Thacher",
+                            "2": 205,
+                            "3": 2150
+                        },
+                        {
+                            "0": "Rumgay",
+                            "1": "Romola",
+                            "2": 1486,
+                            "3": 14960
+                        },
+                        {
+                            "0": "Mynett",
+                            "1": "Levy",
+                            "2": 796,
+                            "3": 8060
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "last_name",
+                            "field": "0",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "first_name",
+                            "field": "1",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "points",
+                            "field": "2",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "points * 10 + 100",
+                            "field": "3",
+                            "dataType": {
+                                "type": 4
+                            }
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 10 records retrieved in 0.643ms"
+                    },
+                    "totalRowCount": 10,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "-- SELECT clause in details\n-- SELECT last_name, first_name, points, points + 10\nSELECT \n  last_name, \n  first_name, \n  points, \n  points * 10 + 100\nfrom customers"
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 29,
+                "end": 39,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "6006ab4a-e195-4afe-8c5d-3fd2231460c2"
+                    ]
+                },
+                "currentHeight": 314.9375,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 382
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "463117dc-dacc-41b9-a063-eebb111c040f",
+                    "resultId": "6006ab4a-e195-4afe-8c5d-3fd2231460c2",
+                    "rows": [
+                        {
+                            "0": "MacCaffrey",
+                            "1": "Babara",
+                            "2": 2273,
+                            "3": 228300,
+                            "4": 228300,
+                            "5": 228300,
+                            "6": 228300
+                        },
+                        {
+                            "0": "Brushfield",
+                            "1": "Ines",
+                            "2": 947,
+                            "3": 95700,
+                            "4": 95700,
+                            "5": 95700,
+                            "6": 95700
+                        },
+                        {
+                            "0": "Boagey",
+                            "1": "Freddi",
+                            "2": 2967,
+                            "3": 297700,
+                            "4": 297700,
+                            "5": 297700,
+                            "6": 297700
+                        },
+                        {
+                            "0": "Roseburgh",
+                            "1": "Ambur",
+                            "2": 457,
+                            "3": 46700,
+                            "4": 46700,
+                            "5": 46700,
+                            "6": 46700
+                        },
+                        {
+                            "0": "Betchley",
+                            "1": "Clemmie",
+                            "2": 3675,
+                            "3": 368500,
+                            "4": 368500,
+                            "5": 368500,
+                            "6": 368500
+                        },
+                        {
+                            "0": "Twiddell",
+                            "1": "Elka",
+                            "2": 3073,
+                            "3": 308300,
+                            "4": 308300,
+                            "5": 308300,
+                            "6": 308300
+                        },
+                        {
+                            "0": "Dowson",
+                            "1": "Ilene",
+                            "2": 1672,
+                            "3": 168200,
+                            "4": 168200,
+                            "5": 168200,
+                            "6": 168200
+                        },
+                        {
+                            "0": "Naseby",
+                            "1": "Thacher",
+                            "2": 205,
+                            "3": 21500,
+                            "4": 21500,
+                            "5": 21500,
+                            "6": 21500
+                        },
+                        {
+                            "0": "Rumgay",
+                            "1": "Romola",
+                            "2": 1486,
+                            "3": 149600,
+                            "4": 149600,
+                            "5": 149600,
+                            "6": 149600
+                        },
+                        {
+                            "0": "Mynett",
+                            "1": "Levy",
+                            "2": 796,
+                            "3": 80600,
+                            "4": 80600,
+                            "5": 80600,
+                            "6": 80600
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "last_name",
+                            "field": "0",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "first_name",
+                            "field": "1",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "points",
+                            "field": "2",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "(points + 10) * 100",
+                            "field": "3",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "discount_factor",
+                            "field": "4",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "discount factor",
+                            "field": "5",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "discount factor",
+                            "field": "6",
+                            "dataType": {
+                                "type": 4
+                            }
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 10 records retrieved in 0.643ms"
+                    },
+                    "totalRowCount": 10,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT \n  last_name, \n  first_name, \n  points, \n  (points + 10) * 100,\n  -- adding specific alias. to use alias, use 'AS' keyword before the given new name\n  -- Aliases are used to give a table, or a column in a table, a temporary name.\n  (points + 10) * 100 AS discount_factor,\n  (points + 10) * 100 AS 'discount factor',\n  (points + 10) * 100 AS \"discount factor\"\nfrom customers"
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 40,
+                "end": 42,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "c8cb4987-6986-4b7e-8bbb-0ee58b5ada79"
+                    ]
+                },
+                "currentHeight": 262,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 47
+                        },
+                        "contentStart": 17,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "463117dc-dacc-41b9-a063-eebb111c040f",
+                    "resultId": "c8cb4987-6986-4b7e-8bbb-0ee58b5ada79",
+                    "rows": [
+                        {
+                            "0": "MA"
+                        },
+                        {
+                            "0": "VA"
+                        },
+                        {
+                            "0": "CO"
+                        },
+                        {
+                            "0": "FL"
+                        },
+                        {
+                            "0": "TX"
+                        },
+                        {
+                            "0": "IL"
+                        },
+                        {
+                            "0": "TN"
+                        },
+                        {
+                            "0": "FL"
+                        },
+                        {
+                            "0": "CA"
+                        },
+                        {
+                            "0": "GA"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "state",
+                            "field": "0",
+                            "dataType": {
+                                "type": 17
+                            }
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 10 records retrieved in 0.629ms"
+                    },
+                    "totalRowCount": 10,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "-- Update column\nSELECT state  \nFROM customers"
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 43,
+                "end": 43,
+                "language": "mysql",
+                "result": {
+                    "type": "text",
+                    "text": [
+                        {
+                            "type": 4,
+                            "index": 0,
+                            "resultId": "fc1b29b0-1e9b-4b8e-abe7-862bcfb1efda",
+                            "content": "OK, 0 records retrieved in 0.401ms"
+                        }
+                    ]
+                },
+                "currentHeight": 28,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 51
+                        },
+                        "contentStart": 0,
+                        "state": 1
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 44,
+                "end": 44,
+                "language": "mysql",
+                "currentHeight": 180,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 3
+                        },
+                        "contentStart": 0,
+                        "state": 1
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 45,
+                "end": 45,
+                "language": "mysql",
+                "currentHeight": 180,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 0
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 46,
+                "end": 46,
+                "language": "mysql",
+                "currentHeight": 180,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 0
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 47,
+                "end": 47,
+                "language": "mysql",
+                "result": {
+                    "type": "text",
+                    "text": [
+                        {
+                            "type": 4,
+                            "index": 0,
+                            "resultId": "df7b580c-c095-47ad-b991-ea0f604dd281",
+                            "content": "OK, 0 records retrieved in 0.327ms"
+                        }
+                    ]
+                },
+                "currentHeight": 28,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 0
+                        },
+                        "contentStart": 0,
+                        "state": 3
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 48,
+                "end": 48,
+                "language": "mysql",
+                "currentHeight": 180,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 0
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
+        }
+    ]
+}

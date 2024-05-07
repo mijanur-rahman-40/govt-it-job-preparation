@@ -1,0 +1,12 @@
+1. What is SQL?
+2. ER Diagram
+3. Install MySQL in Windows
+4. MySQL built-in Functions
+5. Group by and having
+6. Joins in SQL
+7. Subquery in SQL
+8. Triggers in SQL
+9. SQL with Python
+10. PostgreSQL
+11. How to Become SQL developer
+12. SQL interview Questions

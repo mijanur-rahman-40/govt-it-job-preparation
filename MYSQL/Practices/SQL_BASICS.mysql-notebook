@@ -1,0 +1,301 @@
+{
+    "type": "MySQLNotebook",
+    "version": "1.0",
+    "caption": "DB Notebook",
+    "content": "\nDROP DATABASE IF EXISTS `sql_basic`;\nCREATE DATABASE `sql_basic`; \nUSE `sql_basic`; \n\nCREATE TABLE `user`(\n  `user_id` TINYINT(4) NOT NULL AUTO_INCREMENT,\n  `name` VARCHAR(100) NOT NULL,\n  `address` VARCHAR(10000),\n  PRIMARY KEY(`user_id`)\n) ENGINE=INNODB AUTO_INCREMENT=5 DEFAULT CHARSET=UTF8MB4 COLLATE=UTF8MB4_0900_AI_CI;\n\n-- Insering new data to user table -- \nINSERT INTO `user` VALUES(1, 'Mijanur Rahman', '');\nINSERT INTO `user` VALUES(2, 'HASAN Rahman', 'Sylhet');\n\n\nSELECT * FROM `sql_basic`.`user`\n",
+    "options": {
+        "tabSize": 4,
+        "insertSpaces": true,
+        "indentSize": 4,
+        "defaultEOL": "LF",
+        "trimAutoWhitespace": true
+    },
+    "viewState": {
+        "cursorState": [
+            {
+                "inSelectionMode": false,
+                "selectionStart": {
+                    "lineNumber": 17,
+                    "column": 1
+                },
+                "position": {
+                    "lineNumber": 17,
+                    "column": 1
+                }
+            }
+        ],
+        "viewState": {
+            "scrollLeft": 0,
+            "firstPosition": {
+                "lineNumber": 4,
+                "column": 1
+            },
+            "firstPositionDeltaTop": -7
+        },
+        "contributionsState": {
+            "editor.contrib.folding": {},
+            "editor.contrib.wordHighlighter": false
+        }
+    },
+    "contexts": [
+        {
+            "state": {
+                "start": 1,
+                "end": 1,
+                "language": "mysql",
+                "result": {
+                    "type": "text",
+                    "text": [
+                        {
+                            "type": 2,
+                            "content": "Welcome to the MySQL Shell - DB Notebook.\n\nPress Ctrl+Enter to execute the code block.\n\nExecute \\sql to switch to SQL, \\js to JavaScript and \\ts to TypeScript mode.\nExecute \\help or \\? for help;",
+                            "language": "ansi"
+                        }
+                    ]
+                },
+                "currentHeight": 141,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 0
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 2,
+                "end": 16,
+                "language": "mysql",
+                "result": {
+                    "type": "text",
+                    "text": [
+                        {
+                            "type": 4,
+                            "index": 0,
+                            "resultId": "733d77b6-ffa4-4f02-a5da-268d6d63eaca",
+                            "content": "OK, 1 row affected in 586.426ms"
+                        },
+                        {
+                            "type": 4,
+                            "index": 1,
+                            "resultId": "ac54d2ac-84b1-462c-8885-c510190bf9eb",
+                            "content": "OK, 1 row affected in 421.737ms"
+                        },
+                        {
+                            "type": 4,
+                            "index": 2,
+                            "resultId": "65e00bf3-f046-4f7b-d504-3ab93465e293",
+                            "content": "OK, 0 records retrieved in 0.484ms"
+                        },
+                        {
+                            "type": 4,
+                            "index": 3,
+                            "resultId": "17356484-c31c-4626-fd58-e0a854971a79",
+                            "content": "OK, 0 records retrieved in 821.265ms"
+                        },
+                        {
+                            "type": 4,
+                            "index": 4,
+                            "resultId": "4eff64ff-8d56-4de8-c2e4-d1797b82695e",
+                            "content": "OK, 1 row affected in 142.394ms"
+                        },
+                        {
+                            "type": 4,
+                            "index": 5,
+                            "resultId": "fada1a0c-c15e-4d36-dd69-5cda504ee8be",
+                            "content": "OK, 1 row affected in 198.297ms"
+                        }
+                    ]
+                },
+                "currentHeight": 103,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 36
+                        },
+                        "contentStart": 1,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 36,
+                            "length": 29
+                        },
+                        "contentStart": 37,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 65,
+                            "length": 18
+                        },
+                        "contentStart": 67,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 83,
+                            "length": 241
+                        },
+                        "contentStart": 86,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 324,
+                            "length": 92
+                        },
+                        "contentStart": 365,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 416,
+                            "length": 56
+                        },
+                        "contentStart": 417,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 472,
+                            "length": 1
+                        },
+                        "contentStart": 471,
+                        "state": 3
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 17,
+                "end": 17,
+                "language": "mysql",
+                "currentHeight": 180,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 0
+                        },
+                        "contentStart": -1,
+                        "state": 3
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 18,
+                "end": 18,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "9a0d5b0d-4a89-43f2-b15a-64c5622b04e3"
+                    ]
+                },
+                "currentHeight": 115.1875,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 32
+                        },
+                        "contentStart": 0,
+                        "state": 3
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "182923c3-a340-4775-9ea3-17cd5986c5f7",
+                    "resultId": "9a0d5b0d-4a89-43f2-b15a-64c5622b04e3",
+                    "rows": [
+                        {
+                            "0": 1,
+                            "1": "Mijanur Rahman",
+                            "2": ""
+                        },
+                        {
+                            "0": 2,
+                            "1": "HASAN Rahman",
+                            "2": "Sylhet"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "user_id",
+                            "field": "0",
+                            "dataType": {
+                                "type": 1
+                            }
+                        },
+                        {
+                            "title": "name",
+                            "field": "1",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "address",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17
+                            }
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 2 records retrieved in 0.596ms"
+                    },
+                    "totalRowCount": 2,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT * FROM `sql_basic`.`user`"
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 19,
+                "end": 19,
+                "language": "mysql",
+                "currentHeight": 180,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 0
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
+        }
+    ]
+}
