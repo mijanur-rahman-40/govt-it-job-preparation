@@ -78,3 +78,23 @@ FROM customers
 WHERE birth_date > '1990-01-01'
 ORDER BY points DESC
 LIMIT 3;
+
+-- INNER JOIN
+SELECT order_id, prd.product_id, prd.name, oi.unit_price
+FROM order_items oi
+JOIN products prd ON prd.product_id = oi.product_id
+ORDER BY oi.unit_price DESC
+LIMIT 5
+
+
+
+
+
+
+
+
+
+
+
+
+
