@@ -2,7 +2,7 @@
     "type": "MySQLNotebook",
     "version": "1.0",
     "caption": "DB Notebook",
-    "content": "-- Query performing on Mosh Course database : sql_hr, sql_inventory, sql_invooicing, sql_store\nUSE sql_store; \n-- Retrieving all data of customers\n-- WHERE -> to filter the result\nSELECT * FROM customers;\n-- Another way\n-- SELECT * FROM `sql_store`.`customers` \n-- Retrieving specific colums of customers \nSELECT points, customer_id, first_name FROM customers; \n-- Filtering cutomers: \n-- KEYWORD order is important\nSELECT *  \nFROM customers\n-- WHERE customer_id = 1\n\n-- WHERE points > 3000\n\n-- Both uppercase and lowercase work perfectly\n-- WHERE state = 'VA'\n-- WHERE state = 'va'\n\n-- Search with date\n-- WHERE birth_date >= '1990-01-01'\n\n-- IN -> To specify multiple possible values for a column\n-- BETWEEN -> WHERE city IN ('Chicago','London')\n-- WHERE state NOT IN ('VA', 'FL', 'GA')\n\n-- NOT EQUAL -> <> or != \n-- WHERE points <> 796\n-- Or : Same Effect -> WHERE points != 1899\n\n-- LIKE -> Search for a pattern> \n-- WHERE state LIKE 'f%'\n\n-- BETWEEN -> Between a certain range\nWHERE points >= 1000 AND points <= 3000\n-- same query can be wriiten in a clener way\n-- WHERE points BETWEEN 1000 AND 3000  \n\n-- Multiple search condition in filtreing data\n-- WHERE birth_date >= '1990-01-01' AND points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 500 AND state = 'VA'\n\n-- AND operator execute first than OR\n-- Higer to Lower order : / -> * -> + -> - \n-- WHERE birth_date >= '1990-01-01' OR (points > 2500 AND state = 'VA')\n\n-- WHERE NOT (birth_date > '1990-01-01' OR points > 1000)\n-- Same query can be written as : \n-- WHERE birth_date <= '1990-01-01' AND points <= 1000\n\n-- The WHERE clause is not only used in SELECT statements, it is also used in UPDATE, DELETE, etc.\nORDER BY first_name;\n-- two columns and values\nSELECT 1, 2;  \n-- SELECT clause in details\n-- SELECT last_name, first_name, points, points + 10\nSELECT  \n  last_name, \n  first_name, \n  points,  \n  points * 10 + 100\nfrom customers;\nSELECT \n  last_name,  \n  first_name, \n  points, \n  (points + 10) * 100,\n  -- adding specific alias. to use alias, use 'AS' keyword before the given new name\n  -- Aliases are used to give a table, or a column in a table, a temporary name.\n  (points + 10) * 100 AS discount_factor, \n  (points + 10) * 100 AS 'discount factor', \n  (points + 10) * 100 AS \"discount factor\"\nfrom customers;\n-- Update column \n-- SELECT state FROM customers;\nUPDATE customers SET city = 'Sylhet' WHERE (customer_id = 2);\n-- Retrieving all distinct state data of customers \nSELECT DISTINCT city FROM customers;\nSELECT COUNT(DISTINCT city) FROM customers;\n-- \n\n\n\n",
+    "content": "-- Query performing on Mosh Course database : sql_hr, sql_inventory, sql_invooicing, sql_store\nUSE sql_store;  \n-- Retrieving all data of customers\n-- WHERE -> to filter the result\nSELECT * FROM customers;\n-- Another way \n-- SELECT * FROM `sql_store`.`customers` \n-- Retrieving specific colums of customers  \nSELECT points, customer_id, first_name FROM customers; \n-- Filtering cutomers: \n-- KEYWORD order is important\nSELECT *  \nFROM customers\n-- WHERE customer_id = 1\n\n-- WHERE points > 3000\n\n-- Both uppercase and lowercase work perfectly\n-- WHERE state = 'VA'\n-- WHERE state = 'va'\n\n-- Search with date\n-- WHERE birth_date >= '1990-01-01'\n\n-- IN -> To specify multiple possible values for a column\n-- BETWEEN -> WHERE city IN ('Chicago','London')\n-- WHERE state NOT IN ('VA', 'FL', 'GA')\n\n-- NOT EQUAL -> <> or != \n-- WHERE points <> 796\n-- Or : Same Effect -> WHERE points != 1899\n\n-- LIKE -> Search for a pattern for both uppercase and lowercase\n-- % -> any number of characters, _ -> single character\n-- WHERE state LIKE 'f%'\n-- WHERE last_name LIKE 'b%'\n-- WHERE last_name LIKE 'brush%'\n\n-- matching 'b' at the begining, middle or end \n-- WHERE last_name LIKE '%b%'\n\n-- all the customers last_name end by y\n-- WHERE last_name LIKE '%y'\n\n-- Match only two character end with y\n-- WHERE last_name LIKE '_y'\n\n-- Matchig the 6 character string last_name end with y\n-- WHERE last_name LIKE '_____y'\n\n-- Five character starting with b and ending with y\nWHERE last_name LIKE 'b____y'\n\n-- BETWEEN -> Between a certain range\n-- WHERE points >= 1000 AND points <= 3000\n-- same query can be wriiten in a clener way\n-- WHERE points BETWEEN 1000 AND 3000  \n-- WHERE birth_date BETWEEN '1990-01-01' AND '2000-01-01'  \n\n-- Multiple search condition in filtreing data\n-- WHERE birth_date >= '1990-01-01' AND points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 500 AND state = 'VA'\n\n-- AND operator execute first than OR\n-- Higer to Lower order : / -> * -> + -> - \n-- WHERE birth_date >= '1990-01-01' OR (points > 2500 AND state = 'VA')\n\n-- WHERE NOT (birth_date > '1990-01-01' OR points > 1000)\n-- Same query can be written as : \n-- WHERE birth_date <= '1990-01-01' AND points <= 1000\n\n-- The WHERE clause is not only used in SELECT statements, it is also used in UPDATE, DELETE, etc.\nORDER BY first_name;\n-- two columns and values\nSELECT 1, 2;   \n-- SELECT clause in details \n-- SELECT last_name, first_name, points, points + 10\nSELECT  \n  last_name, \n  first_name, \n  points,  \n  points * 10 + 100\nfrom customers;\nSELECT \n  last_name,  \n  first_name, \n  points, \n  (points + 10) * 100,\n  -- adding specific alias. to use alias, use 'AS' keyword before the given new name\n  -- Aliases are used to give a table, or a column in a table, a temporary name.\n  (points + 10) * 100 AS discount_factor, \n  (points + 10) * 100 AS 'discount factor', \n  (points + 10) * 100 AS \"discount factor\"\nfrom customers;\n-- Update column \n-- SELECT state FROM customers;\nUPDATE customers SET city = 'Sylhet' WHERE (customer_id = 2); \n-- Retrieving all distinct state data of customers \nSELECT DISTINCT city FROM customers;\nSELECT COUNT(DISTINCT city) FROM customers; \n-- \n\n\n\n",
     "options": {
         "tabSize": 4,
         "insertSpaces": true,
@@ -15,22 +15,22 @@
             {
                 "inSelectionMode": false,
                 "selectionStart": {
-                    "lineNumber": 74,
-                    "column": 45
+                    "lineNumber": 34,
+                    "column": 56
                 },
                 "position": {
-                    "lineNumber": 74,
-                    "column": 45
+                    "lineNumber": 34,
+                    "column": 56
                 }
             }
         ],
         "viewState": {
             "scrollLeft": 0,
             "firstPosition": {
-                "lineNumber": 69,
+                "lineNumber": 28,
                 "column": 1
             },
-            "firstPositionDeltaTop": -14
+            "firstPositionDeltaTop": -15
         },
         "contributionsState": {
             "editor.contrib.folding": {},
@@ -74,7 +74,18 @@
                 "start": 2,
                 "end": 2,
                 "language": "mysql",
-                "currentHeight": 180,
+                "result": {
+                    "type": "text",
+                    "text": [
+                        {
+                            "type": 4,
+                            "index": 0,
+                            "resultId": "f889c359-c4c0-475a-83c1-f7a26a4a5e26",
+                            "content": "OK, 0 records retrieved in 0.62ms"
+                        }
+                    ]
+                },
+                "currentHeight": 28,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -89,7 +100,7 @@
                         "delimiter": ";",
                         "span": {
                             "start": 14,
-                            "length": 1
+                            "length": 2
                         },
                         "contentStart": 13,
                         "state": 3
@@ -104,17 +115,12 @@
                 "end": 7,
                 "language": "mysql",
                 "result": {
-                    "type": "text",
-                    "text": [
-                        {
-                            "type": 4,
-                            "index": 0,
-                            "resultId": "74afd1f3-1a16-4d4a-fe2b-352e4b26b848",
-                            "content": "OK, 0 records retrieved in 0.506ms"
-                        }
+                    "type": "resultIds",
+                    "list": [
+                        "f9874de1-6d35-44e1-c208-ca3f05c58600"
                     ]
                 },
-                "currentHeight": 28,
+                "currentHeight": 36,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -129,14 +135,204 @@
                         "delimiter": ";",
                         "span": {
                             "start": 93,
-                            "length": 57
+                            "length": 58
                         },
                         "contentStart": 93,
                         "state": 1
                     }
                 ]
             },
-            "data": []
+            "data": [
+                {
+                    "tabId": "85dc2832-bb51-4404-bd3c-5d234addce3f",
+                    "resultId": "f9874de1-6d35-44e1-c208-ca3f05c58600",
+                    "rows": [
+                        {
+                            "0": 1,
+                            "1": "Babara",
+                            "2": "MacCaffrey",
+                            "3": "1986-03-28",
+                            "4": "781-932-9754",
+                            "5": "0 Sage Terrace",
+                            "6": "Orlando",
+                            "7": "MA",
+                            "8": 2273
+                        },
+                        {
+                            "0": 2,
+                            "1": "Ines",
+                            "2": "Brushfield",
+                            "3": "1986-04-13",
+                            "4": "804-427-9456",
+                            "5": "14187 Commercial Trail",
+                            "6": "Sylhet",
+                            "7": "VA",
+                            "8": 947
+                        },
+                        {
+                            "0": 3,
+                            "1": "Freddi",
+                            "2": "Boagey",
+                            "3": "1985-02-07",
+                            "4": "719-724-7869",
+                            "5": "251 Springs Junction",
+                            "6": "Colorado Springs",
+                            "7": "CO",
+                            "8": 2967
+                        },
+                        {
+                            "0": 4,
+                            "1": "Ambur",
+                            "2": "Roseburgh",
+                            "3": "1974-04-14",
+                            "4": "407-231-8017",
+                            "5": "30 Arapahoe Terrace",
+                            "6": "Orlando",
+                            "7": "FL",
+                            "8": 457
+                        },
+                        {
+                            "0": 5,
+                            "1": "Clemmie",
+                            "2": "Betchley",
+                            "3": "1973-11-07",
+                            "4": null,
+                            "5": "5 Spohn Circle",
+                            "6": "Arlington",
+                            "7": "TX",
+                            "8": 3675
+                        },
+                        {
+                            "0": 6,
+                            "1": "Elka",
+                            "2": "Twiddell",
+                            "3": "1991-09-04",
+                            "4": "312-480-8498",
+                            "5": "7 Manley Drive",
+                            "6": "Dhaka",
+                            "7": "IL",
+                            "8": 3073
+                        },
+                        {
+                            "0": 7,
+                            "1": "Ilene",
+                            "2": "Dowson",
+                            "3": "1964-08-30",
+                            "4": "615-641-4759",
+                            "5": "50 Lillian Crossing",
+                            "6": "Nashville",
+                            "7": "TN",
+                            "8": 1672
+                        },
+                        {
+                            "0": 8,
+                            "1": "Thacher",
+                            "2": "Naseby",
+                            "3": "1993-07-17",
+                            "4": "941-527-3977",
+                            "5": "538 Mosinee Center",
+                            "6": "Sarasota",
+                            "7": "FL",
+                            "8": 205
+                        },
+                        {
+                            "0": 9,
+                            "1": "Romola",
+                            "2": "Rumgay",
+                            "3": "1992-05-23",
+                            "4": "559-181-3744",
+                            "5": "3520 Ohio Trail",
+                            "6": "Visalia",
+                            "7": "CA",
+                            "8": 1486
+                        },
+                        {
+                            "0": 10,
+                            "1": "Levy",
+                            "2": "Mynett",
+                            "3": "1969-10-13",
+                            "4": "404-246-3370",
+                            "5": "68 Lawn Avenue",
+                            "6": "Atlanta",
+                            "7": "GA",
+                            "8": 796
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "customer_id",
+                            "field": "0",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "first_name",
+                            "field": "1",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "last_name",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "birth_date",
+                            "field": "3",
+                            "dataType": {
+                                "type": 28
+                            }
+                        },
+                        {
+                            "title": "phone",
+                            "field": "4",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "address",
+                            "field": "5",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "city",
+                            "field": "6",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "state",
+                            "field": "7",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "points",
+                            "field": "8",
+                            "dataType": {
+                                "type": 4
+                            }
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 10 records retrieved in 0.887ms"
+                    },
+                    "totalRowCount": 10,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "-- Retrieving all data of customers\n-- WHERE -> to filter the result\nSELECT * FROM customers;"
+                }
+            ]
         },
         {
             "state": {
@@ -155,18 +351,18 @@
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 98
+                            "length": 99
                         },
-                        "contentStart": 44,
+                        "contentStart": 45,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 98,
+                            "start": 99,
                             "length": 1
                         },
-                        "contentStart": 97,
+                        "contentStart": 98,
                         "state": 3
                     }
                 ]
@@ -264,12 +460,12 @@
         {
             "state": {
                 "start": 10,
-                "end": 55,
+                "end": 74,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "5381b0f5-8af8-457c-d217-43a4ae8df247"
+                        "b6b154a0-cd77-4621-ae27-f735a6d79cc3"
                     ]
                 },
                 "currentHeight": 36,
@@ -278,51 +474,36 @@
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 1393
+                            "length": 1995
                         },
                         "contentStart": 54,
                         "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 1995,
+                            "length": 39
+                        },
+                        "contentStart": 2022,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 2034,
+                            "length": 71
+                        },
+                        "contentStart": 2034,
+                        "state": 1
                     }
                 ]
             },
             "data": [
                 {
                     "tabId": "85dc2832-bb51-4404-bd3c-5d234addce3f",
-                    "resultId": "5381b0f5-8af8-457c-d217-43a4ae8df247",
+                    "resultId": "b6b154a0-cd77-4621-ae27-f735a6d79cc3",
                     "rows": [
-                        {
-                            "0": 1,
-                            "1": "Babara",
-                            "2": "MacCaffrey",
-                            "3": "1986-03-28",
-                            "4": "781-932-9754",
-                            "5": "0 Sage Terrace",
-                            "6": "Orlando",
-                            "7": "MA",
-                            "8": 2273
-                        },
-                        {
-                            "0": 5,
-                            "1": "Clemmie",
-                            "2": "Betchley",
-                            "3": "1973-11-07",
-                            "4": null,
-                            "5": "5 Spohn Circle",
-                            "6": "Arlington",
-                            "7": "TX",
-                            "8": 3675
-                        },
-                        {
-                            "0": 6,
-                            "1": "Elka",
-                            "2": "Twiddell",
-                            "3": "1991-09-04",
-                            "4": "312-480-8498",
-                            "5": "7 Manley Drive",
-                            "6": "Dhaka",
-                            "7": "IL",
-                            "8": 3073
-                        },
                         {
                             "0": 3,
                             "1": "Freddi",
@@ -333,28 +514,6 @@
                             "6": "Colorado Springs",
                             "7": "CO",
                             "8": 2967
-                        },
-                        {
-                            "0": 7,
-                            "1": "Ilene",
-                            "2": "Dowson",
-                            "3": "1964-08-30",
-                            "4": "615-641-4759",
-                            "5": "50 Lillian Crossing",
-                            "6": "Nashville",
-                            "7": "TN",
-                            "8": 1672
-                        },
-                        {
-                            "0": 9,
-                            "1": "Romola",
-                            "2": "Rumgay",
-                            "3": "1992-05-23",
-                            "4": "559-181-3744",
-                            "5": "3520 Ohio Trail",
-                            "6": "Visalia",
-                            "7": "CA",
-                            "8": 1486
                         }
                     ],
                     "columns": [
@@ -423,20 +582,20 @@
                         }
                     ],
                     "executionInfo": {
-                        "text": "OK, 6 records retrieved in 0.697ms"
+                        "text": "OK, 1 record retrieved in 0.88ms"
                     },
-                    "totalRowCount": 6,
+                    "totalRowCount": 1,
                     "hasMoreRows": false,
                     "currentPage": 0,
                     "index": 0,
-                    "sql": "-- Filtering cutomers: \n-- KEYWORD order is important\nSELECT *  \nFROM customers\n-- WHERE customer_id = 1\n\n-- WHERE points > 3000\n\n-- Both uppercase and lowercase work perfectly\n-- WHERE state = 'VA'\n-- WHERE state = 'va'\n\n-- Search with date\n-- WHERE birth_date >= '1990-01-01'\n\n-- IN -> To specify multiple possible values for a column\n-- BETWEEN -> WHERE city IN ('Chicago','London')\nWHERE state NOT IN ('VA', 'FL', 'GA')\n\n-- NOT EQUAL -> <> or != \n-- WHERE points <> 796\n-- Or : Same Effect -> WHERE points != 1899\n\n-- LIKE -> Search for a pattern> \n-- WHERE state LIKE 'f%'\n\n-- BETWEEN -> Between a certain range\n-- WHERE points BETWEEN 1000 AND 6000\n\n-- Multiple search condition in filtreing data\n-- WHERE birth_date >= '1990-01-01' AND points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 500 AND state = 'VA'\n\n-- AND operator execute first than OR\n-- Higer to Lower order : / -> * -> + -> - \n-- WHERE birth_date >= '1990-01-01' OR (points > 2500 AND state = 'VA')\n\n-- WHERE NOT (birth_date > '1990-01-01' OR points > 1000)\n-- Same query can be written as : \n-- WHERE birth_date <= '1990-01-01' AND points <= 1000\n\n-- The WHERE clause is not only used in SELECT statements, it is also used in UPDATE, DELETE, etc.\nORDER BY first_name"
+                    "sql": "-- Filtering cutomers: \n-- KEYWORD order is important\nSELECT *  \nFROM customers\n-- WHERE customer_id = 1\n\n-- WHERE points > 3000\n\n-- Both uppercase and lowercase work perfectly\n-- WHERE state = 'VA'\n-- WHERE state = 'va'\n\n-- Search with date\n-- WHERE birth_date >= '1990-01-01'\n\n-- IN -> To specify multiple possible values for a column\n-- BETWEEN -> WHERE city IN ('Chicago','London')\n-- WHERE state NOT IN ('VA', 'FL', 'GA')\n\n-- NOT EQUAL -> <> or != \n-- WHERE points <> 796\n-- Or : Same Effect -> WHERE points != 1899\n\n-- LIKE -> Search for a pattern for both uppercase and lowercase\n-- WHERE state LIKE 'f%'\n-- WHERE last_name LIKE 'b%'\n-- WHERE last_name LIKE 'brush%'\n\n-- matching 'b' at the begining, middle or end \n-- WHERE last_name LIKE '%b%'\n\n-- all the customers last_name end by y\n-- WHERE last_name LIKE '%y'\n\n-- Match only two character end with y\n-- WHERE last_name LIKE '_y'\n\n-- Matchig the 6 character string last_name end with y\n-- WHERE last_name LIKE '_____y'\n\n-- Five character starting with b and ending with y\nWHERE last_name LIKE 'b____y'\n\n-- BETWEEN -> Between a certain range\n-- WHERE points >= 1000 AND points <= 3000\n-- same query can be wriiten in a clener way\n-- WHERE points BETWEEN 1000 AND 3000  \n-- WHERE birth_date BETWEEN '1990-01-01' AND '2000-01-01'  \n\n-- Multiple search condition in filtreing data\n-- WHERE birth_date >= '1990-01-01' AND points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 500 AND state = 'VA'\n\n-- AND operator execute first than OR\n-- Higer to Lower order : / -> * -> + -> - \n-- WHERE birth_date >= '1990-01-01' OR (points > 2500 AND state = 'VA')\n\n-- WHERE NOT (birth_date > '1990-01-01' OR points > 1000)\n-- Same query can be written as : \n-- WHERE birth_date <= '1990-01-01' AND points <= 1000\n\n-- The WHERE clause is not only used in SELECT statements, it is also used in UPDATE, DELETE, etc.\nORDER BY first_name;"
                 }
             ]
         },
         {
             "state": {
-                "start": 56,
-                "end": 57,
+                "start": 75,
+                "end": 76,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
@@ -459,7 +618,7 @@
                         "delimiter": ";",
                         "span": {
                             "start": 38,
-                            "length": 2
+                            "length": 3
                         },
                         "contentStart": 37,
                         "state": 3
@@ -505,8 +664,8 @@
         },
         {
             "state": {
-                "start": 58,
-                "end": 65,
+                "start": 77,
+                "end": 84,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
@@ -520,9 +679,9 @@
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 166
+                            "length": 167
                         },
-                        "contentStart": 81,
+                        "contentStart": 82,
                         "state": 0
                     }
                 ]
@@ -636,8 +795,8 @@
         },
         {
             "state": {
-                "start": 66,
-                "end": 76,
+                "start": 85,
+                "end": 95,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
@@ -818,8 +977,8 @@
         },
         {
             "state": {
-                "start": 77,
-                "end": 79,
+                "start": 96,
+                "end": 98,
                 "language": "mysql",
                 "result": {
                     "type": "text",
@@ -842,6 +1001,15 @@
                         },
                         "contentStart": 50,
                         "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 111,
+                            "length": 1
+                        },
+                        "contentStart": 110,
+                        "state": 3
                     }
                 ]
             },
@@ -849,8 +1017,8 @@
         },
         {
             "state": {
-                "start": 80,
-                "end": 82,
+                "start": 99,
+                "end": 101,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
@@ -879,6 +1047,15 @@
                         },
                         "contentStart": 89,
                         "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 132,
+                            "length": 1
+                        },
+                        "contentStart": 131,
+                        "state": 3
                     }
                 ]
             },
@@ -963,8 +1140,8 @@
         },
         {
             "state": {
-                "start": 83,
-                "end": 83,
+                "start": 102,
+                "end": 102,
                 "language": "mysql",
                 "currentHeight": 180,
                 "statements": [
@@ -983,8 +1160,8 @@
         },
         {
             "state": {
-                "start": 84,
-                "end": 84,
+                "start": 103,
+                "end": 103,
                 "language": "mysql",
                 "currentHeight": 180,
                 "statements": [
@@ -1003,8 +1180,8 @@
         },
         {
             "state": {
-                "start": 85,
-                "end": 85,
+                "start": 104,
+                "end": 104,
                 "language": "mysql",
                 "currentHeight": 180,
                 "statements": [
@@ -1023,8 +1200,8 @@
         },
         {
             "state": {
-                "start": 86,
-                "end": 86,
+                "start": 105,
+                "end": 105,
                 "language": "mysql",
                 "result": {
                     "type": "text",
@@ -1054,8 +1231,8 @@
         },
         {
             "state": {
-                "start": 87,
-                "end": 87,
+                "start": 106,
+                "end": 106,
                 "language": "mysql",
                 "currentHeight": 180,
                 "statements": [
