@@ -2,7 +2,7 @@
     "type": "MySQLNotebook",
     "version": "1.0",
     "caption": "DB Notebook",
-    "content": "-- Query performing on Mosh Course database : sql_hr, sql_inventory, sql_invooicing, sql_store\nUSE sql_store;\n-- Retrieving all data of customers \n-- WHERE -> to filter the result\nSELECT * FROM customers;\n-- Another way \n-- SELECT * FROM `sql_store`.`customers` \n-- Retrieving specific colums of customers   \nSELECT points, customer_id, first_name FROM customers; \n-- Filtering cutomers: \n-- KEYWORD order is important\nSELECT *  \nFROM customers\n-- WHERE customer_id = 1\n\n-- WHERE points > 3000\n\n-- Both uppercase and lowercase work perfectly\n-- WHERE state = 'VA'\n-- WHERE state = 'va'\n\n-- Search with date\n-- WHERE birth_date >= '1990-01-01'\n\n-- IN -> To specify multiple possible values for a column\n-- BETWEEN -> WHERE city IN ('Chicago','London')\n-- WHERE state NOT IN ('VA', 'FL', 'GA')\n\n-- NOT EQUAL -> <> or != \n-- WHERE points <> 796\n-- Or : Same Effect -> WHERE points != 1899\n\n-- LIKE -> Search for a pattern for both uppercase and lowercase\n-- % -> any number of characters, _ -> single character\n-- WHERE state LIKE 'f%'\n-- WHERE last_name LIKE 'b%'\n-- WHERE last_name LIKE 'brush%'\n\n-- matching 'b' at the beginning, middle or end \n-- WHERE last_name LIKE '%b%'\n\n-- all the customers last_name end by y\n-- WHERE last_name LIKE '%y'\n\n-- Match only two character end with y\n-- WHERE last_name LIKE '_y'\n\n-- Matchig the 6 character string last_name end with y\n-- WHERE last_name LIKE '_____y'\n\n-- Five character starting with b and ending with y\nWHERE last_name LIKE 'b____y'\n\n-- BETWEEN -> Between a certain range\n-- WHERE points >= 1000 AND points <= 3000\n-- same query can be wriiten in a clener way\n-- WHERE points BETWEEN 1000 AND 3000  \n-- WHERE birth_date BETWEEN '1990-01-01' AND '2000-01-01'  \n\n-- Multiple search condition in filtreing data\n-- WHERE birth_date >= '1990-01-01' AND points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 500 AND state = 'VA'\n\n-- AND operator execute first than OR\n-- Higer to Lower order : / -> * -> + -> - \n-- WHERE birth_date >= '1990-01-01' OR (points > 2500 AND state = 'VA')\n\n-- WHERE NOT (birth_date > '1990-01-01' OR points > 1000) \n-- Same query can be written as : \n-- WHERE birth_date <= '1990-01-01' AND points <= 1000\n\n-- The WHERE clause is not only used in SELECT statements, it is also used in UPDATE, DELETE, etc.\nORDER BY first_name;\n-- two columns and values\nSELECT 1, 2;   \n-- SELECT clause in details  \n-- SELECT last_name, first_name, points, points + 10\nSELECT  \n  last_name, \n  first_name, \n  points,  \n  points * 10 + 100\nfrom customers;\nSELECT \n  last_name,  \n  first_name, \n  points, \n  (points + 10) * 100,\n  -- adding specific alias. to use alias, use 'AS' keyword before the given new name\n  -- Aliases are used to give a table, or a column in a table, a temporary name.\n  (points + 10) * 100 AS discount_factor, \n  (points + 10) * 100 AS 'discount factor',  \n  (points + 10) * 100 AS \"discount factor\"\nfrom customers;\n-- Update column \n-- SELECT state FROM customers; \nUPDATE customers SET city = 'Sylhet' WHERE (customer_id = 2); \n-- Retrieving all distinct state data of customers \nSELECT DISTINCT city FROM customers; \nSELECT COUNT(DISTINCT city) FROM customers; \n-- REGEXP OPERATOR\nSELECT * \nFROM customers\n-- using normal form\n-- WHERE last_name LIKE '%field%';\n\n-- can be used by REGEXP keywoed\n-- WHERE last_name REGEXP 'field';\n\n-- ^ -> beginning, $ -> end, | -> logical or, [abcd] -> match any single character listed in the brackets, [a-z] -> any characters from a to z \n\n\n\n-- ^ -> beginning with 'field' string\n-- WHERE last_name REGEXP '^field';\n\n-- $ -> ending with 'field' string\n-- WHERE last_name REGEXP 'field$';\n\n-- Match the string 'field' or 'mac' in strart or end\n-- | -> vertical bar or Pipe or Multiple search Pattern\n-- WHERE last_name REGEXP 'field|mac';\n\n-- WHERE last_name REGEXP 'field|mac|rose';\n\n-- WHERE last_name REGEXP '^field|mac|rose';\n\n-- WHERE last_name REGEXP 'field$|mac|rose';\n\n-- WHERE last_name REGEXP 'field$|mac|^rose';\n\n-- WHERE last_name REGEXP 'field$|mac$|^rose';\n \n-- matching customer name : ge or ie or me\n-- Any of the character from 'gim' before 'e'\n-- WHERE last_name REGEXP '[gim]e';\n\n-- Any of the character from 'gim' after 'e'\n-- WHERE last_name REGEXP 'e[gim]';\n\n-- range of characters\nWHERE last_name REGEXP '[a-h]e';\n\n-- NULL VALUES \n-- all the customer who do not have phone\nSELECT *\nFROM customers\n-- WHERE phone IS NULL;\nWHERE phone IS NOT NULL;\n-- THE ORDER BY CLASUE\nSELECT * \nFROM customers\n-- ORDER BY first_name;\n-- ORDER BY first_name DESC;\n\n-- Sort data by multiple columns\n-- ORDER BY state, first_name; \n-- ORDER BY first_name, state;\n-- ORDER BY first_name DESC;\nORDER BY state DESC, first_name ASC; \n\n-- Another way of sorting\nSELECT first_name, last_name\nFROM customers\nORDER BY birth_date; \n\n-- sort by data using column position that are selecting to show\nSELECT first_name, last_name\nFROM customers\n-- 1 -> first_name, 2 -> last_name \nORDER BY 1, 2; \n\n-- order creating alise\nSELECT first_name, last_name, 10 + 10 AS points\nFROM customers\nORDER BY points, first_name; \n\n-- LIMIT data, it always come into last\nSELECT *\nFROM customers\n-- LIMIT 3;\n-- LIMIT 300; \n-- for pagination or Offseting\n-- 6 -> skip first 6, 3 -> show 3 records\nLIMIT 6, 3\n-- INNER JOIN\nSELECT *\nFROM orders \n-- INNER is optiinal \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- specify columns\nSELECT order_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- Here customer_id is ambiguous, cause both orders and customers table have customer_id. So we have to specify which tables customer_id\nSELECT order_id, customer_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- \nSELECT order_id, orders.customer_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- using alias in table name for simply the code\nSELECT order_id, ord.customer_id, first_name, last_name\nFROM orders ord\nINNER JOIN customers cus\nON ord.customer_id = cus.customer_id;\n",
+    "content": "-- Query performing on Mosh Course database : sql_hr, sql_inventory, sql_invooicing, sql_store\nUSE sql_store; \n-- Retrieving all data of customers  \n-- WHERE -> to filter the result\nSELECT * FROM customers;\n-- Another way \n-- SELECT * FROM `sql_store`.`customers` \n-- Retrieving specific colums of customers    \nSELECT points, customer_id, first_name FROM customers; \n-- Filtering cutomers:  \n-- KEYWORD order is important\nSELECT *  \nFROM customers\n-- WHERE customer_id = 1\n\n-- WHERE points > 3000\n\n-- Both uppercase and lowercase work perfectly\n-- WHERE state = 'VA'\n-- WHERE state = 'va'\n\n-- Search with date\n-- WHERE birth_date >= '1990-01-01'\n\n-- IN -> To specify multiple possible values for a column\n-- BETWEEN -> WHERE city IN ('Chicago','London')\n-- WHERE state NOT IN ('VA', 'FL', 'GA')\n\n-- NOT EQUAL -> <> or != \n-- WHERE points <> 796\n-- Or : Same Effect -> WHERE points != 1899\n\n-- LIKE -> Search for a pattern for both uppercase and lowercase\n-- % -> any number of characters, _ -> single character\n-- WHERE state LIKE 'f%'\n-- WHERE last_name LIKE 'b%'\n-- WHERE last_name LIKE 'brush%'\n\n-- matching 'b' at the beginning, middle or end \n-- WHERE last_name LIKE '%b%'\n\n-- all the customers last_name end by y\n-- WHERE last_name LIKE '%y'\n\n-- Match only two character end with y\n-- WHERE last_name LIKE '_y'\n\n-- Matchig the 6 character string last_name end with y\n-- WHERE last_name LIKE '_____y'\n\n-- Five character starting with b and ending with y\nWHERE last_name LIKE 'b____y'\n\n-- BETWEEN -> Between a certain range\n-- WHERE points >= 1000 AND points <= 3000\n-- same query can be wriiten in a clener way\n-- WHERE points BETWEEN 1000 AND 3000  \n-- WHERE birth_date BETWEEN '1990-01-01' AND '2000-01-01'  \n\n-- Multiple search condition in filtreing data\n-- WHERE birth_date >= '1990-01-01' AND points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 500 AND state = 'VA'\n\n-- AND operator execute first than OR\n-- Higer to Lower order : / -> * -> + -> - \n-- WHERE birth_date >= '1990-01-01' OR (points > 2500 AND state = 'VA')\n\n-- WHERE NOT (birth_date > '1990-01-01' OR points > 1000) \n-- Same query can be written as : \n-- WHERE birth_date <= '1990-01-01' AND points <= 1000\n\n-- The WHERE clause is not only used in SELECT statements, it is also used in UPDATE, DELETE, etc.\nORDER BY first_name;\n-- two columns and values\nSELECT 1, 2;   \n-- SELECT clause in details  \n-- SELECT last_name, first_name, points, points + 10\nSELECT  \n  last_name, \n  first_name, \n  points,  \n  points * 10 + 100\nfrom customers;\nSELECT \n  last_name,  \n  first_name, \n  points, \n  (points + 10) * 100,\n  -- adding specific alias. to use alias, use 'AS' keyword before the given new name\n  -- Aliases are used to give a table, or a column in a table, a temporary name.\n  (points + 10) * 100 AS discount_factor, \n  (points + 10) * 100 AS 'discount factor',  \n  (points + 10) * 100 AS \"discount factor\" \nfrom customers;\n-- Update column  \n-- SELECT state FROM customers; \nUPDATE customers SET city = 'Sylhet' WHERE (customer_id = 2); \n-- Retrieving all distinct state data of customers \nSELECT DISTINCT city FROM customers; \nSELECT COUNT(DISTINCT city) FROM customers;  \n-- REGEXP OPERATOR\nSELECT * \nFROM customers\n-- using normal form\n-- WHERE last_name LIKE '%field%';\n\n-- can be used by REGEXP keywoed\n-- WHERE last_name REGEXP 'field';\n \n-- ^ -> beginning, $ -> end, | -> logical or, [abcd] -> match any single character listed in the brackets, [a-z] -> any characters from a to z \n\n\n\n-- ^ -> beginning with 'field' string\n-- WHERE last_name REGEXP '^field';\n\n-- $ -> ending with 'field' string\n-- WHERE last_name REGEXP 'field$';\n\n-- Match the string 'field' or 'mac' in strart or end\n-- | -> vertical bar or Pipe or Multiple search Pattern\n-- WHERE last_name REGEXP 'field|mac';\n\n-- WHERE last_name REGEXP 'field|mac|rose';\n\n-- WHERE last_name REGEXP '^field|mac|rose';\n\n-- WHERE last_name REGEXP 'field$|mac|rose';\n\n-- WHERE last_name REGEXP 'field$|mac|^rose';\n\n-- WHERE last_name REGEXP 'field$|mac$|^rose';\n \n-- matching customer name : ge or ie or me\n-- Any of the character from 'gim' before 'e'\n-- WHERE last_name REGEXP '[gim]e';\n\n-- Any of the character from 'gim' after 'e'\n-- WHERE last_name REGEXP 'e[gim]';\n\n-- range of characters\nWHERE last_name REGEXP '[a-h]e';\n\n-- NULL VALUES  \n-- all the customer who do not have phone\nSELECT *\nFROM customers\n-- WHERE phone IS NULL;\nWHERE phone IS NOT NULL;\n-- THE ORDER BY CLASUE\nSELECT * \nFROM customers\n-- ORDER BY first_name;\n-- ORDER BY first_name DESC;\n\n-- Sort data by multiple columns\n-- ORDER BY state, first_name; \n-- ORDER BY first_name, state;\n-- ORDER BY first_name DESC;\nORDER BY state DESC, first_name ASC; \n\n-- Another way of sorting\nSELECT first_name, last_name\nFROM customers\nORDER BY birth_date; \n\n-- sort by data using column position that are selecting to show\nSELECT first_name, last_name\nFROM customers\n-- 1 -> first_name, 2 -> last_name \nORDER BY 1, 2;  \n\n-- order creating alise\nSELECT first_name, last_name, 10 + 10 AS points\nFROM customers\nORDER BY points, first_name; \n\n-- LIMIT data, it always come into last\nSELECT *\nFROM customers \n-- LIMIT 3;\n-- LIMIT 300; \n-- for pagination or Offseting\n-- 6 -> skip first 6, 3 -> show 3 records\nLIMIT 6, 3\n-- INNER JOIN\nSELECT * \nFROM orders \n-- INNER is optiinal \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- specify columns\nSELECT order_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- Here customer_id is ambiguous, cause both orders and customers table have customer_id. So we have to specify which tables customer_id\nSELECT order_id, customer_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- \nSELECT order_id, orders.customer_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- using alias in table name for simply the code\nSELECT order_id, ord.customer_id, first_name, last_name\nFROM orders ord\nINNER JOIN customers cus\nON ord.customer_id = cus.customer_id;\n",
     "options": {
         "tabSize": 4,
         "insertSpaces": true,
@@ -13,24 +13,24 @@
     "viewState": {
         "cursorState": [
             {
-                "inSelectionMode": false,
+                "inSelectionMode": true,
                 "selectionStart": {
-                    "lineNumber": 212,
-                    "column": 49
+                    "lineNumber": 101,
+                    "column": 46
                 },
                 "position": {
-                    "lineNumber": 212,
-                    "column": 49
+                    "lineNumber": 101,
+                    "column": 44
                 }
             }
         ],
         "viewState": {
             "scrollLeft": 0,
             "firstPosition": {
-                "lineNumber": 208,
+                "lineNumber": 88,
                 "column": 1
             },
-            "firstPositionDeltaTop": -19
+            "firstPositionDeltaTop": -22
         },
         "contributionsState": {
             "editor.contrib.folding": {},
@@ -100,7 +100,7 @@
                         "delimiter": ";",
                         "span": {
                             "start": 14,
-                            "length": 0
+                            "length": 1
                         },
                         "contentStart": 13,
                         "state": 3
@@ -117,7 +117,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "74a9588e-abc9-42c1-8523-0fdf022b817c"
+                        "aa2217a1-0499-4f2c-b282-d3b6536a05c3"
                     ]
                 },
                 "currentHeight": 36,
@@ -126,26 +126,26 @@
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 94
+                            "length": 95
                         },
-                        "contentStart": 70,
+                        "contentStart": 71,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 94,
+                            "start": 95,
                             "length": 58
                         },
-                        "contentStart": 94,
+                        "contentStart": 95,
                         "state": 1
                     }
                 ]
             },
             "data": [
                 {
-                    "tabId": "159229bf-0823-4809-94b6-efc8dbc078b8",
-                    "resultId": "74a9588e-abc9-42c1-8523-0fdf022b817c",
+                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
+                    "resultId": "aa2217a1-0499-4f2c-b282-d3b6536a05c3",
                     "rows": [
                         {
                             "0": 1,
@@ -342,7 +342,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "ef8af507-81aa-4c46-aaad-9173ec9082fc"
+                        "8cba0995-131d-4e59-baec-5ec0c805ae5b"
                     ]
                 },
                 "currentHeight": 36,
@@ -351,26 +351,26 @@
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 100
+                            "length": 101
                         },
-                        "contentStart": 46,
+                        "contentStart": 47,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 100,
+                            "start": 101,
                             "length": 1
                         },
-                        "contentStart": 99,
+                        "contentStart": 100,
                         "state": 3
                     }
                 ]
             },
             "data": [
                 {
-                    "tabId": "159229bf-0823-4809-94b6-efc8dbc078b8",
-                    "resultId": "ef8af507-81aa-4c46-aaad-9173ec9082fc",
+                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
+                    "resultId": "8cba0995-131d-4e59-baec-5ec0c805ae5b",
                     "rows": [
                         {
                             "0": 2273,
@@ -465,7 +465,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "68d5533d-5566-4589-e8c4-2ff90281db84"
+                        "01ccba1c-5fd6-4bcf-8768-ff5cac13327a"
                     ]
                 },
                 "currentHeight": 36,
@@ -474,35 +474,35 @@
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 1997
+                            "length": 1998
                         },
-                        "contentStart": 54,
+                        "contentStart": 55,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 1997,
+                            "start": 1998,
                             "length": 39
                         },
-                        "contentStart": 2024,
+                        "contentStart": 2025,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 2036,
+                            "start": 2037,
                             "length": 71
                         },
-                        "contentStart": 2036,
+                        "contentStart": 2037,
                         "state": 1
                     }
                 ]
             },
             "data": [
                 {
-                    "tabId": "159229bf-0823-4809-94b6-efc8dbc078b8",
-                    "resultId": "68d5533d-5566-4589-e8c4-2ff90281db84",
+                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
+                    "resultId": "01ccba1c-5fd6-4bcf-8768-ff5cac13327a",
                     "rows": [
                         {
                             "0": 3,
@@ -600,7 +600,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "993eef9f-2f72-4391-81b0-590ca843ad36"
+                        "22caa249-09ad-4f27-9130-76505c42b33d"
                     ]
                 },
                 "currentHeight": 36,
@@ -627,8 +627,8 @@
             },
             "data": [
                 {
-                    "tabId": "159229bf-0823-4809-94b6-efc8dbc078b8",
-                    "resultId": "993eef9f-2f72-4391-81b0-590ca843ad36",
+                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
+                    "resultId": "22caa249-09ad-4f27-9130-76505c42b33d",
                     "rows": [
                         {
                             "0": 1,
@@ -670,7 +670,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "70dbf2e7-8634-4530-a156-ba0e85929f3b"
+                        "060cb1bc-3225-46b0-8d5e-77c17cd10b83"
                     ]
                 },
                 "currentHeight": 40,
@@ -688,8 +688,8 @@
             },
             "data": [
                 {
-                    "tabId": "159229bf-0823-4809-94b6-efc8dbc078b8",
-                    "resultId": "70dbf2e7-8634-4530-a156-ba0e85929f3b",
+                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
+                    "resultId": "060cb1bc-3225-46b0-8d5e-77c17cd10b83",
                     "rows": [
                         {
                             "0": "MacCaffrey",
@@ -801,7 +801,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "003e7bc0-b139-4741-d1ea-f864d8949fbd"
+                        "e76637df-3095-46b9-ae31-bcc718a238b2"
                     ]
                 },
                 "currentHeight": 36.9375,
@@ -810,7 +810,7 @@
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 385
+                            "length": 386
                         },
                         "contentStart": 0,
                         "state": 0
@@ -819,8 +819,8 @@
             },
             "data": [
                 {
-                    "tabId": "159229bf-0823-4809-94b6-efc8dbc078b8",
-                    "resultId": "003e7bc0-b139-4741-d1ea-f864d8949fbd",
+                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
+                    "resultId": "e76637df-3095-46b9-ae31-bcc718a238b2",
                     "rows": [
                         {
                             "0": "MacCaffrey",
@@ -997,18 +997,18 @@
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 112
+                            "length": 113
                         },
-                        "contentStart": 51,
+                        "contentStart": 52,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 112,
+                            "start": 113,
                             "length": 1
                         },
-                        "contentStart": 111,
+                        "contentStart": 112,
                         "state": 3
                     }
                 ]
@@ -1023,8 +1023,8 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "7929e788-74e6-492d-f9b5-c91ccf733c94",
-                        "74e0bebe-455b-48f2-b5cc-fd4e095c7d39"
+                        "babb98cb-3389-448f-b980-aaeb938c56cc",
+                        "062333be-6ae6-41d5-db47-0c4ca9fdcba0"
                     ]
                 },
                 "currentHeight": 39,
@@ -1052,7 +1052,7 @@
                         "delimiter": ";",
                         "span": {
                             "start": 133,
-                            "length": 1
+                            "length": 2
                         },
                         "contentStart": 132,
                         "state": 3
@@ -1061,8 +1061,8 @@
             },
             "data": [
                 {
-                    "tabId": "159229bf-0823-4809-94b6-efc8dbc078b8",
-                    "resultId": "7929e788-74e6-492d-f9b5-c91ccf733c94",
+                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
+                    "resultId": "babb98cb-3389-448f-b980-aaeb938c56cc",
                     "rows": [
                         {
                             "0": "Orlando"
@@ -1111,8 +1111,8 @@
                     "sql": "-- Retrieving all distinct state data of customers \nSELECT DISTINCT city FROM customers"
                 },
                 {
-                    "tabId": "159229bf-0823-4809-94b6-efc8dbc078b8",
-                    "resultId": "74e0bebe-455b-48f2-b5cc-fd4e095c7d39",
+                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
+                    "resultId": "062333be-6ae6-41d5-db47-0c4ca9fdcba0",
                     "rows": [
                         {
                             "0": 9
@@ -1146,7 +1146,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "ce96a476-ce6a-4bb7-9742-7ad35deb2268"
+                        "028ff1a3-a68e-412e-a32e-af17e3cd2cf6"
                     ]
                 },
                 "currentHeight": 36,
@@ -1155,7 +1155,7 @@
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 1110
+                            "length": 1111
                         },
                         "contentStart": 19,
                         "state": 0
@@ -1163,18 +1163,18 @@
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 1110,
+                            "start": 1111,
                             "length": 2
                         },
-                        "contentStart": 1109,
+                        "contentStart": 1110,
                         "state": 3
                     }
                 ]
             },
             "data": [
                 {
-                    "tabId": "159229bf-0823-4809-94b6-efc8dbc078b8",
-                    "resultId": "ce96a476-ce6a-4bb7-9742-7ad35deb2268",
+                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
+                    "resultId": "028ff1a3-a68e-412e-a32e-af17e3cd2cf6",
                     "rows": [
                         {
                             "0": 3,
@@ -1294,7 +1294,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "457c3ae3-f829-4ea0-f3e7-a8ceb93808fd"
+                        "02633c56-3b68-4706-d41a-3021c4941174"
                     ]
                 },
                 "currentHeight": 36,
@@ -1303,17 +1303,17 @@
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 130
+                            "length": 131
                         },
-                        "contentStart": 58,
+                        "contentStart": 59,
                         "state": 0
                     }
                 ]
             },
             "data": [
                 {
-                    "tabId": "159229bf-0823-4809-94b6-efc8dbc078b8",
-                    "resultId": "457c3ae3-f829-4ea0-f3e7-a8ceb93808fd",
+                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
+                    "resultId": "02633c56-3b68-4706-d41a-3021c4941174",
                     "rows": [
                         {
                             "0": 1,
@@ -1519,7 +1519,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "6863a381-d928-4d38-beb7-11b0f4e917f8"
+                        "bc3ead54-4be7-4961-b0f4-798874a038c2"
                     ]
                 },
                 "currentHeight": 180,
@@ -1555,26 +1555,26 @@
                         "delimiter": ";",
                         "span": {
                             "start": 495,
-                            "length": 118
+                            "length": 119
                         },
-                        "contentStart": 522,
+                        "contentStart": 523,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 613,
+                            "start": 614,
                             "length": 2
                         },
-                        "contentStart": 612,
+                        "contentStart": 613,
                         "state": 3
                     }
                 ]
             },
             "data": [
                 {
-                    "tabId": "159229bf-0823-4809-94b6-efc8dbc078b8",
-                    "resultId": "6863a381-d928-4d38-beb7-11b0f4e917f8",
+                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
+                    "resultId": "bc3ead54-4be7-4961-b0f4-798874a038c2",
                     "rows": [
                         {
                             "0": "Ambur",
@@ -1669,7 +1669,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "1ff032cc-1e4d-48ff-8690-50384f315676"
+                        "88256276-8715-40ed-d82b-1ba22fcec655"
                     ]
                 },
                 "currentHeight": 36,
@@ -1678,7 +1678,7 @@
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 174
+                            "length": 175
                         },
                         "contentStart": 40,
                         "state": 3
@@ -1687,8 +1687,8 @@
             },
             "data": [
                 {
-                    "tabId": "159229bf-0823-4809-94b6-efc8dbc078b8",
-                    "resultId": "1ff032cc-1e4d-48ff-8690-50384f315676",
+                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
+                    "resultId": "88256276-8715-40ed-d82b-1ba22fcec655",
                     "rows": [
                         {
                             "0": 7,
@@ -1808,7 +1808,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "3927a031-6d13-4686-ddc2-b41493fed926"
+                        "d027e5ce-304b-4c06-e931-fc69e546c2ee"
                     ]
                 },
                 "currentHeight": 352,
@@ -1817,7 +1817,7 @@
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 125
+                            "length": 126
                         },
                         "contentStart": 14,
                         "state": 0
@@ -1825,54 +1825,54 @@
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 125,
+                            "start": 126,
                             "length": 140
                         },
-                        "contentStart": 146,
+                        "contentStart": 147,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 265,
+                            "start": 266,
                             "length": 271
                         },
-                        "contentStart": 404,
+                        "contentStart": 405,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 536,
+                            "start": 537,
                             "length": 145
                         },
-                        "contentStart": 542,
+                        "contentStart": 543,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 681,
+                            "start": 682,
                             "length": 185
                         },
-                        "contentStart": 732,
+                        "contentStart": 733,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 866,
+                            "start": 867,
                             "length": 1
                         },
-                        "contentStart": 865,
+                        "contentStart": 866,
                         "state": 3
                     }
                 ]
             },
             "data": [
                 {
-                    "tabId": "159229bf-0823-4809-94b6-efc8dbc078b8",
-                    "resultId": "3927a031-6d13-4686-ddc2-b41493fed926",
+                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
+                    "resultId": "d027e5ce-304b-4c06-e931-fc69e546c2ee",
                     "rows": [
                         {
                             "0": 4,
