@@ -80,13 +80,38 @@ ORDER BY points DESC
 LIMIT 3;
 
 -- INNER JOIN
+SELECT *
+FROM order_items oi
+JOIN products prd ON prd.product_id = oi.product_id;
+
 SELECT order_id, prd.product_id, prd.name, oi.unit_price
 FROM order_items oi
 JOIN products prd ON prd.product_id = oi.product_id
 ORDER BY oi.unit_price DESC
-LIMIT 5
+LIMIT 5;
+
+-- JOIN MULTIPLE TABLE
+USE sql_invoicing;
+
+SELECT * 
+FROM payments p
+JOIN clients c 
+     ON p.client_id = c.client_id
+JOIN payment_methods pm
+     ON p.payment_method = pm.payment_method_id;
 
 
+SELECT 
+     p.date,
+     p.invoice_id,
+     p.amount,
+     c.name,
+     pm.name
+FROM payments p
+JOIN clients c 
+     ON p.client_id = c.client_id
+JOIN payment_methods pm
+     ON p.payment_method = pm.payment_method_id
 
 
 

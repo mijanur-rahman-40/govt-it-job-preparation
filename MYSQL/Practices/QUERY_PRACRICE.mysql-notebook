@@ -2,7 +2,7 @@
     "type": "MySQLNotebook",
     "version": "1.0",
     "caption": "DB Notebook",
-    "content": "-- Query performing on Mosh Course database : sql_hr, sql_inventory, sql_invooicing, sql_store\nUSE sql_store; \n-- Retrieving all data of customers  \n-- WHERE -> to filter the result\nSELECT * FROM customers;\n-- Another way \n-- SELECT * FROM `sql_store`.`customers` \n-- Retrieving specific colums of customers    \nSELECT points, customer_id, first_name FROM customers; \n-- Filtering cutomers:  \n-- KEYWORD order is important\nSELECT *  \nFROM customers\n-- WHERE customer_id = 1\n\n-- WHERE points > 3000\n\n-- Both uppercase and lowercase work perfectly\n-- WHERE state = 'VA'\n-- WHERE state = 'va'\n\n-- Search with date\n-- WHERE birth_date >= '1990-01-01'\n\n-- IN -> To specify multiple possible values for a column\n-- BETWEEN -> WHERE city IN ('Chicago','London')\n-- WHERE state NOT IN ('VA', 'FL', 'GA')\n\n-- NOT EQUAL -> <> or != \n-- WHERE points <> 796\n-- Or : Same Effect -> WHERE points != 1899\n\n-- LIKE -> Search for a pattern for both uppercase and lowercase\n-- % -> any number of characters, _ -> single character\n-- WHERE state LIKE 'f%'\n-- WHERE last_name LIKE 'b%'\n-- WHERE last_name LIKE 'brush%'\n\n-- matching 'b' at the beginning, middle or end \n-- WHERE last_name LIKE '%b%'\n\n-- all the customers last_name end by y\n-- WHERE last_name LIKE '%y'\n\n-- Match only two character end with y\n-- WHERE last_name LIKE '_y'\n\n-- Matchig the 6 character string last_name end with y\n-- WHERE last_name LIKE '_____y'\n\n-- Five character starting with b and ending with y\nWHERE last_name LIKE 'b____y'\n\n-- BETWEEN -> Between a certain range\n-- WHERE points >= 1000 AND points <= 3000\n-- same query can be wriiten in a clener way\n-- WHERE points BETWEEN 1000 AND 3000  \n-- WHERE birth_date BETWEEN '1990-01-01' AND '2000-01-01'  \n\n-- Multiple search condition in filtreing data\n-- WHERE birth_date >= '1990-01-01' AND points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 500 AND state = 'VA'\n\n-- AND operator execute first than OR\n-- Higer to Lower order : / -> * -> + -> - \n-- WHERE birth_date >= '1990-01-01' OR (points > 2500 AND state = 'VA')\n\n-- WHERE NOT (birth_date > '1990-01-01' OR points > 1000) \n-- Same query can be written as : \n-- WHERE birth_date <= '1990-01-01' AND points <= 1000\n\n-- The WHERE clause is not only used in SELECT statements, it is also used in UPDATE, DELETE, etc.\nORDER BY first_name;\n-- two columns and values\nSELECT 1, 2;   \n-- SELECT clause in details  \n-- SELECT last_name, first_name, points, points + 10\nSELECT  \n  last_name, \n  first_name, \n  points,  \n  points * 10 + 100\nfrom customers;\nSELECT \n  last_name,  \n  first_name, \n  points, \n  (points + 10) * 100,\n  -- adding specific alias. to use alias, use 'AS' keyword before the given new name\n  -- Aliases are used to give a table, or a column in a table, a temporary name.\n  (points + 10) * 100 AS discount_factor, \n  (points + 10) * 100 AS 'discount factor',  \n  (points + 10) * 100 AS \"discount factor\" \nfrom customers;\n-- Update column  \n-- SELECT state FROM customers; \nUPDATE customers SET city = 'Sylhet' WHERE (customer_id = 2); \n-- Retrieving all distinct state data of customers \nSELECT DISTINCT city FROM customers; \nSELECT COUNT(DISTINCT city) FROM customers;  \n-- REGEXP OPERATOR\nSELECT * \nFROM customers\n-- using normal form\n-- WHERE last_name LIKE '%field%';\n\n-- can be used by REGEXP keywoed\n-- WHERE last_name REGEXP 'field';\n \n-- ^ -> beginning, $ -> end, | -> logical or, [abcd] -> match any single character listed in the brackets, [a-z] -> any characters from a to z \n\n\n\n-- ^ -> beginning with 'field' string\n-- WHERE last_name REGEXP '^field';\n\n-- $ -> ending with 'field' string\n-- WHERE last_name REGEXP 'field$';\n\n-- Match the string 'field' or 'mac' in strart or end\n-- | -> vertical bar or Pipe or Multiple search Pattern\n-- WHERE last_name REGEXP 'field|mac';\n\n-- WHERE last_name REGEXP 'field|mac|rose';\n\n-- WHERE last_name REGEXP '^field|mac|rose';\n\n-- WHERE last_name REGEXP 'field$|mac|rose';\n\n-- WHERE last_name REGEXP 'field$|mac|^rose';\n\n-- WHERE last_name REGEXP 'field$|mac$|^rose';\n \n-- matching customer name : ge or ie or me\n-- Any of the character from 'gim' before 'e'\n-- WHERE last_name REGEXP '[gim]e';\n\n-- Any of the character from 'gim' after 'e'\n-- WHERE last_name REGEXP 'e[gim]';\n\n-- range of characters\nWHERE last_name REGEXP '[a-h]e';\n\n-- NULL VALUES  \n-- all the customer who do not have phone\nSELECT *\nFROM customers\n-- WHERE phone IS NULL;\nWHERE phone IS NOT NULL;\n-- THE ORDER BY CLASUE\nSELECT * \nFROM customers\n-- ORDER BY first_name;\n-- ORDER BY first_name DESC;\n\n-- Sort data by multiple columns\n-- ORDER BY state, first_name; \n-- ORDER BY first_name, state;\n-- ORDER BY first_name DESC;\nORDER BY state DESC, first_name ASC; \n\n-- Another way of sorting\nSELECT first_name, last_name\nFROM customers\nORDER BY birth_date; \n\n-- sort by data using column position that are selecting to show\nSELECT first_name, last_name\nFROM customers\n-- 1 -> first_name, 2 -> last_name \nORDER BY 1, 2;  \n\n-- order creating alise\nSELECT first_name, last_name, 10 + 10 AS points\nFROM customers\nORDER BY points, first_name; \n\n-- LIMIT data, it always come into last\nSELECT *\nFROM customers \n-- LIMIT 3;\n-- LIMIT 300; \n-- for pagination or Offseting\n-- 6 -> skip first 6, 3 -> show 3 records\nLIMIT 6, 3\n-- INNER JOIN\nSELECT * \nFROM orders \n-- INNER is optiinal \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- specify columns\nSELECT order_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- Here customer_id is ambiguous, cause both orders and customers table have customer_id. So we have to specify which tables customer_id\nSELECT order_id, customer_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- \nSELECT order_id, orders.customer_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- using alias in table name for simply the code\nSELECT order_id, ord.customer_id, first_name, last_name\nFROM orders ord\nINNER JOIN customers cus\nON ord.customer_id = cus.customer_id;\n",
+    "content": "-- Query performing on Mosh Course database : sql_hr, sql_inventory, sql_invooicing, sql_store\nUSE sql_store; \n-- Retrieving all data of customers  \n-- WHERE -> to filter the result\nSELECT * FROM customers;\n-- Another way \n-- SELECT * FROM `sql_store`.`customers` \n-- Retrieving specific colums of customers    \nSELECT points, customer_id, first_name FROM customers; \n-- Filtering cutomers:  \n-- KEYWORD order is important\nSELECT *  \nFROM customers\n-- WHERE customer_id = 1\n\n-- WHERE points > 3000\n\n-- Both uppercase and lowercase work perfectly\n-- WHERE state = 'VA'\n-- WHERE state = 'va'\n\n-- Search with date\n-- WHERE birth_date >= '1990-01-01'\n\n-- IN -> To specify multiple possible values for a column\n-- BETWEEN -> WHERE city IN ('Chicago','London')\n-- WHERE state NOT IN ('VA', 'FL', 'GA')\n\n-- NOT EQUAL -> <> or != \n-- WHERE points <> 796\n-- Or : Same Effect -> WHERE points != 1899\n\n-- LIKE -> Search for a pattern for both uppercase and lowercase\n-- % -> any number of characters, _ -> single character\n-- WHERE state LIKE 'f%'\n-- WHERE last_name LIKE 'b%'\n-- WHERE last_name LIKE 'brush%'\n\n-- matching 'b' at the beginning, middle or end \n-- WHERE last_name LIKE '%b%'\n\n-- all the customers last_name end by y\n-- WHERE last_name LIKE '%y'\n\n-- Match only two character end with y\n-- WHERE last_name LIKE '_y'\n\n-- Matchig the 6 character string last_name end with y\n-- WHERE last_name LIKE '_____y'\n\n-- Five character starting with b and ending with y\nWHERE last_name LIKE 'b____y'\n\n-- BETWEEN -> Between a certain range\n-- WHERE points >= 1000 AND points <= 3000\n-- same query can be wriiten in a clener way\n-- WHERE points BETWEEN 1000 AND 3000  \n-- WHERE birth_date BETWEEN '1990-01-01' AND '2000-01-01'  \n\n-- Multiple search condition in filtreing data\n-- WHERE birth_date >= '1990-01-01' AND points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 500 AND state = 'VA'\n\n-- AND operator execute first than OR\n-- Higer to Lower order : / -> * -> + -> - \n-- WHERE birth_date >= '1990-01-01' OR (points > 2500 AND state = 'VA')\n\n-- WHERE NOT (birth_date > '1990-01-01' OR points > 1000) \n-- Same query can be written as : \n-- WHERE birth_date <= '1990-01-01' AND points <= 1000\n\n-- The WHERE clause is not only used in SELECT statements, it is also used in UPDATE, DELETE, etc.\nORDER BY first_name;\n-- two columns and values\nSELECT 1, 2;   \n-- SELECT clause in details  \n-- SELECT last_name, first_name, points, points + 10\nSELECT  \n  last_name, \n  first_name, \n  points,  \n  points * 10 + 100\nfrom customers;\nSELECT \n  last_name,  \n  first_name, \n  points, \n  (points + 10) * 100,\n  -- adding specific alias. to use alias, use 'AS' keyword before the given new name\n  -- Aliases are used to give a table, or a column in a table, a temporary name.\n  (points + 10) * 100 AS discount_factor, \n  (points + 10) * 100 AS 'discount factor',  \n  (points + 10) * 100 AS \"discount factor\" \nfrom customers;\n-- Update column  \n-- SELECT state FROM customers; \nUPDATE customers SET city = 'Sylhet' WHERE (customer_id = 2); \n-- Retrieving all distinct state data of customers \nSELECT DISTINCT city FROM customers; \nSELECT COUNT(DISTINCT city) FROM customers; \nSELECT COUNT(city) FROM customers; \n-- REGEXP OPERATOR\nSELECT * \nFROM customers\n-- using normal form\n-- WHERE last_name LIKE '%field%';\n\n-- can be used by REGEXP keywoed\n-- WHERE last_name REGEXP 'field';\n \n-- ^ -> beginning, $ -> end, | -> logical or, [abcd] -> match any single character listed in the brackets, [a-z] -> any characters from a to z \n\n\n\n-- ^ -> beginning with 'field' string\n-- WHERE last_name REGEXP '^field';\n\n-- $ -> ending with 'field' string\n-- WHERE last_name REGEXP 'field$';\n\n-- Match the string 'field' or 'mac' in strart or end\n-- | -> vertical bar or Pipe or Multiple search Pattern\n-- WHERE last_name REGEXP 'field|mac';\n\n-- WHERE last_name REGEXP 'field|mac|rose';\n\n-- WHERE last_name REGEXP '^field|mac|rose';\n\n-- WHERE last_name REGEXP 'field$|mac|rose';\n\n-- WHERE last_name REGEXP 'field$|mac|^rose';\n\n-- WHERE last_name REGEXP 'field$|mac$|^rose';\n \n-- matching customer name : ge or ie or me\n-- Any of the character from 'gim' before 'e'\n-- WHERE last_name REGEXP '[gim]e';\n\n-- Any of the character from 'gim' after 'e'\n-- WHERE last_name REGEXP 'e[gim]';\n\n-- range of characters\nWHERE last_name REGEXP '[a-h]e';\n\n-- NULL VALUES  \n-- all the customer who do not have phone\nSELECT *\nFROM customers\n-- WHERE phone IS NULL;\nWHERE phone IS NOT NULL;\n-- THE ORDER BY CLASUE\nSELECT * \nFROM customers\n-- ORDER BY first_name;\n-- ORDER BY first_name DESC;\n\n-- Sort data by multiple columns\n-- ORDER BY state, first_name; \n-- ORDER BY first_name, state;\n-- ORDER BY first_name DESC;\nORDER BY state DESC, first_name ASC; \n\n-- Another way of sorting\nSELECT first_name, last_name\nFROM customers\nORDER BY birth_date; \n\n-- sort by data using column position that are selecting to show\nSELECT first_name, last_name\nFROM customers\n-- 1 -> first_name, 2 -> last_name \nORDER BY 1, 2;  \n\n-- order creating alaise\nSELECT first_name, last_name, 10 + 10 AS points\nFROM customers\nORDER BY points, first_name; \n\n-- LIMIT data, it always come into last\nSELECT *\nFROM customers \n-- LIMIT 3;\n-- LIMIT 300; \n-- for pagination or Offseting\n-- 6 -> skip first 6, 3 -> show 3 records\nLIMIT 6, 3\n-- INNER JOIN\nSELECT * \nFROM orders \n-- INNER is optiinal \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- specify columns\nSELECT order_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- Here customer_id is ambiguous, cause both orders and customers table have customer_id. So we have to specify which tables customer_id\nSELECT order_id, customer_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- \nSELECT order_id, orders.customer_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- using alias in table name for simply the code, when you define an alias, you have to use it everywhere\nSELECT order_id, ord.customer_id, first_name, last_name\nFROM orders ord\nINNER JOIN customers cus\nON ord.customer_id = cus.customer_id; \n-- Working with multiple database\n-- How to combine columns from tables accross multiple databases\n\n-- sql_inventory is out of this database\nSELECT *\nFROM order_items oi \nJOIN sql_inventory.products prd\nON oi.product_id = prd.product_id;\n\n-- This query can be written in different way. When we consider our selected table is sql_inventory\nUSE sql_inventory;\n\nSELECT *\nFROM sql_store.order_items oi \nJOIN products prd\nON oi.product_id = prd.product_id\n\n-- SELF JOIN\n-- Here Join will perform on same table or on that table\n-- One colum data(Like reports_to) refer to the main colum(primary key id) on that table\n-- In the sql_hr database employee reports to another employee(a manager)\n-- we have to use different aliases\n\nUSE sql_hr;\n\nSELECT *\nFROM employees e \nJOIN employees m\nON e.reports_to = m.employee_id;\n\nSELECT e.employee_id, e.first_name AS employee_name, m.first_name AS manger\nFROM employees e \nJOIN employees m\nON e.reports_to = m.employee_id\n\n\n-- JOINING MULTIPLE TABLES\n-- JOINING THREE TABLES\n\nUSE sql_store;\n\nSELECT *\nFROM orders o\nJOIN customers c \n  ON o.customer_id = c.customer_id\nJOIN order_statuses os\n  ON o.status = os.order_status_id;\n\n\nSELECT \n    o.order_id,\n    o.order_date,\n    c.first_name,\n    c.last_name,\n    os.name AS status\nFROM orders o\nJOIN customers c \n  ON o.customer_id = c.customer_id\nJOIN order_statuses os\n  ON o.status = os.order_status_id\n\n\n-- Compound Join Condition\n\n-- IMPLICIT JOIN\nSELECT * \nFROM orders o, customers c\nWHERE o.customer_id = c.customer_id;\n\n\n\n\n\n\n",
     "options": {
         "tabSize": 4,
         "insertSpaces": true,
@@ -15,22 +15,22 @@
             {
                 "inSelectionMode": true,
                 "selectionStart": {
-                    "lineNumber": 101,
-                    "column": 46
+                    "lineNumber": 285,
+                    "column": 37
                 },
                 "position": {
-                    "lineNumber": 101,
-                    "column": 44
+                    "lineNumber": 283,
+                    "column": 1
                 }
             }
         ],
         "viewState": {
             "scrollLeft": 0,
             "firstPosition": {
-                "lineNumber": 88,
+                "lineNumber": 283,
                 "column": 1
             },
-            "firstPositionDeltaTop": -22
+            "firstPositionDeltaTop": -19
         },
         "contributionsState": {
             "editor.contrib.folding": {},
@@ -80,8 +80,8 @@
                         {
                             "type": 4,
                             "index": 0,
-                            "resultId": "73d6ed33-5d0f-40b7-b5cb-a63ccd7def27",
-                            "content": "OK, 0 records retrieved in 0.396ms"
+                            "resultId": "51f73d40-644d-49fc-86f8-b5a44dd5e2c7",
+                            "content": "OK, 0 records retrieved in 0.8ms"
                         }
                     ]
                 },
@@ -1018,17 +1018,15 @@
         {
             "state": {
                 "start": 99,
-                "end": 101,
+                "end": 102,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "babb98cb-3389-448f-b980-aaeb938c56cc",
-                        "062333be-6ae6-41d5-db47-0c4ca9fdcba0"
+                        "f132c25e-a764-4498-e7b2-2a33e8f1284d"
                     ]
                 },
-                "currentHeight": 39,
-                "currentSet": 1,
+                "currentHeight": 36,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -1052,9 +1050,18 @@
                         "delimiter": ";",
                         "span": {
                             "start": 133,
-                            "length": 2
+                            "length": 36
                         },
-                        "contentStart": 132,
+                        "contentStart": 135,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 169,
+                            "length": 1
+                        },
+                        "contentStart": 168,
                         "state": 3
                     }
                 ]
@@ -1062,65 +1069,15 @@
             "data": [
                 {
                     "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
-                    "resultId": "babb98cb-3389-448f-b980-aaeb938c56cc",
+                    "resultId": "f132c25e-a764-4498-e7b2-2a33e8f1284d",
                     "rows": [
                         {
-                            "0": "Orlando"
-                        },
-                        {
-                            "0": "Hampton"
-                        },
-                        {
-                            "0": "Colorado Springs"
-                        },
-                        {
-                            "0": "Arlington"
-                        },
-                        {
-                            "0": "Chicago"
-                        },
-                        {
-                            "0": "Nashville"
-                        },
-                        {
-                            "0": "Sarasota"
-                        },
-                        {
-                            "0": "Visalia"
-                        },
-                        {
-                            "0": "Atlanta"
+                            "0": 10
                         }
                     ],
                     "columns": [
                         {
-                            "title": "city",
-                            "field": "0",
-                            "dataType": {
-                                "type": 17
-                            }
-                        }
-                    ],
-                    "executionInfo": {
-                        "text": "OK, 9 records retrieved in 0.54ms"
-                    },
-                    "totalRowCount": 9,
-                    "hasMoreRows": false,
-                    "currentPage": 0,
-                    "index": 0,
-                    "sql": "-- Retrieving all distinct state data of customers \nSELECT DISTINCT city FROM customers"
-                },
-                {
-                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
-                    "resultId": "062333be-6ae6-41d5-db47-0c4ca9fdcba0",
-                    "rows": [
-                        {
-                            "0": 9
-                        }
-                    ],
-                    "columns": [
-                        {
-                            "title": "COUNT(DISTINCT city)",
+                            "title": "COUNT(city)",
                             "field": "0",
                             "dataType": {
                                 "type": 4
@@ -1128,20 +1085,20 @@
                         }
                     ],
                     "executionInfo": {
-                        "text": "OK, 1 record retrieved in 0.714ms"
+                        "text": "OK, 1 record retrieved in 0.987ms"
                     },
                     "totalRowCount": 1,
                     "hasMoreRows": false,
                     "currentPage": 0,
-                    "index": 1,
-                    "sql": "\nSELECT COUNT(DISTINCT city) FROM customers"
+                    "index": 0,
+                    "sql": " \nSELECT COUNT(city) FROM customers;"
                 }
             ]
         },
         {
             "state": {
-                "start": 102,
-                "end": 144,
+                "start": 103,
+                "end": 145,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
@@ -1288,8 +1245,8 @@
         },
         {
             "state": {
-                "start": 145,
-                "end": 150,
+                "start": 146,
+                "end": 151,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
@@ -1493,8 +1450,8 @@
         },
         {
             "state": {
-                "start": 151,
-                "end": 151,
+                "start": 152,
+                "end": 152,
                 "language": "mysql",
                 "currentHeight": 180,
                 "statements": [
@@ -1513,8 +1470,8 @@
         },
         {
             "state": {
-                "start": 152,
-                "end": 178,
+                "start": 153,
+                "end": 179,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
@@ -1555,18 +1512,18 @@
                         "delimiter": ";",
                         "span": {
                             "start": 495,
-                            "length": 119
+                            "length": 120
                         },
-                        "contentStart": 523,
+                        "contentStart": 524,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 614,
+                            "start": 615,
                             "length": 2
                         },
-                        "contentStart": 613,
+                        "contentStart": 614,
                         "state": 3
                     }
                 ]
@@ -1663,8 +1620,8 @@
         },
         {
             "state": {
-                "start": 179,
-                "end": 186,
+                "start": 180,
+                "end": 187,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
@@ -1802,16 +1759,19 @@
         },
         {
             "state": {
-                "start": 187,
+                "start": 188,
                 "end": 217,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "d027e5ce-304b-4c06-e931-fc69e546c2ee"
+                        "b544bfd8-bf59-4ad0-dedf-6fc0d3db47cc",
+                        "65cc36c3-4833-4994-fac3-fe6bbcd68fb5",
+                        "3344c578-0788-4c32-c884-90ffbc2d2dd0",
+                        "a8a305c0-3916-470c-9690-2545bf603b19"
                     ]
                 },
-                "currentHeight": 352,
+                "currentHeight": 36,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -1853,18 +1813,18 @@
                         "delimiter": ";",
                         "span": {
                             "start": 682,
-                            "length": 185
+                            "length": 242
                         },
-                        "contentStart": 733,
+                        "contentStart": 790,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 867,
+                            "start": 924,
                             "length": 1
                         },
-                        "contentStart": 866,
+                        "contentStart": 923,
                         "state": 3
                     }
                 ]
@@ -1872,7 +1832,402 @@
             "data": [
                 {
                     "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
-                    "resultId": "d027e5ce-304b-4c06-e931-fc69e546c2ee",
+                    "resultId": "b544bfd8-bf59-4ad0-dedf-6fc0d3db47cc",
+                    "rows": [
+                        {
+                            "0": 1,
+                            "1": 6,
+                            "2": "2019-01-30",
+                            "3": 1,
+                            "4": null,
+                            "5": null,
+                            "6": null,
+                            "7": 6,
+                            "8": "Elka",
+                            "9": "Twiddell",
+                            "10": "1991-09-04",
+                            "11": "312-480-8498",
+                            "12": "7 Manley Drive",
+                            "13": "Dhaka",
+                            "14": "IL",
+                            "15": 3073
+                        },
+                        {
+                            "0": 2,
+                            "1": 7,
+                            "2": "2018-08-02",
+                            "3": 2,
+                            "4": null,
+                            "5": "2018-08-03",
+                            "6": 4,
+                            "7": 7,
+                            "8": "Ilene",
+                            "9": "Dowson",
+                            "10": "1964-08-30",
+                            "11": "615-641-4759",
+                            "12": "50 Lillian Crossing",
+                            "13": "Nashville",
+                            "14": "TN",
+                            "15": 1672
+                        },
+                        {
+                            "0": 3,
+                            "1": 8,
+                            "2": "2017-12-01",
+                            "3": 1,
+                            "4": null,
+                            "5": null,
+                            "6": null,
+                            "7": 8,
+                            "8": "Thacher",
+                            "9": "By",
+                            "10": "1993-07-17",
+                            "11": "941-527-3977",
+                            "12": "538 Mosinee Center",
+                            "13": "Sarasota",
+                            "14": "FL",
+                            "15": 205
+                        },
+                        {
+                            "0": 4,
+                            "1": 2,
+                            "2": "2017-01-22",
+                            "3": 1,
+                            "4": null,
+                            "5": null,
+                            "6": null,
+                            "7": 2,
+                            "8": "Ines",
+                            "9": "Brushfield",
+                            "10": "1986-04-13",
+                            "11": "804-427-9456",
+                            "12": "14187 Commercial Trail",
+                            "13": "Sylhet",
+                            "14": "VA",
+                            "15": 947
+                        },
+                        {
+                            "0": 5,
+                            "1": 5,
+                            "2": "2017-08-25",
+                            "3": 2,
+                            "4": "",
+                            "5": "2017-08-26",
+                            "6": 3,
+                            "7": 5,
+                            "8": "Clemmie",
+                            "9": "Betchley",
+                            "10": "1973-11-07",
+                            "11": null,
+                            "12": "5 Spohn Circle",
+                            "13": "Arlington",
+                            "14": "TX",
+                            "15": 3675
+                        },
+                        {
+                            "0": 6,
+                            "1": 10,
+                            "2": "2018-11-18",
+                            "3": 1,
+                            "4": "Aliquam erat volutpat. In congue.",
+                            "5": null,
+                            "6": null,
+                            "7": 10,
+                            "8": "Levy",
+                            "9": "Mynett",
+                            "10": "1969-10-13",
+                            "11": "404-246-3370",
+                            "12": "68 Lawn Avenue",
+                            "13": "Atlanta",
+                            "14": "GA",
+                            "15": 796
+                        },
+                        {
+                            "0": 7,
+                            "1": 2,
+                            "2": "2018-09-22",
+                            "3": 2,
+                            "4": null,
+                            "5": "2018-09-23",
+                            "6": 4,
+                            "7": 2,
+                            "8": "Ines",
+                            "9": "Brushfield",
+                            "10": "1986-04-13",
+                            "11": "804-427-9456",
+                            "12": "14187 Commercial Trail",
+                            "13": "Sylhet",
+                            "14": "VA",
+                            "15": 947
+                        },
+                        {
+                            "0": 8,
+                            "1": 5,
+                            "2": "2018-06-08",
+                            "3": 1,
+                            "4": "Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis.",
+                            "5": null,
+                            "6": null,
+                            "7": 5,
+                            "8": "Clemmie",
+                            "9": "Betchley",
+                            "10": "1973-11-07",
+                            "11": null,
+                            "12": "5 Spohn Circle",
+                            "13": "Arlington",
+                            "14": "TX",
+                            "15": 3675
+                        },
+                        {
+                            "0": 9,
+                            "1": 10,
+                            "2": "2017-07-05",
+                            "3": 2,
+                            "4": "Nulla mollis molestie lorem. Quisque ut erat.",
+                            "5": "2017-07-06",
+                            "6": 1,
+                            "7": 10,
+                            "8": "Levy",
+                            "9": "Mynett",
+                            "10": "1969-10-13",
+                            "11": "404-246-3370",
+                            "12": "68 Lawn Avenue",
+                            "13": "Atlanta",
+                            "14": "GA",
+                            "15": 796
+                        },
+                        {
+                            "0": 10,
+                            "1": 6,
+                            "2": "2018-04-22",
+                            "3": 2,
+                            "4": null,
+                            "5": "2018-04-23",
+                            "6": 2,
+                            "7": 6,
+                            "8": "Elka",
+                            "9": "Twiddell",
+                            "10": "1991-09-04",
+                            "11": "312-480-8498",
+                            "12": "7 Manley Drive",
+                            "13": "Dhaka",
+                            "14": "IL",
+                            "15": 3073
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "order_id",
+                            "field": "0",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "customer_id",
+                            "field": "1",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "order_date",
+                            "field": "2",
+                            "dataType": {
+                                "type": 28
+                            }
+                        },
+                        {
+                            "title": "status",
+                            "field": "3",
+                            "dataType": {
+                                "type": 1
+                            }
+                        },
+                        {
+                            "title": "comments",
+                            "field": "4",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "shipped_date",
+                            "field": "5",
+                            "dataType": {
+                                "type": 28
+                            }
+                        },
+                        {
+                            "title": "shipper_id",
+                            "field": "6",
+                            "dataType": {
+                                "type": 2
+                            }
+                        },
+                        {
+                            "title": "customer_id",
+                            "field": "7",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "first_name",
+                            "field": "8",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "last_name",
+                            "field": "9",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "birth_date",
+                            "field": "10",
+                            "dataType": {
+                                "type": 28
+                            }
+                        },
+                        {
+                            "title": "phone",
+                            "field": "11",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "address",
+                            "field": "12",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "city",
+                            "field": "13",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "state",
+                            "field": "14",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "points",
+                            "field": "15",
+                            "dataType": {
+                                "type": 4
+                            }
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 10 records retrieved in 0.822ms"
+                    },
+                    "totalRowCount": 10,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "-- INNER JOIN\nSELECT * \nFROM orders \n-- INNER is optiinal \nINNER JOIN customers\nON orders.customer_id = customers.customer_id"
+                },
+                {
+                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
+                    "resultId": "65cc36c3-4833-4994-fac3-fe6bbcd68fb5",
+                    "rows": [
+                        {
+                            "0": 4,
+                            "1": "Ines",
+                            "2": "Brushfield"
+                        },
+                        {
+                            "0": 7,
+                            "1": "Ines",
+                            "2": "Brushfield"
+                        },
+                        {
+                            "0": 5,
+                            "1": "Clemmie",
+                            "2": "Betchley"
+                        },
+                        {
+                            "0": 8,
+                            "1": "Clemmie",
+                            "2": "Betchley"
+                        },
+                        {
+                            "0": 1,
+                            "1": "Elka",
+                            "2": "Twiddell"
+                        },
+                        {
+                            "0": 10,
+                            "1": "Elka",
+                            "2": "Twiddell"
+                        },
+                        {
+                            "0": 2,
+                            "1": "Ilene",
+                            "2": "Dowson"
+                        },
+                        {
+                            "0": 3,
+                            "1": "Thacher",
+                            "2": "By"
+                        },
+                        {
+                            "0": 6,
+                            "1": "Levy",
+                            "2": "Mynett"
+                        },
+                        {
+                            "0": 9,
+                            "1": "Levy",
+                            "2": "Mynett"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "order_id",
+                            "field": "0",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "first_name",
+                            "field": "1",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "last_name",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17
+                            }
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 10 records retrieved in 0.719ms"
+                    },
+                    "totalRowCount": 10,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 1,
+                    "sql": "\n\n-- specify columns\nSELECT order_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id"
+                },
+                {
+                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
+                    "resultId": "3344c578-0788-4c32-c884-90ffbc2d2dd0",
                     "rows": [
                         {
                             "0": 4,
@@ -1966,13 +2321,1475 @@
                         }
                     ],
                     "executionInfo": {
-                        "text": "OK, 10 records retrieved in 0.807ms"
+                        "text": "OK, 10 records retrieved in 0.599ms"
+                    },
+                    "totalRowCount": 10,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 3,
+                    "sql": "\n\n-- \nSELECT order_id, orders.customer_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id"
+                },
+                {
+                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
+                    "resultId": "a8a305c0-3916-470c-9690-2545bf603b19",
+                    "rows": [
+                        {
+                            "0": 4,
+                            "1": 2,
+                            "2": "Ines",
+                            "3": "Brushfield"
+                        },
+                        {
+                            "0": 7,
+                            "1": 2,
+                            "2": "Ines",
+                            "3": "Brushfield"
+                        },
+                        {
+                            "0": 5,
+                            "1": 5,
+                            "2": "Clemmie",
+                            "3": "Betchley"
+                        },
+                        {
+                            "0": 8,
+                            "1": 5,
+                            "2": "Clemmie",
+                            "3": "Betchley"
+                        },
+                        {
+                            "0": 1,
+                            "1": 6,
+                            "2": "Elka",
+                            "3": "Twiddell"
+                        },
+                        {
+                            "0": 10,
+                            "1": 6,
+                            "2": "Elka",
+                            "3": "Twiddell"
+                        },
+                        {
+                            "0": 2,
+                            "1": 7,
+                            "2": "Ilene",
+                            "3": "Dowson"
+                        },
+                        {
+                            "0": 3,
+                            "1": 8,
+                            "2": "Thacher",
+                            "3": "By"
+                        },
+                        {
+                            "0": 6,
+                            "1": 10,
+                            "2": "Levy",
+                            "3": "Mynett"
+                        },
+                        {
+                            "0": 9,
+                            "1": 10,
+                            "2": "Levy",
+                            "3": "Mynett"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "order_id",
+                            "field": "0",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "customer_id",
+                            "field": "1",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "first_name",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "last_name",
+                            "field": "3",
+                            "dataType": {
+                                "type": 17
+                            }
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 10 records retrieved in 0.655ms"
+                    },
+                    "totalRowCount": 10,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 4,
+                    "sql": "\n\n-- using alias in table name for simply the code\nSELECT order_id, ord.customer_id, first_name, last_name\nFROM orders ord\nINNER JOIN customers cus\nON ord.customer_id = cus.customer_id"
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 218,
+                "end": 234,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "2226dd3a-856e-4752-d3f8-2c7f49196d56",
+                        "a7cbb1ea-7b55-4003-bb35-8ab7f5ad1997"
+                    ]
+                },
+                "currentHeight": 36,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 237
+                        },
+                        "contentStart": 141,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 237,
+                            "length": 120
+                        },
+                        "contentStart": 339,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 357,
+                            "length": 94
+                        },
+                        "contentStart": 359,
+                        "state": 3
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
+                    "resultId": "2226dd3a-856e-4752-d3f8-2c7f49196d56",
+                    "rows": [
+                        {
+                            "0": 2,
+                            "1": 1,
+                            "2": 2,
+                            "3": "9.10",
+                            "4": 1,
+                            "5": "Foam Dinner Plate",
+                            "6": 70,
+                            "7": "1.21"
+                        },
+                        {
+                            "0": 6,
+                            "1": 1,
+                            "2": 4,
+                            "3": "8.65",
+                            "4": 1,
+                            "5": "Foam Dinner Plate",
+                            "6": 70,
+                            "7": "1.21"
+                        },
+                        {
+                            "0": 10,
+                            "1": 1,
+                            "2": 10,
+                            "3": "6.01",
+                            "4": 1,
+                            "5": "Foam Dinner Plate",
+                            "6": 70,
+                            "7": "1.21"
+                        },
+                        {
+                            "0": 5,
+                            "1": 2,
+                            "2": 3,
+                            "3": "9.89",
+                            "4": 2,
+                            "5": "Pork - Bacon,back Peameal",
+                            "6": 49,
+                            "7": "4.65"
+                        },
+                        {
+                            "0": 6,
+                            "1": 2,
+                            "2": 4,
+                            "3": "3.28",
+                            "4": 2,
+                            "5": "Pork - Bacon,back Peameal",
+                            "6": 49,
+                            "7": "4.65"
+                        },
+                        {
+                            "0": 3,
+                            "1": 3,
+                            "2": 10,
+                            "3": "9.12",
+                            "4": 3,
+                            "5": "Lettuce - Romaine, Heart",
+                            "6": 38,
+                            "7": "3.35"
+                        },
+                        {
+                            "0": 4,
+                            "1": 3,
+                            "2": 7,
+                            "3": "6.99",
+                            "4": 3,
+                            "5": "Lettuce - Romaine, Heart",
+                            "6": 38,
+                            "7": "3.35"
+                        },
+                        {
+                            "0": 6,
+                            "1": 3,
+                            "2": 4,
+                            "3": "7.46",
+                            "4": 3,
+                            "5": "Lettuce - Romaine, Heart",
+                            "6": 38,
+                            "7": "3.35"
+                        },
+                        {
+                            "0": 7,
+                            "1": 3,
+                            "2": 7,
+                            "3": "9.17",
+                            "4": 3,
+                            "5": "Lettuce - Romaine, Heart",
+                            "6": 38,
+                            "7": "3.35"
+                        },
+                        {
+                            "0": 1,
+                            "1": 4,
+                            "2": 4,
+                            "3": "3.74",
+                            "4": 4,
+                            "5": "Brocolinni - Gaylan, Chinese",
+                            "6": 90,
+                            "7": "4.53"
+                        },
+                        {
+                            "0": 2,
+                            "1": 4,
+                            "2": 4,
+                            "3": "1.66",
+                            "4": 4,
+                            "5": "Brocolinni - Gaylan, Chinese",
+                            "6": 90,
+                            "7": "4.53"
+                        },
+                        {
+                            "0": 6,
+                            "1": 5,
+                            "2": 1,
+                            "3": "3.45",
+                            "4": 5,
+                            "5": "Sauce - Ranch Dressing",
+                            "6": 94,
+                            "7": "1.63"
+                        },
+                        {
+                            "0": 8,
+                            "1": 5,
+                            "2": 2,
+                            "3": "6.94",
+                            "4": 5,
+                            "5": "Sauce - Ranch Dressing",
+                            "6": 94,
+                            "7": "1.63"
+                        },
+                        {
+                            "0": 2,
+                            "1": 6,
+                            "2": 2,
+                            "3": "2.94",
+                            "4": 6,
+                            "5": "Petit Baguette",
+                            "6": 14,
+                            "7": "2.39"
+                        },
+                        {
+                            "0": 9,
+                            "1": 6,
+                            "2": 5,
+                            "3": "7.28",
+                            "4": 6,
+                            "5": "Petit Baguette",
+                            "6": 14,
+                            "7": "2.39"
+                        },
+                        {
+                            "0": 8,
+                            "1": 8,
+                            "2": 2,
+                            "3": "8.59",
+                            "4": 8,
+                            "5": "Island Oasis - Raspberry",
+                            "6": 26,
+                            "7": "0.74"
+                        },
+                        {
+                            "0": 10,
+                            "1": 9,
+                            "2": 9,
+                            "3": "4.28",
+                            "4": 9,
+                            "5": "Longan",
+                            "6": 67,
+                            "7": "2.26"
+                        },
+                        {
+                            "0": 4,
+                            "1": 10,
+                            "2": 7,
+                            "3": "6.40",
+                            "4": 10,
+                            "5": "Broom - Push",
+                            "6": 6,
+                            "7": "1.09"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "order_id",
+                            "field": "0",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "product_id",
+                            "field": "1",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "quantity",
+                            "field": "2",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "unit_price",
+                            "field": "3",
+                            "dataType": {
+                                "type": 10
+                            }
+                        },
+                        {
+                            "title": "product_id",
+                            "field": "4",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "name",
+                            "field": "5",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "quantity_in_stock",
+                            "field": "6",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "unit_price",
+                            "field": "7",
+                            "dataType": {
+                                "type": 10
+                            }
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 18 records retrieved in 0.673ms"
+                    },
+                    "totalRowCount": 18,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 2,
+                    "sql": "\n\nSELECT *\nFROM sql_store.order_items oi \nJOIN products prd\nON oi.product_id = prd.product_id\n"
+                },
+                {
+                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
+                    "resultId": "a7cbb1ea-7b55-4003-bb35-8ab7f5ad1997",
+                    "rows": [],
+                    "executionInfo": {
+                        "text": "OK, 0 records retrieved in 0.4ms",
+                        "type": 4
+                    },
+                    "totalRowCount": 0,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 1,
+                    "sql": "\n\n-- This query can be written in different way. When we consider our selected table is sql_inventory\nUSE sql_inventory"
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 235,
+                "end": 253,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "d390ed4c-8eb6-431f-b130-a397fc187395"
+                    ]
+                },
+                "currentHeight": 36,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 281
+                        },
+                        "contentStart": 270,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 281,
+                            "length": 78
+                        },
+                        "contentStart": 283,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 359,
+                            "length": 146
+                        },
+                        "contentStart": 361,
+                        "state": 3
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
+                    "resultId": "d390ed4c-8eb6-431f-b130-a397fc187395",
+                    "rows": [
+                        {
+                            "0": 33391,
+                            "1": "D'arcy",
+                            "2": "Yovonnda"
+                        },
+                        {
+                            "0": 37851,
+                            "1": "Sayer",
+                            "2": "Yovonnda"
+                        },
+                        {
+                            "0": 40448,
+                            "1": "Mindy",
+                            "2": "Yovonnda"
+                        },
+                        {
+                            "0": 56274,
+                            "1": "Keriann",
+                            "2": "Yovonnda"
+                        },
+                        {
+                            "0": 63196,
+                            "1": "Alaster",
+                            "2": "Yovonnda"
+                        },
+                        {
+                            "0": 67009,
+                            "1": "North",
+                            "2": "Yovonnda"
+                        },
+                        {
+                            "0": 67370,
+                            "1": "Elladine",
+                            "2": "Yovonnda"
+                        },
+                        {
+                            "0": 68249,
+                            "1": "Nisse",
+                            "2": "Yovonnda"
+                        },
+                        {
+                            "0": 72540,
+                            "1": "Guthrey",
+                            "2": "Yovonnda"
+                        },
+                        {
+                            "0": 72913,
+                            "1": "Kass",
+                            "2": "Yovonnda"
+                        },
+                        {
+                            "0": 75900,
+                            "1": "Virge",
+                            "2": "Yovonnda"
+                        },
+                        {
+                            "0": 76196,
+                            "1": "Mirilla",
+                            "2": "Yovonnda"
+                        },
+                        {
+                            "0": 80529,
+                            "1": "Lynde",
+                            "2": "Yovonnda"
+                        },
+                        {
+                            "0": 80679,
+                            "1": "Mildrid",
+                            "2": "Yovonnda"
+                        },
+                        {
+                            "0": 84791,
+                            "1": "Hazel",
+                            "2": "Yovonnda"
+                        },
+                        {
+                            "0": 95213,
+                            "1": "Cole",
+                            "2": "Yovonnda"
+                        },
+                        {
+                            "0": 96513,
+                            "1": "Theresa",
+                            "2": "Yovonnda"
+                        },
+                        {
+                            "0": 98374,
+                            "1": "Estrellita",
+                            "2": "Yovonnda"
+                        },
+                        {
+                            "0": 115357,
+                            "1": "Ivy",
+                            "2": "Yovonnda"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "employee_id",
+                            "field": "0",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "employee_name",
+                            "field": "1",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "manger",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17
+                            }
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 19 records retrieved in 0.657ms"
+                    },
+                    "totalRowCount": 19,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "\n\nSELECT e.employee_id, e.first_name AS employee_name, m.first_name AS manger\nFROM employees e \nJOIN employees m\nON e.reports_to = m.employee_id\n\n"
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 254,
+                "end": 277,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "a7b0386d-2109-41bd-bf22-06e743db1031",
+                        "789aabdf-1b02-4f80-8075-16346c3f5d81",
+                        "491e7b34-b411-4d48-e4d9-a3d960dcd086"
+                    ]
+                },
+                "currentHeight": 36,
+                "currentSet": 2,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 66
+                        },
+                        "contentStart": 52,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 66,
+                            "length": 136
+                        },
+                        "contentStart": 68,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 202,
+                            "length": 226
+                        },
+                        "contentStart": 205,
+                        "state": 3
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
+                    "resultId": "a7b0386d-2109-41bd-bf22-06e743db1031",
+                    "rows": [
+                        {
+                            "0": 8,
+                            "1": 5,
+                            "2": "2018-06-08",
+                            "3": 1,
+                            "4": "Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis.",
+                            "5": null,
+                            "6": null,
+                            "7": 5,
+                            "8": "Clemmie",
+                            "9": "Betchley",
+                            "10": "1973-11-07",
+                            "11": null,
+                            "12": "5 Spohn Circle",
+                            "13": "Arlington",
+                            "14": "TX",
+                            "15": 3675,
+                            "16": 1,
+                            "17": "Processed"
+                        },
+                        {
+                            "0": 6,
+                            "1": 10,
+                            "2": "2018-11-18",
+                            "3": 1,
+                            "4": "Aliquam erat volutpat. In congue.",
+                            "5": null,
+                            "6": null,
+                            "7": 10,
+                            "8": "Levy",
+                            "9": "Mynett",
+                            "10": "1969-10-13",
+                            "11": "404-246-3370",
+                            "12": "68 Lawn Avenue",
+                            "13": "Atlanta",
+                            "14": "GA",
+                            "15": 796,
+                            "16": 1,
+                            "17": "Processed"
+                        },
+                        {
+                            "0": 4,
+                            "1": 2,
+                            "2": "2017-01-22",
+                            "3": 1,
+                            "4": null,
+                            "5": null,
+                            "6": null,
+                            "7": 2,
+                            "8": "Ines",
+                            "9": "Brushfield",
+                            "10": "1986-04-13",
+                            "11": "804-427-9456",
+                            "12": "14187 Commercial Trail",
+                            "13": "Sylhet",
+                            "14": "VA",
+                            "15": 947,
+                            "16": 1,
+                            "17": "Processed"
+                        },
+                        {
+                            "0": 3,
+                            "1": 8,
+                            "2": "2017-12-01",
+                            "3": 1,
+                            "4": null,
+                            "5": null,
+                            "6": null,
+                            "7": 8,
+                            "8": "Thacher",
+                            "9": "By",
+                            "10": "1993-07-17",
+                            "11": "941-527-3977",
+                            "12": "538 Mosinee Center",
+                            "13": "Sarasota",
+                            "14": "FL",
+                            "15": 205,
+                            "16": 1,
+                            "17": "Processed"
+                        },
+                        {
+                            "0": 1,
+                            "1": 6,
+                            "2": "2019-01-30",
+                            "3": 1,
+                            "4": null,
+                            "5": null,
+                            "6": null,
+                            "7": 6,
+                            "8": "Elka",
+                            "9": "Twiddell",
+                            "10": "1991-09-04",
+                            "11": "312-480-8498",
+                            "12": "7 Manley Drive",
+                            "13": "Dhaka",
+                            "14": "IL",
+                            "15": 3073,
+                            "16": 1,
+                            "17": "Processed"
+                        },
+                        {
+                            "0": 10,
+                            "1": 6,
+                            "2": "2018-04-22",
+                            "3": 2,
+                            "4": null,
+                            "5": "2018-04-23",
+                            "6": 2,
+                            "7": 6,
+                            "8": "Elka",
+                            "9": "Twiddell",
+                            "10": "1991-09-04",
+                            "11": "312-480-8498",
+                            "12": "7 Manley Drive",
+                            "13": "Dhaka",
+                            "14": "IL",
+                            "15": 3073,
+                            "16": 2,
+                            "17": "Shipped"
+                        },
+                        {
+                            "0": 9,
+                            "1": 10,
+                            "2": "2017-07-05",
+                            "3": 2,
+                            "4": "Nulla mollis molestie lorem. Quisque ut erat.",
+                            "5": "2017-07-06",
+                            "6": 1,
+                            "7": 10,
+                            "8": "Levy",
+                            "9": "Mynett",
+                            "10": "1969-10-13",
+                            "11": "404-246-3370",
+                            "12": "68 Lawn Avenue",
+                            "13": "Atlanta",
+                            "14": "GA",
+                            "15": 796,
+                            "16": 2,
+                            "17": "Shipped"
+                        },
+                        {
+                            "0": 7,
+                            "1": 2,
+                            "2": "2018-09-22",
+                            "3": 2,
+                            "4": null,
+                            "5": "2018-09-23",
+                            "6": 4,
+                            "7": 2,
+                            "8": "Ines",
+                            "9": "Brushfield",
+                            "10": "1986-04-13",
+                            "11": "804-427-9456",
+                            "12": "14187 Commercial Trail",
+                            "13": "Sylhet",
+                            "14": "VA",
+                            "15": 947,
+                            "16": 2,
+                            "17": "Shipped"
+                        },
+                        {
+                            "0": 5,
+                            "1": 5,
+                            "2": "2017-08-25",
+                            "3": 2,
+                            "4": "",
+                            "5": "2017-08-26",
+                            "6": 3,
+                            "7": 5,
+                            "8": "Clemmie",
+                            "9": "Betchley",
+                            "10": "1973-11-07",
+                            "11": null,
+                            "12": "5 Spohn Circle",
+                            "13": "Arlington",
+                            "14": "TX",
+                            "15": 3675,
+                            "16": 2,
+                            "17": "Shipped"
+                        },
+                        {
+                            "0": 2,
+                            "1": 7,
+                            "2": "2018-08-02",
+                            "3": 2,
+                            "4": null,
+                            "5": "2018-08-03",
+                            "6": 4,
+                            "7": 7,
+                            "8": "Ilene",
+                            "9": "Dowson",
+                            "10": "1964-08-30",
+                            "11": "615-641-4759",
+                            "12": "50 Lillian Crossing",
+                            "13": "Nashville",
+                            "14": "TN",
+                            "15": 1672,
+                            "16": 2,
+                            "17": "Shipped"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "order_id",
+                            "field": "0",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "customer_id",
+                            "field": "1",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "order_date",
+                            "field": "2",
+                            "dataType": {
+                                "type": 28
+                            }
+                        },
+                        {
+                            "title": "status",
+                            "field": "3",
+                            "dataType": {
+                                "type": 1
+                            }
+                        },
+                        {
+                            "title": "comments",
+                            "field": "4",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "shipped_date",
+                            "field": "5",
+                            "dataType": {
+                                "type": 28
+                            }
+                        },
+                        {
+                            "title": "shipper_id",
+                            "field": "6",
+                            "dataType": {
+                                "type": 2
+                            }
+                        },
+                        {
+                            "title": "customer_id",
+                            "field": "7",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "first_name",
+                            "field": "8",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "last_name",
+                            "field": "9",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "birth_date",
+                            "field": "10",
+                            "dataType": {
+                                "type": 28
+                            }
+                        },
+                        {
+                            "title": "phone",
+                            "field": "11",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "address",
+                            "field": "12",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "city",
+                            "field": "13",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "state",
+                            "field": "14",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "points",
+                            "field": "15",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "order_status_id",
+                            "field": "16",
+                            "dataType": {
+                                "type": 1
+                            }
+                        },
+                        {
+                            "title": "name",
+                            "field": "17",
+                            "dataType": {
+                                "type": 17
+                            }
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 10 records retrieved in 1.229ms"
+                    },
+                    "totalRowCount": 10,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 1,
+                    "sql": "\n\nSELECT *\nFROM orders o\nJOIN customers c \n  ON o.customer_id = c.customer_id\nJOIN order_statuses os\n  ON o.status = os.order_status_id"
+                },
+                {
+                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
+                    "resultId": "789aabdf-1b02-4f80-8075-16346c3f5d81",
+                    "rows": [
+                        {
+                            "0": 8,
+                            "1": "2018-06-08",
+                            "2": "Clemmie",
+                            "3": "Betchley",
+                            "4": "Processed"
+                        },
+                        {
+                            "0": 6,
+                            "1": "2018-11-18",
+                            "2": "Levy",
+                            "3": "Mynett",
+                            "4": "Processed"
+                        },
+                        {
+                            "0": 4,
+                            "1": "2017-01-22",
+                            "2": "Ines",
+                            "3": "Brushfield",
+                            "4": "Processed"
+                        },
+                        {
+                            "0": 3,
+                            "1": "2017-12-01",
+                            "2": "Thacher",
+                            "3": "By",
+                            "4": "Processed"
+                        },
+                        {
+                            "0": 1,
+                            "1": "2019-01-30",
+                            "2": "Elka",
+                            "3": "Twiddell",
+                            "4": "Processed"
+                        },
+                        {
+                            "0": 10,
+                            "1": "2018-04-22",
+                            "2": "Elka",
+                            "3": "Twiddell",
+                            "4": "Shipped"
+                        },
+                        {
+                            "0": 9,
+                            "1": "2017-07-05",
+                            "2": "Levy",
+                            "3": "Mynett",
+                            "4": "Shipped"
+                        },
+                        {
+                            "0": 7,
+                            "1": "2018-09-22",
+                            "2": "Ines",
+                            "3": "Brushfield",
+                            "4": "Shipped"
+                        },
+                        {
+                            "0": 5,
+                            "1": "2017-08-25",
+                            "2": "Clemmie",
+                            "3": "Betchley",
+                            "4": "Shipped"
+                        },
+                        {
+                            "0": 2,
+                            "1": "2018-08-02",
+                            "2": "Ilene",
+                            "3": "Dowson",
+                            "4": "Shipped"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "order_id",
+                            "field": "0",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "order_date",
+                            "field": "1",
+                            "dataType": {
+                                "type": 28
+                            }
+                        },
+                        {
+                            "title": "first_name",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "last_name",
+                            "field": "3",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "status",
+                            "field": "4",
+                            "dataType": {
+                                "type": 17
+                            }
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 10 records retrieved in 0.931ms"
+                    },
+                    "totalRowCount": 10,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 2,
+                    "sql": "\n\n\nSELECT \n    o.order_id,\n    o.order_date,\n    c.first_name,\n    c.last_name,\n    os.name AS status\nFROM orders o\nJOIN customers c \n  ON o.customer_id = c.customer_id\nJOIN order_statuses os\n  ON o.status = os.order_status_id"
+                },
+                {
+                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
+                    "resultId": "491e7b34-b411-4d48-e4d9-a3d960dcd086",
+                    "rows": [],
+                    "executionInfo": {
+                        "text": "OK, 0 records retrieved in 0.466ms",
+                        "type": 4
+                    },
+                    "totalRowCount": 0,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "-- JOINING MULTIPLE TABLES\n-- JOINING THREE TABLES\n\nUSE sql_store"
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 278,
+                "end": 292,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "2d6364b2-2865-418e-c2e2-9ce5a455c091"
+                    ]
+                },
+                "currentHeight": 352,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 120
+                        },
+                        "contentStart": 47,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 120,
+                            "length": 7
+                        },
+                        "contentStart": 119,
+                        "state": 3
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
+                    "resultId": "2d6364b2-2865-418e-c2e2-9ce5a455c091",
+                    "rows": [
+                        {
+                            "0": 1,
+                            "1": 6,
+                            "2": "2019-01-30",
+                            "3": 1,
+                            "4": null,
+                            "5": null,
+                            "6": null,
+                            "7": 6,
+                            "8": "Elka",
+                            "9": "Twiddell",
+                            "10": "1991-09-04",
+                            "11": "312-480-8498",
+                            "12": "7 Manley Drive",
+                            "13": "Dhaka",
+                            "14": "IL",
+                            "15": 3073
+                        },
+                        {
+                            "0": 2,
+                            "1": 7,
+                            "2": "2018-08-02",
+                            "3": 2,
+                            "4": null,
+                            "5": "2018-08-03",
+                            "6": 4,
+                            "7": 7,
+                            "8": "Ilene",
+                            "9": "Dowson",
+                            "10": "1964-08-30",
+                            "11": "615-641-4759",
+                            "12": "50 Lillian Crossing",
+                            "13": "Nashville",
+                            "14": "TN",
+                            "15": 1672
+                        },
+                        {
+                            "0": 3,
+                            "1": 8,
+                            "2": "2017-12-01",
+                            "3": 1,
+                            "4": null,
+                            "5": null,
+                            "6": null,
+                            "7": 8,
+                            "8": "Thacher",
+                            "9": "By",
+                            "10": "1993-07-17",
+                            "11": "941-527-3977",
+                            "12": "538 Mosinee Center",
+                            "13": "Sarasota",
+                            "14": "FL",
+                            "15": 205
+                        },
+                        {
+                            "0": 4,
+                            "1": 2,
+                            "2": "2017-01-22",
+                            "3": 1,
+                            "4": null,
+                            "5": null,
+                            "6": null,
+                            "7": 2,
+                            "8": "Ines",
+                            "9": "Brushfield",
+                            "10": "1986-04-13",
+                            "11": "804-427-9456",
+                            "12": "14187 Commercial Trail",
+                            "13": "Sylhet",
+                            "14": "VA",
+                            "15": 947
+                        },
+                        {
+                            "0": 5,
+                            "1": 5,
+                            "2": "2017-08-25",
+                            "3": 2,
+                            "4": "",
+                            "5": "2017-08-26",
+                            "6": 3,
+                            "7": 5,
+                            "8": "Clemmie",
+                            "9": "Betchley",
+                            "10": "1973-11-07",
+                            "11": null,
+                            "12": "5 Spohn Circle",
+                            "13": "Arlington",
+                            "14": "TX",
+                            "15": 3675
+                        },
+                        {
+                            "0": 6,
+                            "1": 10,
+                            "2": "2018-11-18",
+                            "3": 1,
+                            "4": "Aliquam erat volutpat. In congue.",
+                            "5": null,
+                            "6": null,
+                            "7": 10,
+                            "8": "Levy",
+                            "9": "Mynett",
+                            "10": "1969-10-13",
+                            "11": "404-246-3370",
+                            "12": "68 Lawn Avenue",
+                            "13": "Atlanta",
+                            "14": "GA",
+                            "15": 796
+                        },
+                        {
+                            "0": 7,
+                            "1": 2,
+                            "2": "2018-09-22",
+                            "3": 2,
+                            "4": null,
+                            "5": "2018-09-23",
+                            "6": 4,
+                            "7": 2,
+                            "8": "Ines",
+                            "9": "Brushfield",
+                            "10": "1986-04-13",
+                            "11": "804-427-9456",
+                            "12": "14187 Commercial Trail",
+                            "13": "Sylhet",
+                            "14": "VA",
+                            "15": 947
+                        },
+                        {
+                            "0": 8,
+                            "1": 5,
+                            "2": "2018-06-08",
+                            "3": 1,
+                            "4": "Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis.",
+                            "5": null,
+                            "6": null,
+                            "7": 5,
+                            "8": "Clemmie",
+                            "9": "Betchley",
+                            "10": "1973-11-07",
+                            "11": null,
+                            "12": "5 Spohn Circle",
+                            "13": "Arlington",
+                            "14": "TX",
+                            "15": 3675
+                        },
+                        {
+                            "0": 9,
+                            "1": 10,
+                            "2": "2017-07-05",
+                            "3": 2,
+                            "4": "Nulla mollis molestie lorem. Quisque ut erat.",
+                            "5": "2017-07-06",
+                            "6": 1,
+                            "7": 10,
+                            "8": "Levy",
+                            "9": "Mynett",
+                            "10": "1969-10-13",
+                            "11": "404-246-3370",
+                            "12": "68 Lawn Avenue",
+                            "13": "Atlanta",
+                            "14": "GA",
+                            "15": 796
+                        },
+                        {
+                            "0": 10,
+                            "1": 6,
+                            "2": "2018-04-22",
+                            "3": 2,
+                            "4": null,
+                            "5": "2018-04-23",
+                            "6": 2,
+                            "7": 6,
+                            "8": "Elka",
+                            "9": "Twiddell",
+                            "10": "1991-09-04",
+                            "11": "312-480-8498",
+                            "12": "7 Manley Drive",
+                            "13": "Dhaka",
+                            "14": "IL",
+                            "15": 3073
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "order_id",
+                            "field": "0",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "customer_id",
+                            "field": "1",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "order_date",
+                            "field": "2",
+                            "dataType": {
+                                "type": 28
+                            }
+                        },
+                        {
+                            "title": "status",
+                            "field": "3",
+                            "dataType": {
+                                "type": 1
+                            }
+                        },
+                        {
+                            "title": "comments",
+                            "field": "4",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "shipped_date",
+                            "field": "5",
+                            "dataType": {
+                                "type": 28
+                            }
+                        },
+                        {
+                            "title": "shipper_id",
+                            "field": "6",
+                            "dataType": {
+                                "type": 2
+                            }
+                        },
+                        {
+                            "title": "customer_id",
+                            "field": "7",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "first_name",
+                            "field": "8",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "last_name",
+                            "field": "9",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "birth_date",
+                            "field": "10",
+                            "dataType": {
+                                "type": 28
+                            }
+                        },
+                        {
+                            "title": "phone",
+                            "field": "11",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "address",
+                            "field": "12",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "city",
+                            "field": "13",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "state",
+                            "field": "14",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "points",
+                            "field": "15",
+                            "dataType": {
+                                "type": 4
+                            }
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 10 records retrieved in 0.719ms"
                     },
                     "totalRowCount": 10,
                     "hasMoreRows": false,
                     "currentPage": 0,
                     "index": 0,
-                    "sql": "\n\n-- using alias in table name\nSELECT order_id, ord.customer_id, first_name, last_name\nFROM orders ord\nINNER JOIN customers cus\nON ord.customer_id = cus.customer_id;"
+                    "sql": "\n\n-- Compound Join Condition\n\n-- IMPLICIT JOIN\nSELECT * \nFROM orders o, customers c\nWHERE o.customer_id = c.customer_id;"
                 }
             ]
         }
