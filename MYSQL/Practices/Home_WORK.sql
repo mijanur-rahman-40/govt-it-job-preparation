@@ -112,6 +112,15 @@ JOIN clients c
      ON p.client_id = c.client_id
 JOIN payment_methods pm
      ON p.payment_method = pm.payment_method_id;
+     
+-- OUTER JOIN
+SELECT 
+  prd.product_id, 
+  prd.name, 
+  ord.quantity
+FROM products prd
+LEFT OUTER JOIN order_items ord
+ON prd.product_id = ord.product_id;    
 
 -- Using JOIN and Where together
 SELECT companies.permalink AS companies_permalink,
@@ -123,7 +132,22 @@ SELECT companies.permalink AS companies_permalink,
     ON companies.permalink = acquisitions.company_permalink
  WHERE acquisitions.company_permalink != '/company/1000memories'
     OR acquisitions.company_permalink IS NULL
- ORDER BY 1
+ ORDER BY 1;
+ 
+ -- OUTER JOIN BETWEEN MULTIPLE TABLE
+ SELECT 
+    o.order_id,
+    o.order_date,
+    c.first_name AS customer,
+    os.name AS status,
+    sh.name AS shipper
+FROM orders o 
+JOIN customers c  
+  ON o.customer_id = c.customer_id
+LEFT JOIN shippers sh 
+  ON o.shipper_id = sh.shipper_id
+JOIN order_statuses os 
+  ON o.status = os.order_status_id;
 
 
 
