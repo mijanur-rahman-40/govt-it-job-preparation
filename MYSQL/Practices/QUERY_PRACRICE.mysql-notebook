@@ -2,7 +2,7 @@
     "type": "MySQLNotebook",
     "version": "1.0",
     "caption": "DB Notebook",
-    "content": "-- Query performing on Mosh Course database : sql_hr, sql_inventory, sql_invooicing, sql_store\nUSE sql_store; \n-- Retrieving all data of customers  \n-- WHERE -> to filter the result\nSELECT * FROM customers;\n-- Another way \n-- SELECT * FROM `sql_store`.`customers` \n-- Retrieving specific colums of customers    \nSELECT points, customer_id, first_name FROM customers; \n-- Filtering cutomers:  \n-- KEYWORD order is important\nSELECT *  \nFROM customers\n-- WHERE customer_id = 1\n\n-- WHERE points > 3000\n\n-- Both uppercase and lowercase work perfectly\n-- WHERE state = 'VA'\n-- WHERE state = 'va'\n\n-- Search with date\n-- WHERE birth_date >= '1990-01-01'\n\n-- IN -> To specify multiple possible values for a column\n-- BETWEEN -> WHERE city IN ('Chicago','London')\n-- WHERE state NOT IN ('VA', 'FL', 'GA')\n\n-- NOT EQUAL -> <> or != \n-- WHERE points <> 796\n-- Or : Same Effect -> WHERE points != 1899\n\n-- LIKE -> Search for a pattern for both uppercase and lowercase\n-- % -> any number of characters, _ -> single character\n-- WHERE state LIKE 'f%'\n-- WHERE last_name LIKE 'b%'\n-- WHERE last_name LIKE 'brush%'\n\n-- matching 'b' at the beginning, middle or end \n-- WHERE last_name LIKE '%b%'\n\n-- all the customers last_name end by y\n-- WHERE last_name LIKE '%y'\n\n-- Match only two character end with y\n-- WHERE last_name LIKE '_y'\n\n-- Matchig the 6 character string last_name end with y\n-- WHERE last_name LIKE '_____y'\n\n-- Five character starting with b and ending with y\nWHERE last_name LIKE 'b____y'\n\n-- BETWEEN -> Between a certain range\n-- WHERE points >= 1000 AND points <= 3000\n-- same query can be wriiten in a clener way\n-- WHERE points BETWEEN 1000 AND 3000  \n-- WHERE birth_date BETWEEN '1990-01-01' AND '2000-01-01'  \n\n-- Multiple search condition in filtreing data\n-- WHERE birth_date >= '1990-01-01' AND points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 500 AND state = 'VA'\n\n-- AND operator execute first than OR\n-- Higer to Lower order : / -> * -> + -> - \n-- WHERE birth_date >= '1990-01-01' OR (points > 2500 AND state = 'VA')\n\n-- WHERE NOT (birth_date > '1990-01-01' OR points > 1000) \n-- Same query can be written as : \n-- WHERE birth_date <= '1990-01-01' AND points <= 1000\n\n-- The WHERE clause is not only used in SELECT statements, it is also used in UPDATE, DELETE, etc.\nORDER BY first_name;\n-- two columns and values\nSELECT 1, 2;   \n-- SELECT clause in details  \n-- SELECT last_name, first_name, points, points + 10\nSELECT  \n  last_name, \n  first_name, \n  points,  \n  points * 10 + 100\nfrom customers;\nSELECT \n  last_name,  \n  first_name, \n  points, \n  (points + 10) * 100,\n  -- adding specific alias. to use alias, use 'AS' keyword before the given new name\n  -- Aliases are used to give a table, or a column in a table, a temporary name.\n  (points + 10) * 100 AS discount_factor, \n  (points + 10) * 100 AS 'discount factor',  \n  (points + 10) * 100 AS \"discount factor\" \nfrom customers;\n-- Update column  \n-- SELECT state FROM customers; \nUPDATE customers SET city = 'Sylhet' WHERE (customer_id = 2); \n-- Retrieving all distinct state data of customers \nSELECT DISTINCT city FROM customers; \nSELECT COUNT(DISTINCT city) FROM customers; \nSELECT COUNT(city) FROM customers; \n-- REGEXP OPERATOR\nSELECT * \nFROM customers\n-- using normal form\n-- WHERE last_name LIKE '%field%';\n\n-- can be used by REGEXP keywoed\n-- WHERE last_name REGEXP 'field';\n \n-- ^ -> beginning, $ -> end, | -> logical or, [abcd] -> match any single character listed in the brackets, [a-z] -> any characters from a to z \n\n\n\n-- ^ -> beginning with 'field' string\n-- WHERE last_name REGEXP '^field';\n\n-- $ -> ending with 'field' string\n-- WHERE last_name REGEXP 'field$';\n\n-- Match the string 'field' or 'mac' in strart or end\n-- | -> vertical bar or Pipe or Multiple search Pattern\n-- WHERE last_name REGEXP 'field|mac';\n\n-- WHERE last_name REGEXP 'field|mac|rose';\n\n-- WHERE last_name REGEXP '^field|mac|rose';\n\n-- WHERE last_name REGEXP 'field$|mac|rose';\n\n-- WHERE last_name REGEXP 'field$|mac|^rose';\n\n-- WHERE last_name REGEXP 'field$|mac$|^rose';\n \n-- matching customer name : ge or ie or me\n-- Any of the character from 'gim' before 'e'\n-- WHERE last_name REGEXP '[gim]e';\n\n-- Any of the character from 'gim' after 'e'\n-- WHERE last_name REGEXP 'e[gim]';\n\n-- range of characters\nWHERE last_name REGEXP '[a-h]e';\n\n-- NULL VALUES  \n-- all the customer who do not have phone\nSELECT *\nFROM customers\n-- WHERE phone IS NULL;\nWHERE phone IS NOT NULL;\n-- THE ORDER BY CLASUE\nSELECT * \nFROM customers\n-- ORDER BY first_name;\n-- ORDER BY first_name DESC;\n\n-- Sort data by multiple columns\n-- ORDER BY state, first_name; \n-- ORDER BY first_name, state;\n-- ORDER BY first_name DESC;\nORDER BY state DESC, first_name ASC; \n\n-- Another way of sorting\nSELECT first_name, last_name\nFROM customers\nORDER BY birth_date; \n\n-- sort by data using column position that are selecting to show\nSELECT first_name, last_name\nFROM customers\n-- 1 -> first_name, 2 -> last_name \nORDER BY 1, 2;  \n\n-- order creating alaise\nSELECT first_name, last_name, 10 + 10 AS points\nFROM customers\nORDER BY points, first_name; \n\n-- LIMIT data, it always come into last\nSELECT *\nFROM customers \n-- LIMIT 3;\n-- LIMIT 300; \n-- for pagination or Offseting\n-- 6 -> skip first 6, 3 -> show 3 records\nLIMIT 6, 3\n-- INNER JOIN\nSELECT * \nFROM orders \n-- INNER is optiinal \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- specify columns\nSELECT order_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- Here customer_id is ambiguous, cause both orders and customers table have customer_id. So we have to specify which tables customer_id\nSELECT order_id, customer_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- \nSELECT order_id, orders.customer_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- using alias in table name for simply the code, when you define an alias, you have to use it everywhere\nSELECT order_id, ord.customer_id, first_name, last_name\nFROM orders ord\nINNER JOIN customers cus\nON ord.customer_id = cus.customer_id; \n-- Working with multiple database\n-- How to combine columns from tables accross multiple databases\n\n-- sql_inventory is out of this database\nSELECT *\nFROM order_items oi \nJOIN sql_inventory.products prd\nON oi.product_id = prd.product_id;\n\n-- This query can be written in different way. When we consider our selected table is sql_inventory\nUSE sql_inventory;\n\nSELECT *\nFROM sql_store.order_items oi \nJOIN products prd\nON oi.product_id = prd.product_id\n\n-- SELF JOIN\n-- Here Join will perform on same table or on that table\n-- One colum data(Like reports_to) refer to the main colum(primary key id) on that table\n-- In the sql_hr database employee reports to another employee(a manager)\n-- we have to use different aliases\n\nUSE sql_hr;\n\nSELECT *\nFROM employees e \nJOIN employees m\nON e.reports_to = m.employee_id;\n\nSELECT e.employee_id, e.first_name AS employee_name, m.first_name AS manger\nFROM employees e \nJOIN employees m\nON e.reports_to = m.employee_id\n\n\n-- JOINING MULTIPLE TABLES\n-- JOINING THREE TABLES\n\nUSE sql_store;\n\nSELECT *\nFROM orders o\nJOIN customers c \n  ON o.customer_id = c.customer_id\nJOIN order_statuses os\n  ON o.status = os.order_status_id;\n\n\nSELECT \n    o.order_id,\n    o.order_date,\n    c.first_name,\n    c.last_name,\n    os.name AS status\nFROM orders o\nJOIN customers c \n  ON o.customer_id = c.customer_id\nJOIN order_statuses os\n  ON o.status = os.order_status_id\n\n\n-- Compound Join Condition\n\n-- IMPLICIT JOIN\nSELECT * \nFROM orders o, customers c\nWHERE o.customer_id = c.customer_id;\n\n\n\n\n\n\n",
+    "content": "-- Query performing on Mosh Course database : sql_hr, sql_inventory, sql_invooicing, sql_store\nUSE sql_store; \n-- Retrieving all data of customers  \n-- WHERE -> to filter the result\nSELECT * FROM customers; \n-- Another way \n-- SELECT * FROM `sql_store`.`customers` \n-- Retrieving specific colums of customers    \nSELECT points, customer_id, first_name FROM customers; \n-- Filtering cutomers:   \n-- KEYWORD order is important\nSELECT *  \nFROM customers\n-- WHERE customer_id = 1\n\n-- WHERE points > 3000\n\n-- Both uppercase and lowercase work perfectly\n-- WHERE state = 'VA'\n-- WHERE state = 'va'\n\n-- Search with date\n-- WHERE birth_date >= '1990-01-01'\n\n-- IN -> To specify multiple possible values for a column\n-- BETWEEN -> WHERE city IN ('Chicago','London')\n-- WHERE state NOT IN ('VA', 'FL', 'GA')\n\n-- NOT EQUAL -> <> or != \n-- WHERE points <> 796\n-- Or : Same Effect -> WHERE points != 1899\n\n-- LIKE -> Search for a pattern for both uppercase and lowercase\n-- % -> any number of characters, _ -> single character\n-- WHERE state LIKE 'f%'\n-- WHERE last_name LIKE 'b%'\n-- WHERE last_name LIKE 'brush%' \n\n-- matching 'b' at the beginning, middle or end \n-- WHERE last_name LIKE '%b%'\n\n-- all the customers last_name end by y\n-- WHERE last_name LIKE '%y'\n\n-- Match only two character end with y\n-- WHERE last_name LIKE '_y'\n\n-- Matchig the 6 character string last_name end with y\n-- WHERE last_name LIKE '_____y'\n\n-- Five character starting with b and ending with y\nWHERE last_name LIKE 'b____y'\n\n-- BETWEEN -> Between a certain range\n-- WHERE points >= 1000 AND points <= 3000\n-- same query can be wriiten in a clener way\n-- WHERE points BETWEEN 1000 AND 3000  \n-- WHERE birth_date BETWEEN '1990-01-01' AND '2000-01-01'  \n\n-- Multiple search condition in filtreing data\n-- WHERE birth_date >= '1990-01-01' AND points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 500 AND state = 'VA'\n\n-- AND operator execute first than OR\n-- Higer to Lower order : / -> * -> + -> - \n-- WHERE birth_date >= '1990-01-01' OR (points > 2500 AND state = 'VA')\n\n-- WHERE NOT (birth_date > '1990-01-01' OR points > 1000) \n-- Same query can be written as : \n-- WHERE birth_date <= '1990-01-01' AND points <= 1000\n\n-- The WHERE clause is not only used in SELECT statements, it is also used in UPDATE, DELETE, etc.\nORDER BY first_name;\n-- two columns and values\nSELECT 1, 2;   \n-- SELECT clause in details  \n-- SELECT last_name, first_name, points, points + 10\nSELECT  \n  last_name, \n  first_name,  \n  points,  \n  points * 10 + 100\nfrom customers;\nSELECT \n  last_name,  \n  first_name, \n  points, \n  (points + 10) * 100,\n  -- adding specific alias. to use alias, use 'AS' keyword before the given new name\n  -- Aliases are used to give a table, or a column in a table, a temporary name.\n  (points + 10) * 100 AS discount_factor,  \n  (points + 10) * 100 AS 'discount factor',  \n  (points + 10) * 100 AS \"discount factor\"  \nfrom customers;\n-- Update column  \n-- SELECT state FROM customers;   \nUPDATE customers SET city = 'Sylhet' WHERE (customer_id = 2); \n-- Retrieving all distinct state data of customers \nSELECT DISTINCT city FROM customers;  \nSELECT COUNT(DISTINCT city) FROM customers;  \nSELECT COUNT(city) FROM customers; \n-- REGEXP OPERATOR\nSELECT * \nFROM customers\n-- using normal form\n-- WHERE last_name LIKE '%field%';\n\n-- can be used by REGEXP keywoed\n-- WHERE last_name REGEXP 'field';\n \n-- ^ -> beginning, $ -> end, | -> logical or, [abcd] -> match any single character listed in the brackets, [a-z] -> any characters from a to z \n\n\n-- ^ -> beginning with 'field' string\n-- WHERE last_name REGEXP '^field'; \n\n-- $ -> ending with 'field' string\n-- WHERE last_name REGEXP 'field$';\n\n-- Match the string 'field' or 'mac' in strart or end\n-- | -> vertical bar or Pipe or Multiple search Pattern\n-- WHERE last_name REGEXP 'field|mac';\n\n-- WHERE last_name REGEXP 'field|mac|rose';\n\n-- WHERE last_name REGEXP '^field|mac|rose';\n\n-- WHERE last_name REGEXP 'field$|mac|rose';\n\n-- WHERE last_name REGEXP 'field$|mac|^rose';\n\n-- WHERE last_name REGEXP 'field$|mac$|^rose';\n \n-- matching customer name : ge or ie or me\n-- Any of the character from 'gim' before 'e'\n-- WHERE last_name REGEXP '[gim]e';\n\n-- Any of the character from 'gim' after 'e'\n-- WHERE last_name REGEXP 'e[gim]';\n\n-- range of characters\nWHERE last_name REGEXP '[a-h]e'; \n\n-- NULL VALUES  \n-- all the customer who do not have phone\nSELECT *\nFROM customers \n-- WHERE phone IS NULL; \nWHERE phone IS NOT NULL;\n-- THE ORDER BY CLASUE\nSELECT * \nFROM customers \n-- ORDER BY first_name;\n-- ORDER BY first_name DESC;\n\n-- Sort data by multiple columns\n-- ORDER BY state, first_name; \n-- ORDER BY first_name, state;\n-- ORDER BY first_name DESC;\nORDER BY state DESC, first_name ASC; \n\n-- Another way of sorting\nSELECT first_name, last_name \nFROM customers\nORDER BY birth_date; \n\n-- sort by data using column position that are selecting to show\nSELECT first_name, last_name\nFROM customers\n-- 1 -> first_name, 2 -> last_name \nORDER BY 1, 2;  \n\n-- order creating alaise\nSELECT first_name, last_name, 10 + 10 AS points\nFROM customers\nORDER BY points, first_name; \n\n-- LIMIT data, it always come into last\nSELECT *\nFROM customers \n-- LIMIT 3;\n-- LIMIT 300;   \n-- for pagination or Offseting\n-- 6 -> skip first 6, 3 -> show 3 records\nLIMIT 6, 3\n-- INNER JOIN\nSELECT * \nFROM orders \n-- INNER is optiinal \nINNER JOIN customers \nON orders.customer_id = customers.customer_id;\n\n-- specify columns \nSELECT order_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- Here customer_id is ambiguous, cause both orders and customers table have customer_id. So we have to specify which tables customer_id\nSELECT order_id, customer_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- \nSELECT order_id, orders.customer_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- using alias in table name for simply the code, when you define an alias, you have to use it everywhere\nSELECT order_id, ord.customer_id, first_name, last_name\nFROM orders ord\nINNER JOIN customers cus\nON ord.customer_id = cus.customer_id; \n-- Working with multiple database\n-- How to combine columns from tables accross multiple databases\n\n-- sql_inventory is out of this database\nSELECT * \nFROM order_items oi \nJOIN sql_inventory.products prd\nON oi.product_id = prd.product_id;\n\n-- This query can be written in different way. When we consider our selected table is sql_inventory\nUSE sql_inventory; \n\nSELECT *\nFROM sql_store.order_items oi \nJOIN products prd\nON oi.product_id = prd.product_id\n\n-- SELF JOIN\n-- Here Join will perform on same table or on that table\n-- One colum data(Like reports_to) refer to the main colum(primary key id) on that table\n-- In the sql_hr database employee reports to another employee(a manager)\n-- we have to use different aliases\n\nUSE sql_hr;  \n\nSELECT *\nFROM employees e \nJOIN employees m\nON e.reports_to = m.employee_id;\n\nSELECT e.employee_id, e.first_name AS employee_name, m.first_name AS manger\nFROM employees e \nJOIN employees m\nON e.reports_to = m.employee_id\n\n\n-- JOINING MULTIPLE TABLES\n-- JOINING THREE TABLES\n\nUSE sql_store;\n\nSELECT * \nFROM orders o\nJOIN customers c \n  ON o.customer_id = c.customer_id\nJOIN order_statuses os\n  ON o.status = os.order_status_id;\n\n\nSELECT \n    o.order_id,\n    o.order_date,\n    c.first_name,\n    c.last_name,\n    os.name AS status\nFROM orders o\nJOIN customers c \n  ON o.customer_id = c.customer_id\nJOIN order_statuses os\n  ON o.status = os.order_status_id \n-- Compound Join Condition, combine two primary key as composite key\nSELECT *\nFROM order_items oi \nJOIN order_item_notes oin \n   ON oi.order_id = oin.order_id\n   AND oi.product_id = oin.product_id;\n\n\nSELECT *  \nFROM orders o\nJOIN customers c \nON o.customer_id = c.customer_id;\n-- Above code can be written using IMPLICIT JOIN(Here basically query perform without JOIN keyword)\nSELECT * \nFROM orders o, customers c\nWHERE o.customer_id = c.customer_id;\n\n-- OUTER JOIN\n-- INNER and OUTER JOIN are vice versa\n-- Basically difference in FROM table , JOIN table\n\nSELECT *  \nFROM customers c  \nJOIN orders o\nON o.customer_id = c.customer_id;\n\n\nSELECT \n    c.customer_id, \n    c.first_name,\n     o.order_id\nFROM customers c  \nJOIN orders o\nON o.customer_id = c.customer_id\nORDER BY c.customer_id\n\n\n\n\n",
     "options": {
         "tabSize": 4,
         "insertSpaces": true,
@@ -15,11 +15,11 @@
             {
                 "inSelectionMode": true,
                 "selectionStart": {
-                    "lineNumber": 285,
-                    "column": 37
+                    "lineNumber": 311,
+                    "column": 23
                 },
                 "position": {
-                    "lineNumber": 283,
+                    "lineNumber": 304,
                     "column": 1
                 }
             }
@@ -27,10 +27,10 @@
         "viewState": {
             "scrollLeft": 0,
             "firstPosition": {
-                "lineNumber": 283,
+                "lineNumber": 295,
                 "column": 1
             },
-            "firstPositionDeltaTop": -19
+            "firstPositionDeltaTop": -7
         },
         "contributionsState": {
             "editor.contrib.folding": {},
@@ -80,8 +80,8 @@
                         {
                             "type": 4,
                             "index": 0,
-                            "resultId": "51f73d40-644d-49fc-86f8-b5a44dd5e2c7",
-                            "content": "OK, 0 records retrieved in 0.8ms"
+                            "resultId": "85b12b88-276c-4fa2-f2a8-a37861011f18",
+                            "content": "OK, 0 records retrieved in 0.763ms"
                         }
                     ]
                 },
@@ -117,7 +117,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "aa2217a1-0499-4f2c-b282-d3b6536a05c3"
+                        "7193d6d5-20c3-489f-9f8c-5a2c57e5de73"
                     ]
                 },
                 "currentHeight": 36,
@@ -135,7 +135,7 @@
                         "delimiter": ";",
                         "span": {
                             "start": 95,
-                            "length": 58
+                            "length": 59
                         },
                         "contentStart": 95,
                         "state": 1
@@ -144,8 +144,8 @@
             },
             "data": [
                 {
-                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
-                    "resultId": "aa2217a1-0499-4f2c-b282-d3b6536a05c3",
+                    "tabId": "8d348690-e114-4cf0-d125-c1eecd4d7f18",
+                    "resultId": "7193d6d5-20c3-489f-9f8c-5a2c57e5de73",
                     "rows": [
                         {
                             "0": 1,
@@ -342,7 +342,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "8cba0995-131d-4e59-baec-5ec0c805ae5b"
+                        "b76712dd-5e34-4e73-b991-b6754ae029d7"
                     ]
                 },
                 "currentHeight": 36,
@@ -369,8 +369,8 @@
             },
             "data": [
                 {
-                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
-                    "resultId": "8cba0995-131d-4e59-baec-5ec0c805ae5b",
+                    "tabId": "8d348690-e114-4cf0-d125-c1eecd4d7f18",
+                    "resultId": "b76712dd-5e34-4e73-b991-b6754ae029d7",
                     "rows": [
                         {
                             "0": 2273,
@@ -465,7 +465,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "01ccba1c-5fd6-4bcf-8768-ff5cac13327a"
+                        "6490fba4-1b6d-4efe-8164-fd7da4760c02"
                     ]
                 },
                 "currentHeight": 36,
@@ -474,35 +474,35 @@
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 1998
+                            "length": 2000
                         },
-                        "contentStart": 55,
+                        "contentStart": 56,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 1998,
+                            "start": 2000,
                             "length": 39
                         },
-                        "contentStart": 2025,
+                        "contentStart": 2027,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 2037,
+                            "start": 2039,
                             "length": 71
                         },
-                        "contentStart": 2037,
+                        "contentStart": 2039,
                         "state": 1
                     }
                 ]
             },
             "data": [
                 {
-                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
-                    "resultId": "01ccba1c-5fd6-4bcf-8768-ff5cac13327a",
+                    "tabId": "8d348690-e114-4cf0-d125-c1eecd4d7f18",
+                    "resultId": "6490fba4-1b6d-4efe-8164-fd7da4760c02",
                     "rows": [
                         {
                             "0": 3,
@@ -600,7 +600,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "22caa249-09ad-4f27-9130-76505c42b33d"
+                        "5f819010-2570-4a94-c713-084d085392c6"
                     ]
                 },
                 "currentHeight": 36,
@@ -627,8 +627,8 @@
             },
             "data": [
                 {
-                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
-                    "resultId": "22caa249-09ad-4f27-9130-76505c42b33d",
+                    "tabId": "8d348690-e114-4cf0-d125-c1eecd4d7f18",
+                    "resultId": "5f819010-2570-4a94-c713-084d085392c6",
                     "rows": [
                         {
                             "0": 1,
@@ -670,7 +670,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "060cb1bc-3225-46b0-8d5e-77c17cd10b83"
+                        "be34b7b5-f72a-4fbc-8ce3-f07b33bec194"
                     ]
                 },
                 "currentHeight": 40,
@@ -679,7 +679,7 @@
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 168
+                            "length": 169
                         },
                         "contentStart": 83,
                         "state": 0
@@ -688,8 +688,8 @@
             },
             "data": [
                 {
-                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
-                    "resultId": "060cb1bc-3225-46b0-8d5e-77c17cd10b83",
+                    "tabId": "8d348690-e114-4cf0-d125-c1eecd4d7f18",
+                    "resultId": "be34b7b5-f72a-4fbc-8ce3-f07b33bec194",
                     "rows": [
                         {
                             "0": "MacCaffrey",
@@ -801,7 +801,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "e76637df-3095-46b9-ae31-bcc718a238b2"
+                        "2fcda8fb-c24e-480c-e8ba-882630422d5f"
                     ]
                 },
                 "currentHeight": 36.9375,
@@ -810,7 +810,7 @@
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 386
+                            "length": 388
                         },
                         "contentStart": 0,
                         "state": 0
@@ -819,8 +819,8 @@
             },
             "data": [
                 {
-                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
-                    "resultId": "e76637df-3095-46b9-ae31-bcc718a238b2",
+                    "tabId": "8d348690-e114-4cf0-d125-c1eecd4d7f18",
+                    "resultId": "2fcda8fb-c24e-480c-e8ba-882630422d5f",
                     "rows": [
                         {
                             "0": "MacCaffrey",
@@ -997,18 +997,18 @@
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 113
+                            "length": 115
                         },
-                        "contentStart": 52,
+                        "contentStart": 54,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 113,
+                            "start": 115,
                             "length": 1
                         },
-                        "contentStart": 112,
+                        "contentStart": 114,
                         "state": 3
                     }
                 ]
@@ -1023,7 +1023,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "f132c25e-a764-4498-e7b2-2a33e8f1284d"
+                        "c5bfac4e-cd6a-4a07-df9e-32d4d3d3cb02"
                     ]
                 },
                 "currentHeight": 36,
@@ -1041,35 +1041,35 @@
                         "delimiter": ";",
                         "span": {
                             "start": 88,
-                            "length": 45
+                            "length": 46
                         },
-                        "contentStart": 90,
+                        "contentStart": 91,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 133,
-                            "length": 36
+                            "start": 134,
+                            "length": 37
                         },
-                        "contentStart": 135,
+                        "contentStart": 137,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 169,
+                            "start": 171,
                             "length": 1
                         },
-                        "contentStart": 168,
+                        "contentStart": 170,
                         "state": 3
                     }
                 ]
             },
             "data": [
                 {
-                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
-                    "resultId": "f132c25e-a764-4498-e7b2-2a33e8f1284d",
+                    "tabId": "8d348690-e114-4cf0-d125-c1eecd4d7f18",
+                    "resultId": "c5bfac4e-cd6a-4a07-df9e-32d4d3d3cb02",
                     "rows": [
                         {
                             "0": 10
@@ -1098,12 +1098,12 @@
         {
             "state": {
                 "start": 103,
-                "end": 145,
+                "end": 144,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "028ff1a3-a68e-412e-a32e-af17e3cd2cf6"
+                        "8eece20f-3ae4-45a0-f440-122dbea908c5"
                     ]
                 },
                 "currentHeight": 36,
@@ -1121,7 +1121,7 @@
                         "delimiter": ";",
                         "span": {
                             "start": 1111,
-                            "length": 2
+                            "length": 3
                         },
                         "contentStart": 1110,
                         "state": 3
@@ -1130,8 +1130,8 @@
             },
             "data": [
                 {
-                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
-                    "resultId": "028ff1a3-a68e-412e-a32e-af17e3cd2cf6",
+                    "tabId": "8d348690-e114-4cf0-d125-c1eecd4d7f18",
+                    "resultId": "8eece20f-3ae4-45a0-f440-122dbea908c5",
                     "rows": [
                         {
                             "0": 3,
@@ -1245,13 +1245,13 @@
         },
         {
             "state": {
-                "start": 146,
-                "end": 151,
+                "start": 145,
+                "end": 150,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "02633c56-3b68-4706-d41a-3021c4941174"
+                        "15ef4ec3-6700-4e2e-b8e3-ac3c5aaff008"
                     ]
                 },
                 "currentHeight": 36,
@@ -1260,7 +1260,7 @@
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 131
+                            "length": 133
                         },
                         "contentStart": 59,
                         "state": 0
@@ -1269,8 +1269,8 @@
             },
             "data": [
                 {
-                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
-                    "resultId": "02633c56-3b68-4706-d41a-3021c4941174",
+                    "tabId": "8d348690-e114-4cf0-d125-c1eecd4d7f18",
+                    "resultId": "15ef4ec3-6700-4e2e-b8e3-ac3c5aaff008",
                     "rows": [
                         {
                             "0": 1,
@@ -1450,8 +1450,8 @@
         },
         {
             "state": {
-                "start": 152,
-                "end": 152,
+                "start": 151,
+                "end": 151,
                 "language": "mysql",
                 "currentHeight": 180,
                 "statements": [
@@ -1470,13 +1470,13 @@
         },
         {
             "state": {
-                "start": 153,
-                "end": 179,
+                "start": 152,
+                "end": 178,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "bc3ead54-4be7-4961-b0f4-798874a038c2"
+                        "94dbb6bc-40a1-4ab6-94ca-629d809667c4"
                     ]
                 },
                 "currentHeight": 180,
@@ -1485,7 +1485,7 @@
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 240
+                            "length": 241
                         },
                         "contentStart": 0,
                         "state": 0
@@ -1493,45 +1493,45 @@
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 240,
-                            "length": 93
+                            "start": 241,
+                            "length": 94
                         },
-                        "contentStart": 269,
+                        "contentStart": 270,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 333,
+                            "start": 335,
                             "length": 162
                         },
-                        "contentStart": 401,
+                        "contentStart": 403,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 495,
+                            "start": 497,
                             "length": 120
                         },
-                        "contentStart": 524,
+                        "contentStart": 526,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 615,
+                            "start": 617,
                             "length": 2
                         },
-                        "contentStart": 614,
+                        "contentStart": 616,
                         "state": 3
                     }
                 ]
             },
             "data": [
                 {
-                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
-                    "resultId": "bc3ead54-4be7-4961-b0f4-798874a038c2",
+                    "tabId": "8d348690-e114-4cf0-d125-c1eecd4d7f18",
+                    "resultId": "94dbb6bc-40a1-4ab6-94ca-629d809667c4",
                     "rows": [
                         {
                             "0": "Ambur",
@@ -1620,13 +1620,13 @@
         },
         {
             "state": {
-                "start": 180,
-                "end": 187,
+                "start": 179,
+                "end": 186,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "88256276-8715-40ed-d82b-1ba22fcec655"
+                        "e85d2a5b-c7ba-46bb-b4a9-a4105fc7394f"
                     ]
                 },
                 "currentHeight": 36,
@@ -1635,7 +1635,7 @@
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 175
+                            "length": 177
                         },
                         "contentStart": 40,
                         "state": 3
@@ -1644,8 +1644,8 @@
             },
             "data": [
                 {
-                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
-                    "resultId": "88256276-8715-40ed-d82b-1ba22fcec655",
+                    "tabId": "8d348690-e114-4cf0-d125-c1eecd4d7f18",
+                    "resultId": "e85d2a5b-c7ba-46bb-b4a9-a4105fc7394f",
                     "rows": [
                         {
                             "0": 7,
@@ -1759,25 +1759,22 @@
         },
         {
             "state": {
-                "start": 188,
-                "end": 217,
+                "start": 187,
+                "end": 216,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "b544bfd8-bf59-4ad0-dedf-6fc0d3db47cc",
-                        "65cc36c3-4833-4994-fac3-fe6bbcd68fb5",
-                        "3344c578-0788-4c32-c884-90ffbc2d2dd0",
-                        "a8a305c0-3916-470c-9690-2545bf603b19"
+                        "2cf26b82-c479-4857-caaa-5b52154d8aef"
                     ]
                 },
-                "currentHeight": 36,
+                "currentHeight": 322,
                 "statements": [
                     {
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 126
+                            "length": 127
                         },
                         "contentStart": 14,
                         "state": 0
@@ -1785,54 +1782,54 @@
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 126,
-                            "length": 140
+                            "start": 127,
+                            "length": 141
                         },
-                        "contentStart": 147,
+                        "contentStart": 149,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 266,
+                            "start": 268,
                             "length": 271
                         },
-                        "contentStart": 405,
+                        "contentStart": 407,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 537,
+                            "start": 539,
                             "length": 145
                         },
-                        "contentStart": 543,
+                        "contentStart": 545,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 682,
+                            "start": 684,
                             "length": 242
                         },
-                        "contentStart": 790,
+                        "contentStart": 792,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 924,
+                            "start": 926,
                             "length": 1
                         },
-                        "contentStart": 923,
+                        "contentStart": 925,
                         "state": 3
                     }
                 ]
             },
             "data": [
                 {
-                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
-                    "resultId": "b544bfd8-bf59-4ad0-dedf-6fc0d3db47cc",
+                    "tabId": "8d348690-e114-4cf0-d125-c1eecd4d7f18",
+                    "resultId": "2cf26b82-c479-4857-caaa-5b52154d8aef",
                     "rows": [
                         {
                             "0": 1,
@@ -2130,321 +2127,26 @@
                         }
                     ],
                     "executionInfo": {
-                        "text": "OK, 10 records retrieved in 0.822ms"
+                        "text": "OK, 10 records retrieved in 1.01ms"
                     },
                     "totalRowCount": 10,
                     "hasMoreRows": false,
                     "currentPage": 0,
                     "index": 0,
-                    "sql": "-- INNER JOIN\nSELECT * \nFROM orders \n-- INNER is optiinal \nINNER JOIN customers\nON orders.customer_id = customers.customer_id"
-                },
-                {
-                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
-                    "resultId": "65cc36c3-4833-4994-fac3-fe6bbcd68fb5",
-                    "rows": [
-                        {
-                            "0": 4,
-                            "1": "Ines",
-                            "2": "Brushfield"
-                        },
-                        {
-                            "0": 7,
-                            "1": "Ines",
-                            "2": "Brushfield"
-                        },
-                        {
-                            "0": 5,
-                            "1": "Clemmie",
-                            "2": "Betchley"
-                        },
-                        {
-                            "0": 8,
-                            "1": "Clemmie",
-                            "2": "Betchley"
-                        },
-                        {
-                            "0": 1,
-                            "1": "Elka",
-                            "2": "Twiddell"
-                        },
-                        {
-                            "0": 10,
-                            "1": "Elka",
-                            "2": "Twiddell"
-                        },
-                        {
-                            "0": 2,
-                            "1": "Ilene",
-                            "2": "Dowson"
-                        },
-                        {
-                            "0": 3,
-                            "1": "Thacher",
-                            "2": "By"
-                        },
-                        {
-                            "0": 6,
-                            "1": "Levy",
-                            "2": "Mynett"
-                        },
-                        {
-                            "0": 9,
-                            "1": "Levy",
-                            "2": "Mynett"
-                        }
-                    ],
-                    "columns": [
-                        {
-                            "title": "order_id",
-                            "field": "0",
-                            "dataType": {
-                                "type": 4
-                            }
-                        },
-                        {
-                            "title": "first_name",
-                            "field": "1",
-                            "dataType": {
-                                "type": 17
-                            }
-                        },
-                        {
-                            "title": "last_name",
-                            "field": "2",
-                            "dataType": {
-                                "type": 17
-                            }
-                        }
-                    ],
-                    "executionInfo": {
-                        "text": "OK, 10 records retrieved in 0.719ms"
-                    },
-                    "totalRowCount": 10,
-                    "hasMoreRows": false,
-                    "currentPage": 0,
-                    "index": 1,
-                    "sql": "\n\n-- specify columns\nSELECT order_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id"
-                },
-                {
-                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
-                    "resultId": "3344c578-0788-4c32-c884-90ffbc2d2dd0",
-                    "rows": [
-                        {
-                            "0": 4,
-                            "1": 2,
-                            "2": "Ines",
-                            "3": "Brushfield"
-                        },
-                        {
-                            "0": 7,
-                            "1": 2,
-                            "2": "Ines",
-                            "3": "Brushfield"
-                        },
-                        {
-                            "0": 5,
-                            "1": 5,
-                            "2": "Clemmie",
-                            "3": "Betchley"
-                        },
-                        {
-                            "0": 8,
-                            "1": 5,
-                            "2": "Clemmie",
-                            "3": "Betchley"
-                        },
-                        {
-                            "0": 1,
-                            "1": 6,
-                            "2": "Elka",
-                            "3": "Twiddell"
-                        },
-                        {
-                            "0": 10,
-                            "1": 6,
-                            "2": "Elka",
-                            "3": "Twiddell"
-                        },
-                        {
-                            "0": 2,
-                            "1": 7,
-                            "2": "Ilene",
-                            "3": "Dowson"
-                        },
-                        {
-                            "0": 3,
-                            "1": 8,
-                            "2": "Thacher",
-                            "3": "By"
-                        },
-                        {
-                            "0": 6,
-                            "1": 10,
-                            "2": "Levy",
-                            "3": "Mynett"
-                        },
-                        {
-                            "0": 9,
-                            "1": 10,
-                            "2": "Levy",
-                            "3": "Mynett"
-                        }
-                    ],
-                    "columns": [
-                        {
-                            "title": "order_id",
-                            "field": "0",
-                            "dataType": {
-                                "type": 4
-                            }
-                        },
-                        {
-                            "title": "customer_id",
-                            "field": "1",
-                            "dataType": {
-                                "type": 4
-                            }
-                        },
-                        {
-                            "title": "first_name",
-                            "field": "2",
-                            "dataType": {
-                                "type": 17
-                            }
-                        },
-                        {
-                            "title": "last_name",
-                            "field": "3",
-                            "dataType": {
-                                "type": 17
-                            }
-                        }
-                    ],
-                    "executionInfo": {
-                        "text": "OK, 10 records retrieved in 0.599ms"
-                    },
-                    "totalRowCount": 10,
-                    "hasMoreRows": false,
-                    "currentPage": 0,
-                    "index": 3,
-                    "sql": "\n\n-- \nSELECT order_id, orders.customer_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id"
-                },
-                {
-                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
-                    "resultId": "a8a305c0-3916-470c-9690-2545bf603b19",
-                    "rows": [
-                        {
-                            "0": 4,
-                            "1": 2,
-                            "2": "Ines",
-                            "3": "Brushfield"
-                        },
-                        {
-                            "0": 7,
-                            "1": 2,
-                            "2": "Ines",
-                            "3": "Brushfield"
-                        },
-                        {
-                            "0": 5,
-                            "1": 5,
-                            "2": "Clemmie",
-                            "3": "Betchley"
-                        },
-                        {
-                            "0": 8,
-                            "1": 5,
-                            "2": "Clemmie",
-                            "3": "Betchley"
-                        },
-                        {
-                            "0": 1,
-                            "1": 6,
-                            "2": "Elka",
-                            "3": "Twiddell"
-                        },
-                        {
-                            "0": 10,
-                            "1": 6,
-                            "2": "Elka",
-                            "3": "Twiddell"
-                        },
-                        {
-                            "0": 2,
-                            "1": 7,
-                            "2": "Ilene",
-                            "3": "Dowson"
-                        },
-                        {
-                            "0": 3,
-                            "1": 8,
-                            "2": "Thacher",
-                            "3": "By"
-                        },
-                        {
-                            "0": 6,
-                            "1": 10,
-                            "2": "Levy",
-                            "3": "Mynett"
-                        },
-                        {
-                            "0": 9,
-                            "1": 10,
-                            "2": "Levy",
-                            "3": "Mynett"
-                        }
-                    ],
-                    "columns": [
-                        {
-                            "title": "order_id",
-                            "field": "0",
-                            "dataType": {
-                                "type": 4
-                            }
-                        },
-                        {
-                            "title": "customer_id",
-                            "field": "1",
-                            "dataType": {
-                                "type": 4
-                            }
-                        },
-                        {
-                            "title": "first_name",
-                            "field": "2",
-                            "dataType": {
-                                "type": 17
-                            }
-                        },
-                        {
-                            "title": "last_name",
-                            "field": "3",
-                            "dataType": {
-                                "type": 17
-                            }
-                        }
-                    ],
-                    "executionInfo": {
-                        "text": "OK, 10 records retrieved in 0.655ms"
-                    },
-                    "totalRowCount": 10,
-                    "hasMoreRows": false,
-                    "currentPage": 0,
-                    "index": 4,
-                    "sql": "\n\n-- using alias in table name for simply the code\nSELECT order_id, ord.customer_id, first_name, last_name\nFROM orders ord\nINNER JOIN customers cus\nON ord.customer_id = cus.customer_id"
+                    "sql": "-- INNER JOIN\nSELECT * \nFROM orders \n-- INNER is optiinal \nINNER JOIN customers \nON orders.customer_id = customers.customer_id;"
                 }
             ]
         },
         {
             "state": {
-                "start": 218,
-                "end": 234,
+                "start": 217,
+                "end": 233,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "2226dd3a-856e-4752-d3f8-2c7f49196d56",
-                        "a7cbb1ea-7b55-4003-bb35-8ab7f5ad1997"
+                        "bcda8887-726f-41e4-a954-fd39bc541061",
+                        "dbdb1d60-3f1d-4dd2-ea4a-32ee3281cd34"
                     ]
                 },
                 "currentHeight": 36,
@@ -2453,7 +2155,7 @@
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 237
+                            "length": 238
                         },
                         "contentStart": 141,
                         "state": 0
@@ -2461,27 +2163,27 @@
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 237,
+                            "start": 238,
                             "length": 120
                         },
-                        "contentStart": 339,
+                        "contentStart": 340,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 357,
-                            "length": 94
+                            "start": 358,
+                            "length": 95
                         },
-                        "contentStart": 359,
+                        "contentStart": 361,
                         "state": 3
                     }
                 ]
             },
             "data": [
                 {
-                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
-                    "resultId": "2226dd3a-856e-4752-d3f8-2c7f49196d56",
+                    "tabId": "8d348690-e114-4cf0-d125-c1eecd4d7f18",
+                    "resultId": "bcda8887-726f-41e4-a954-fd39bc541061",
                     "rows": [
                         {
                             "0": 2,
@@ -2732,8 +2434,8 @@
                     "sql": "\n\nSELECT *\nFROM sql_store.order_items oi \nJOIN products prd\nON oi.product_id = prd.product_id\n"
                 },
                 {
-                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
-                    "resultId": "a7cbb1ea-7b55-4003-bb35-8ab7f5ad1997",
+                    "tabId": "8d348690-e114-4cf0-d125-c1eecd4d7f18",
+                    "resultId": "dbdb1d60-3f1d-4dd2-ea4a-32ee3281cd34",
                     "rows": [],
                     "executionInfo": {
                         "text": "OK, 0 records retrieved in 0.4ms",
@@ -2749,13 +2451,13 @@
         },
         {
             "state": {
-                "start": 235,
-                "end": 253,
+                "start": 234,
+                "end": 252,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "d390ed4c-8eb6-431f-b130-a397fc187395"
+                        "58270a17-0d66-4307-83dc-ba742f45e204"
                     ]
                 },
                 "currentHeight": 36,
@@ -2773,26 +2475,26 @@
                         "delimiter": ";",
                         "span": {
                             "start": 281,
-                            "length": 78
+                            "length": 80
                         },
-                        "contentStart": 283,
+                        "contentStart": 285,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 359,
+                            "start": 361,
                             "length": 146
                         },
-                        "contentStart": 361,
+                        "contentStart": 363,
                         "state": 3
                     }
                 ]
             },
             "data": [
                 {
-                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
-                    "resultId": "d390ed4c-8eb6-431f-b130-a397fc187395",
+                    "tabId": "8d348690-e114-4cf0-d125-c1eecd4d7f18",
+                    "resultId": "58270a17-0d66-4307-83dc-ba742f45e204",
                     "rows": [
                         {
                             "0": 33391,
@@ -2926,19 +2628,16 @@
         },
         {
             "state": {
-                "start": 254,
-                "end": 277,
+                "start": 253,
+                "end": 276,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "a7b0386d-2109-41bd-bf22-06e743db1031",
-                        "789aabdf-1b02-4f80-8075-16346c3f5d81",
-                        "491e7b34-b411-4d48-e4d9-a3d960dcd086"
+                        "1e7ed0d5-b971-4c19-d4de-35557035a4f8"
                     ]
                 },
                 "currentHeight": 36,
-                "currentSet": 2,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -2953,7 +2652,7 @@
                         "delimiter": ";",
                         "span": {
                             "start": 66,
-                            "length": 136
+                            "length": 137
                         },
                         "contentStart": 68,
                         "state": 0
@@ -2961,360 +2660,18 @@
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 202,
-                            "length": 226
+                            "start": 203,
+                            "length": 227
                         },
-                        "contentStart": 205,
+                        "contentStart": 206,
                         "state": 3
                     }
                 ]
             },
             "data": [
                 {
-                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
-                    "resultId": "a7b0386d-2109-41bd-bf22-06e743db1031",
-                    "rows": [
-                        {
-                            "0": 8,
-                            "1": 5,
-                            "2": "2018-06-08",
-                            "3": 1,
-                            "4": "Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis.",
-                            "5": null,
-                            "6": null,
-                            "7": 5,
-                            "8": "Clemmie",
-                            "9": "Betchley",
-                            "10": "1973-11-07",
-                            "11": null,
-                            "12": "5 Spohn Circle",
-                            "13": "Arlington",
-                            "14": "TX",
-                            "15": 3675,
-                            "16": 1,
-                            "17": "Processed"
-                        },
-                        {
-                            "0": 6,
-                            "1": 10,
-                            "2": "2018-11-18",
-                            "3": 1,
-                            "4": "Aliquam erat volutpat. In congue.",
-                            "5": null,
-                            "6": null,
-                            "7": 10,
-                            "8": "Levy",
-                            "9": "Mynett",
-                            "10": "1969-10-13",
-                            "11": "404-246-3370",
-                            "12": "68 Lawn Avenue",
-                            "13": "Atlanta",
-                            "14": "GA",
-                            "15": 796,
-                            "16": 1,
-                            "17": "Processed"
-                        },
-                        {
-                            "0": 4,
-                            "1": 2,
-                            "2": "2017-01-22",
-                            "3": 1,
-                            "4": null,
-                            "5": null,
-                            "6": null,
-                            "7": 2,
-                            "8": "Ines",
-                            "9": "Brushfield",
-                            "10": "1986-04-13",
-                            "11": "804-427-9456",
-                            "12": "14187 Commercial Trail",
-                            "13": "Sylhet",
-                            "14": "VA",
-                            "15": 947,
-                            "16": 1,
-                            "17": "Processed"
-                        },
-                        {
-                            "0": 3,
-                            "1": 8,
-                            "2": "2017-12-01",
-                            "3": 1,
-                            "4": null,
-                            "5": null,
-                            "6": null,
-                            "7": 8,
-                            "8": "Thacher",
-                            "9": "By",
-                            "10": "1993-07-17",
-                            "11": "941-527-3977",
-                            "12": "538 Mosinee Center",
-                            "13": "Sarasota",
-                            "14": "FL",
-                            "15": 205,
-                            "16": 1,
-                            "17": "Processed"
-                        },
-                        {
-                            "0": 1,
-                            "1": 6,
-                            "2": "2019-01-30",
-                            "3": 1,
-                            "4": null,
-                            "5": null,
-                            "6": null,
-                            "7": 6,
-                            "8": "Elka",
-                            "9": "Twiddell",
-                            "10": "1991-09-04",
-                            "11": "312-480-8498",
-                            "12": "7 Manley Drive",
-                            "13": "Dhaka",
-                            "14": "IL",
-                            "15": 3073,
-                            "16": 1,
-                            "17": "Processed"
-                        },
-                        {
-                            "0": 10,
-                            "1": 6,
-                            "2": "2018-04-22",
-                            "3": 2,
-                            "4": null,
-                            "5": "2018-04-23",
-                            "6": 2,
-                            "7": 6,
-                            "8": "Elka",
-                            "9": "Twiddell",
-                            "10": "1991-09-04",
-                            "11": "312-480-8498",
-                            "12": "7 Manley Drive",
-                            "13": "Dhaka",
-                            "14": "IL",
-                            "15": 3073,
-                            "16": 2,
-                            "17": "Shipped"
-                        },
-                        {
-                            "0": 9,
-                            "1": 10,
-                            "2": "2017-07-05",
-                            "3": 2,
-                            "4": "Nulla mollis molestie lorem. Quisque ut erat.",
-                            "5": "2017-07-06",
-                            "6": 1,
-                            "7": 10,
-                            "8": "Levy",
-                            "9": "Mynett",
-                            "10": "1969-10-13",
-                            "11": "404-246-3370",
-                            "12": "68 Lawn Avenue",
-                            "13": "Atlanta",
-                            "14": "GA",
-                            "15": 796,
-                            "16": 2,
-                            "17": "Shipped"
-                        },
-                        {
-                            "0": 7,
-                            "1": 2,
-                            "2": "2018-09-22",
-                            "3": 2,
-                            "4": null,
-                            "5": "2018-09-23",
-                            "6": 4,
-                            "7": 2,
-                            "8": "Ines",
-                            "9": "Brushfield",
-                            "10": "1986-04-13",
-                            "11": "804-427-9456",
-                            "12": "14187 Commercial Trail",
-                            "13": "Sylhet",
-                            "14": "VA",
-                            "15": 947,
-                            "16": 2,
-                            "17": "Shipped"
-                        },
-                        {
-                            "0": 5,
-                            "1": 5,
-                            "2": "2017-08-25",
-                            "3": 2,
-                            "4": "",
-                            "5": "2017-08-26",
-                            "6": 3,
-                            "7": 5,
-                            "8": "Clemmie",
-                            "9": "Betchley",
-                            "10": "1973-11-07",
-                            "11": null,
-                            "12": "5 Spohn Circle",
-                            "13": "Arlington",
-                            "14": "TX",
-                            "15": 3675,
-                            "16": 2,
-                            "17": "Shipped"
-                        },
-                        {
-                            "0": 2,
-                            "1": 7,
-                            "2": "2018-08-02",
-                            "3": 2,
-                            "4": null,
-                            "5": "2018-08-03",
-                            "6": 4,
-                            "7": 7,
-                            "8": "Ilene",
-                            "9": "Dowson",
-                            "10": "1964-08-30",
-                            "11": "615-641-4759",
-                            "12": "50 Lillian Crossing",
-                            "13": "Nashville",
-                            "14": "TN",
-                            "15": 1672,
-                            "16": 2,
-                            "17": "Shipped"
-                        }
-                    ],
-                    "columns": [
-                        {
-                            "title": "order_id",
-                            "field": "0",
-                            "dataType": {
-                                "type": 4
-                            }
-                        },
-                        {
-                            "title": "customer_id",
-                            "field": "1",
-                            "dataType": {
-                                "type": 4
-                            }
-                        },
-                        {
-                            "title": "order_date",
-                            "field": "2",
-                            "dataType": {
-                                "type": 28
-                            }
-                        },
-                        {
-                            "title": "status",
-                            "field": "3",
-                            "dataType": {
-                                "type": 1
-                            }
-                        },
-                        {
-                            "title": "comments",
-                            "field": "4",
-                            "dataType": {
-                                "type": 17
-                            }
-                        },
-                        {
-                            "title": "shipped_date",
-                            "field": "5",
-                            "dataType": {
-                                "type": 28
-                            }
-                        },
-                        {
-                            "title": "shipper_id",
-                            "field": "6",
-                            "dataType": {
-                                "type": 2
-                            }
-                        },
-                        {
-                            "title": "customer_id",
-                            "field": "7",
-                            "dataType": {
-                                "type": 4
-                            }
-                        },
-                        {
-                            "title": "first_name",
-                            "field": "8",
-                            "dataType": {
-                                "type": 17
-                            }
-                        },
-                        {
-                            "title": "last_name",
-                            "field": "9",
-                            "dataType": {
-                                "type": 17
-                            }
-                        },
-                        {
-                            "title": "birth_date",
-                            "field": "10",
-                            "dataType": {
-                                "type": 28
-                            }
-                        },
-                        {
-                            "title": "phone",
-                            "field": "11",
-                            "dataType": {
-                                "type": 17
-                            }
-                        },
-                        {
-                            "title": "address",
-                            "field": "12",
-                            "dataType": {
-                                "type": 17
-                            }
-                        },
-                        {
-                            "title": "city",
-                            "field": "13",
-                            "dataType": {
-                                "type": 17
-                            }
-                        },
-                        {
-                            "title": "state",
-                            "field": "14",
-                            "dataType": {
-                                "type": 17
-                            }
-                        },
-                        {
-                            "title": "points",
-                            "field": "15",
-                            "dataType": {
-                                "type": 4
-                            }
-                        },
-                        {
-                            "title": "order_status_id",
-                            "field": "16",
-                            "dataType": {
-                                "type": 1
-                            }
-                        },
-                        {
-                            "title": "name",
-                            "field": "17",
-                            "dataType": {
-                                "type": 17
-                            }
-                        }
-                    ],
-                    "executionInfo": {
-                        "text": "OK, 10 records retrieved in 1.229ms"
-                    },
-                    "totalRowCount": 10,
-                    "hasMoreRows": false,
-                    "currentPage": 0,
-                    "index": 1,
-                    "sql": "\n\nSELECT *\nFROM orders o\nJOIN customers c \n  ON o.customer_id = c.customer_id\nJOIN order_statuses os\n  ON o.status = os.order_status_id"
-                },
-                {
-                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
-                    "resultId": "789aabdf-1b02-4f80-8075-16346c3f5d81",
+                    "tabId": "8d348690-e114-4cf0-d125-c1eecd4d7f18",
+                    "resultId": "1e7ed0d5-b971-4c19-d4de-35557035a4f8",
                     "rows": [
                         {
                             "0": 8,
@@ -3425,67 +2782,74 @@
                         }
                     ],
                     "executionInfo": {
-                        "text": "OK, 10 records retrieved in 0.931ms"
+                        "text": "OK, 10 records retrieved in 1.11ms"
                     },
                     "totalRowCount": 10,
                     "hasMoreRows": false,
                     "currentPage": 0,
-                    "index": 2,
-                    "sql": "\n\n\nSELECT \n    o.order_id,\n    o.order_date,\n    c.first_name,\n    c.last_name,\n    os.name AS status\nFROM orders o\nJOIN customers c \n  ON o.customer_id = c.customer_id\nJOIN order_statuses os\n  ON o.status = os.order_status_id"
-                },
-                {
-                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
-                    "resultId": "491e7b34-b411-4d48-e4d9-a3d960dcd086",
-                    "rows": [],
-                    "executionInfo": {
-                        "text": "OK, 0 records retrieved in 0.466ms",
-                        "type": 4
-                    },
-                    "totalRowCount": 0,
-                    "hasMoreRows": false,
-                    "currentPage": 0,
                     "index": 0,
-                    "sql": "-- JOINING MULTIPLE TABLES\n-- JOINING THREE TABLES\n\nUSE sql_store"
+                    "sql": "\n\n\nSELECT \n    o.order_id,\n    o.order_date,\n    c.first_name,\n    c.last_name,\n    os.name AS status\nFROM orders o\nJOIN customers c \n  ON o.customer_id = c.customer_id\nJOIN order_statuses os\n  ON o.status = os.order_status_id "
                 }
             ]
         },
         {
             "state": {
-                "start": 278,
-                "end": 292,
+                "start": 277,
+                "end": 293,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "2d6364b2-2865-418e-c2e2-9ce5a455c091"
+                        "619532f4-ec7d-44f1-a69d-52a0862f269d",
+                        "c1a198b3-c24b-429e-8a93-48cf29e420c4",
+                        "a6b09c30-73be-43a9-a7a9-29b0a23c7d99"
                     ]
                 },
-                "currentHeight": 352,
+                "currentHeight": 36,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 120
+                            "length": 197
                         },
-                        "contentStart": 47,
+                        "contentStart": 69,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 120,
-                            "length": 7
+                            "start": 197,
+                            "length": 79
                         },
-                        "contentStart": 119,
+                        "contentStart": 200,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 276,
+                            "length": 174
+                        },
+                        "contentStart": 377,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 450,
+                            "length": 1
+                        },
+                        "contentStart": 449,
                         "state": 3
                     }
                 ]
             },
             "data": [
                 {
-                    "tabId": "6f364a1b-daa0-49a1-ca2e-55aa5c7806bf",
-                    "resultId": "2d6364b2-2865-418e-c2e2-9ce5a455c091",
+                    "tabId": "8d348690-e114-4cf0-d125-c1eecd4d7f18",
+                    "resultId": "619532f4-ec7d-44f1-a69d-52a0862f269d",
                     "rows": [
                         {
                             "0": 1,
@@ -3783,15 +3147,480 @@
                         }
                     ],
                     "executionInfo": {
-                        "text": "OK, 10 records retrieved in 0.719ms"
+                        "text": "OK, 10 records retrieved in 0.741ms"
+                    },
+                    "totalRowCount": 10,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 1,
+                    "sql": "\n\n\nSELECT *  \nFROM orders o\nJOIN customers c \nON o.customer_id = c.customer_id"
+                },
+                {
+                    "tabId": "8d348690-e114-4cf0-d125-c1eecd4d7f18",
+                    "resultId": "c1a198b3-c24b-429e-8a93-48cf29e420c4",
+                    "rows": [
+                        {
+                            "0": 1,
+                            "1": 6,
+                            "2": "2019-01-30",
+                            "3": 1,
+                            "4": null,
+                            "5": null,
+                            "6": null,
+                            "7": 6,
+                            "8": "Elka",
+                            "9": "Twiddell",
+                            "10": "1991-09-04",
+                            "11": "312-480-8498",
+                            "12": "7 Manley Drive",
+                            "13": "Dhaka",
+                            "14": "IL",
+                            "15": 3073
+                        },
+                        {
+                            "0": 2,
+                            "1": 7,
+                            "2": "2018-08-02",
+                            "3": 2,
+                            "4": null,
+                            "5": "2018-08-03",
+                            "6": 4,
+                            "7": 7,
+                            "8": "Ilene",
+                            "9": "Dowson",
+                            "10": "1964-08-30",
+                            "11": "615-641-4759",
+                            "12": "50 Lillian Crossing",
+                            "13": "Nashville",
+                            "14": "TN",
+                            "15": 1672
+                        },
+                        {
+                            "0": 3,
+                            "1": 8,
+                            "2": "2017-12-01",
+                            "3": 1,
+                            "4": null,
+                            "5": null,
+                            "6": null,
+                            "7": 8,
+                            "8": "Thacher",
+                            "9": "By",
+                            "10": "1993-07-17",
+                            "11": "941-527-3977",
+                            "12": "538 Mosinee Center",
+                            "13": "Sarasota",
+                            "14": "FL",
+                            "15": 205
+                        },
+                        {
+                            "0": 4,
+                            "1": 2,
+                            "2": "2017-01-22",
+                            "3": 1,
+                            "4": null,
+                            "5": null,
+                            "6": null,
+                            "7": 2,
+                            "8": "Ines",
+                            "9": "Brushfield",
+                            "10": "1986-04-13",
+                            "11": "804-427-9456",
+                            "12": "14187 Commercial Trail",
+                            "13": "Sylhet",
+                            "14": "VA",
+                            "15": 947
+                        },
+                        {
+                            "0": 5,
+                            "1": 5,
+                            "2": "2017-08-25",
+                            "3": 2,
+                            "4": "",
+                            "5": "2017-08-26",
+                            "6": 3,
+                            "7": 5,
+                            "8": "Clemmie",
+                            "9": "Betchley",
+                            "10": "1973-11-07",
+                            "11": null,
+                            "12": "5 Spohn Circle",
+                            "13": "Arlington",
+                            "14": "TX",
+                            "15": 3675
+                        },
+                        {
+                            "0": 6,
+                            "1": 10,
+                            "2": "2018-11-18",
+                            "3": 1,
+                            "4": "Aliquam erat volutpat. In congue.",
+                            "5": null,
+                            "6": null,
+                            "7": 10,
+                            "8": "Levy",
+                            "9": "Mynett",
+                            "10": "1969-10-13",
+                            "11": "404-246-3370",
+                            "12": "68 Lawn Avenue",
+                            "13": "Atlanta",
+                            "14": "GA",
+                            "15": 796
+                        },
+                        {
+                            "0": 7,
+                            "1": 2,
+                            "2": "2018-09-22",
+                            "3": 2,
+                            "4": null,
+                            "5": "2018-09-23",
+                            "6": 4,
+                            "7": 2,
+                            "8": "Ines",
+                            "9": "Brushfield",
+                            "10": "1986-04-13",
+                            "11": "804-427-9456",
+                            "12": "14187 Commercial Trail",
+                            "13": "Sylhet",
+                            "14": "VA",
+                            "15": 947
+                        },
+                        {
+                            "0": 8,
+                            "1": 5,
+                            "2": "2018-06-08",
+                            "3": 1,
+                            "4": "Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis.",
+                            "5": null,
+                            "6": null,
+                            "7": 5,
+                            "8": "Clemmie",
+                            "9": "Betchley",
+                            "10": "1973-11-07",
+                            "11": null,
+                            "12": "5 Spohn Circle",
+                            "13": "Arlington",
+                            "14": "TX",
+                            "15": 3675
+                        },
+                        {
+                            "0": 9,
+                            "1": 10,
+                            "2": "2017-07-05",
+                            "3": 2,
+                            "4": "Nulla mollis molestie lorem. Quisque ut erat.",
+                            "5": "2017-07-06",
+                            "6": 1,
+                            "7": 10,
+                            "8": "Levy",
+                            "9": "Mynett",
+                            "10": "1969-10-13",
+                            "11": "404-246-3370",
+                            "12": "68 Lawn Avenue",
+                            "13": "Atlanta",
+                            "14": "GA",
+                            "15": 796
+                        },
+                        {
+                            "0": 10,
+                            "1": 6,
+                            "2": "2018-04-22",
+                            "3": 2,
+                            "4": null,
+                            "5": "2018-04-23",
+                            "6": 2,
+                            "7": 6,
+                            "8": "Elka",
+                            "9": "Twiddell",
+                            "10": "1991-09-04",
+                            "11": "312-480-8498",
+                            "12": "7 Manley Drive",
+                            "13": "Dhaka",
+                            "14": "IL",
+                            "15": 3073
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "order_id",
+                            "field": "0",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "customer_id",
+                            "field": "1",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "order_date",
+                            "field": "2",
+                            "dataType": {
+                                "type": 28
+                            }
+                        },
+                        {
+                            "title": "status",
+                            "field": "3",
+                            "dataType": {
+                                "type": 1
+                            }
+                        },
+                        {
+                            "title": "comments",
+                            "field": "4",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "shipped_date",
+                            "field": "5",
+                            "dataType": {
+                                "type": 28
+                            }
+                        },
+                        {
+                            "title": "shipper_id",
+                            "field": "6",
+                            "dataType": {
+                                "type": 2
+                            }
+                        },
+                        {
+                            "title": "customer_id",
+                            "field": "7",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "first_name",
+                            "field": "8",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "last_name",
+                            "field": "9",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "birth_date",
+                            "field": "10",
+                            "dataType": {
+                                "type": 28
+                            }
+                        },
+                        {
+                            "title": "phone",
+                            "field": "11",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "address",
+                            "field": "12",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "city",
+                            "field": "13",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "state",
+                            "field": "14",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "points",
+                            "field": "15",
+                            "dataType": {
+                                "type": 4
+                            }
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 10 records retrieved in 0.883ms"
+                    },
+                    "totalRowCount": 10,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 2,
+                    "sql": "\n-- Above code can be written using IMPLICIT JOIN(Here basically query perform without JOIN keyword)\nSELECT * \nFROM orders o, customers c\nWHERE o.customer_id = c.customer_id"
+                },
+                {
+                    "tabId": "8d348690-e114-4cf0-d125-c1eecd4d7f18",
+                    "resultId": "a6b09c30-73be-43a9-a7a9-29b0a23c7d99",
+                    "rows": [],
+                    "executionInfo": {
+                        "text": "OK, 0 records retrieved in 1.871ms",
+                        "type": 4
+                    },
+                    "totalRowCount": 0,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "-- Compound Join Condition, combine two primary key as composite key\nSELECT *\nFROM order_items oi \nJOIN order_item_notes oin \n   ON oi.order_id = oin.order_id\n   AND oi.product_id = oin.product_id"
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 294,
+                "end": 315,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "24c12b49-be53-432b-fa89-c01af0355f98"
+                    ]
+                },
+                "currentHeight": 352,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 182
+                        },
+                        "contentStart": 105,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 182,
+                            "length": 157
+                        },
+                        "contentStart": 185,
+                        "state": 3
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "8d348690-e114-4cf0-d125-c1eecd4d7f18",
+                    "resultId": "24c12b49-be53-432b-fa89-c01af0355f98",
+                    "rows": [
+                        {
+                            "0": 2,
+                            "1": "Ines",
+                            "2": 4
+                        },
+                        {
+                            "0": 2,
+                            "1": "Ines",
+                            "2": 7
+                        },
+                        {
+                            "0": 5,
+                            "1": "Clemmie",
+                            "2": 5
+                        },
+                        {
+                            "0": 5,
+                            "1": "Clemmie",
+                            "2": 8
+                        },
+                        {
+                            "0": 6,
+                            "1": "Elka",
+                            "2": 1
+                        },
+                        {
+                            "0": 6,
+                            "1": "Elka",
+                            "2": 10
+                        },
+                        {
+                            "0": 7,
+                            "1": "Ilene",
+                            "2": 2
+                        },
+                        {
+                            "0": 8,
+                            "1": "Thacher",
+                            "2": 3
+                        },
+                        {
+                            "0": 10,
+                            "1": "Levy",
+                            "2": 6
+                        },
+                        {
+                            "0": 10,
+                            "1": "Levy",
+                            "2": 9
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "customer_id",
+                            "field": "0",
+                            "dataType": {
+                                "type": 4
+                            }
+                        },
+                        {
+                            "title": "first_name",
+                            "field": "1",
+                            "dataType": {
+                                "type": 17
+                            }
+                        },
+                        {
+                            "title": "order_id",
+                            "field": "2",
+                            "dataType": {
+                                "type": 4
+                            }
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 10 records retrieved in 0.956ms"
                     },
                     "totalRowCount": 10,
                     "hasMoreRows": false,
                     "currentPage": 0,
                     "index": 0,
-                    "sql": "\n\n-- Compound Join Condition\n\n-- IMPLICIT JOIN\nSELECT * \nFROM orders o, customers c\nWHERE o.customer_id = c.customer_id;"
+                    "sql": "\n\n\nSELECT \n    c.customer_id, \n    c.first_name,\n     o.order_id\nFROM customers c  \nJOIN orders o\nON o.customer_id = c.customer_id\nORDER BY c.customer_id\n\n\n\n"
                 }
             ]
+        },
+        {
+            "state": {
+                "start": 316,
+                "end": 316,
+                "language": "mysql",
+                "currentHeight": 180,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 0
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
         }
     ]
 }

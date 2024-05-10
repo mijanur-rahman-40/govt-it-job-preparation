@@ -19,5 +19,6 @@ ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
 
 1. [Most important Quaries](https://learnsql.com/cookbook/)
 2. [SQL Joins: 12 Practice Questions](https://learnsql.com/blog/sql-joins-practice/)
+3. [Tutorials](https://mode.com/sql-tutorial/)
 
 

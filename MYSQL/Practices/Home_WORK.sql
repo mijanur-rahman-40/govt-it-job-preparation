@@ -111,7 +111,19 @@ FROM payments p
 JOIN clients c 
      ON p.client_id = c.client_id
 JOIN payment_methods pm
-     ON p.payment_method = pm.payment_method_id
+     ON p.payment_method = pm.payment_method_id;
+
+-- Using JOIN and Where together
+SELECT companies.permalink AS companies_permalink,
+       companies.name AS companies_name,
+       acquisitions.company_permalink AS acquisitions_permalink,
+       acquisitions.acquired_at AS acquired_date
+  FROM tutorial.crunchbase_companies companies
+  LEFT JOIN tutorial.crunchbase_acquisitions acquisitions
+    ON companies.permalink = acquisitions.company_permalink
+ WHERE acquisitions.company_permalink != '/company/1000memories'
+    OR acquisitions.company_permalink IS NULL
+ ORDER BY 1
 
 
 
