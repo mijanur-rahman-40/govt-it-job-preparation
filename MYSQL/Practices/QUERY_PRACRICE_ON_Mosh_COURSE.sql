@@ -673,3 +673,105 @@ WHERE product_id IN (SELECT product_id FROM order_items
 -- COUNT() - returns the number of rows in a set
 -- SUM() - returns the total sum of a numerical column
 -- AVG() - returns the average value of a numerical column
+
+
+
+
+
+-- UPDATE 
+UPDATE customers
+SET first_name = 'Alfred Schmidt', city = 'Frankfurt'
+WHERE customer_id = 1;
+
+
+
+
+
+
+-- HAVING : 
+-- The HAVING clause was added to SQL because the WHERE keyword cannot be used with aggregate functions.
+-- The following SQL statement lists the number of customers in each country. Only include countries with more than 5 customers:
+SELECT COUNT(customer_id) AS total_customers, city
+FROM customers
+GROUP BY city
+HAVING COUNT(customer_id) > 1;
+
+SELECT COUNT(customer_id) AS total_customers, city
+FROM customers
+WHERE city = 'Dhaka'
+GROUP BY city;
+
+SELECT COUNT(customer_id) AS total_customers, city
+FROM customers
+GROUP BY city
+ORDER BY total_customers DESC;
+
+-- Same output
+SELECT COUNT(customer_id) AS total_customers, city
+FROM customers
+GROUP BY city
+HAVING total_customers
+ORDER BY total_customers DESC;
+
+SELECT COUNT(customer_id) AS total_customers, city
+FROM customers
+GROUP BY city
+HAVING total_customers = 3
+ORDER BY total_customers DESC;
+
+SELECT COUNT(customer_id) AS total_customers, city
+FROM customers
+GROUP BY city
+HAVING total_customers > 1
+ORDER BY total_customers DESC;
+
+
+
+
+
+
+-- GROUP BY
+-- It is followed by aggregate function
+SELECT
+  product_id,
+  SUM(quantity) as quantity
+FROM order_items
+GROUP BY product_id;
+
+
+SELECT COUNT(customer_id) AS total_customers, city
+FROM customers
+GROUP BY city
+ORDER BY total_customers DESC;
+
+
+
+
+
+
+-- UNION 
+-- The UNION operator is used to combine the result-set of two or more SELECT statements.
+-- Every SELECT statement within UNION must have the same number of columns
+-- The columns must also have similar data types
+-- The columns in every SELECT statement must also be in the same order
+
+SELECT name FROM products
+UNION
+SELECT name FROM shippers
+ORDER BY name;
+
+
+
+
+
+-- CASE 
+-- The CASE statement goes through conditions and returns a value when the first condition is met (like an if-then-else statement). So, once a condition is true, it will stop reading and return the result. If no conditions are true, it returns the value in the ELSE clause.
+-- If there is no ELSE part and no conditions are true, it returns NULL.
+
+SELECT order_id, quantity,
+CASE 
+     WHEN quantity > 10 THEN 'The quantity is greater than 10'
+     WHEN quantity = 10 THEN 'The quantity is 10'
+     ELSE 'The quantity is under 10'
+END AS QuantityText
+FROM order_items;
