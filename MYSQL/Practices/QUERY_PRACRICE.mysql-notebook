@@ -2,7 +2,7 @@
     "type": "MySQLNotebook",
     "version": "1.0",
     "caption": "DB Notebook",
-    "content": "-- Query performing on Mosh Course database : sql_hr, sql_inventory, sql_invooicing, sql_store\nUSE sql_store;\n-- Retrieving all data of customers  \n-- WHERE -> to filter the result\nSELECT * FROM customers; \n-- Another way \n-- SELECT * FROM `sql_store`.`customers` \n-- Retrieving specific colums of customers    \nSELECT points, customer_id, first_name FROM customers; \n-- Filtering cutomers:   \n-- KEYWORD order is important\nSELECT *  \nFROM customers\n-- WHERE customer_id = 1\n\n-- WHERE points > 3000\n\n-- Both uppercase and lowercase work perfectly\n-- WHERE state = 'VA'\n-- WHERE state = 'va'\n\n-- Search with date\n-- WHERE birth_date >= '1990-01-01'\n\n-- IN -> To specify multiple possible values for a column\n-- BETWEEN -> WHERE city IN ('Chicago','London')\n-- WHERE state NOT IN ('VA', 'FL', 'GA')\n\n-- NOT EQUAL -> <> or != \n-- WHERE points <> 796\n-- Or : Same Effect -> WHERE points != 1899\n\n-- LIKE -> Search for a pattern for both uppercase and lowercase\n-- % -> any number of characters, _ -> single character\n-- WHERE state LIKE 'f%'\n-- WHERE last_name LIKE 'b%'\n-- WHERE last_name LIKE 'brush%' \n\n-- matching 'b' at the beginning, middle or end \n-- WHERE last_name LIKE '%b%'\n\n-- all the customers last_name end by y\n-- WHERE last_name LIKE '%y'\n\n-- Match only two character end with y\n-- WHERE last_name LIKE '_y'\n\n-- Matchig the 6 character string last_name end with y\n-- WHERE last_name LIKE '_____y'\n\n-- Five character starting with b and ending with y\nWHERE last_name LIKE 'b____y'\n\n-- BETWEEN -> Between a certain range\n-- WHERE points >= 1000 AND points <= 3000\n-- same query can be wriiten in a clener way\n-- WHERE points BETWEEN 1000 AND 3000  \n-- WHERE birth_date BETWEEN '1990-01-01' AND '2000-01-01'  \n\n-- Multiple search condition in filtreing data\n-- WHERE birth_date >= '1990-01-01' AND points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 500 AND state = 'VA'\n\n-- AND operator execute first than OR\n-- Higer to Lower order : / -> * -> + -> - \n-- WHERE birth_date >= '1990-01-01' OR (points > 2500 AND state = 'VA')\n\n-- WHERE NOT (birth_date > '1990-01-01' OR points > 1000) \n-- Same query can be written as : \n-- WHERE birth_date <= '1990-01-01' AND points <= 1000\n\n-- The WHERE clause is not only used in SELECT statements, it is also used in UPDATE, DELETE, etc.\nORDER BY first_name;\n-- two columns and values\nSELECT 1, 2;   \n-- SELECT clause in details  \n-- SELECT last_name, first_name, points, points + 10\nSELECT  \n  last_name, \n  first_name,  \n  points,  \n  points * 10 + 100\nfrom customers;\nSELECT \n  last_name,  \n  first_name, \n  points, \n  (points + 10) * 100,\n  -- adding specific alias. to use alias, use 'AS' keyword before the given new name\n  -- Aliases are used to give a table, or a column in a table, a temporary name.\n  (points + 10) * 100 AS discount_factor,  \n  (points + 10) * 100 AS 'discount factor',  \n  (points + 10) * 100 AS \"discount factor\"  \nfrom customers;\n-- Update column  \n-- SELECT state FROM customers;   \nUPDATE customers SET city = 'Sylhet' WHERE (customer_id = 2); \n-- Retrieving all distinct state data of customers \nSELECT DISTINCT city FROM customers;  \nSELECT COUNT(DISTINCT city) FROM customers;  \nSELECT COUNT(city) FROM customers; \n-- REGEXP OPERATOR\nSELECT * \nFROM customers\n-- using normal form\n-- WHERE last_name LIKE '%field%';\n\n-- can be used by REGEXP keywoed\n-- WHERE last_name REGEXP 'field';\n \n-- ^ -> beginning, $ -> end, | -> logical or, [abcd] -> match any single character listed in the brackets, [a-z] -> any characters from a to z \n\n\n-- ^ -> beginning with 'field' string\n-- WHERE last_name REGEXP '^field'; \n\n-- $ -> ending with 'field' string\n-- WHERE last_name REGEXP 'field$';\n\n-- Match the string 'field' or 'mac' in strart or end\n-- | -> vertical bar or Pipe or Multiple search Pattern\n-- WHERE last_name REGEXP 'field|mac';\n\n-- WHERE last_name REGEXP 'field|mac|rose';\n\n-- WHERE last_name REGEXP '^field|mac|rose';\n\n-- WHERE last_name REGEXP 'field$|mac|rose';\n\n-- WHERE last_name REGEXP 'field$|mac|^rose';\n\n-- WHERE last_name REGEXP 'field$|mac$|^rose';\n \n-- matching customer name : ge or ie or me\n-- Any of the character from 'gim' before 'e'\n-- WHERE last_name REGEXP '[gim]e';\n\n-- Any of the character from 'gim' after 'e'\n-- WHERE last_name REGEXP 'e[gim]';\n\n-- range of characters\nWHERE last_name REGEXP '[a-h]e'; \n\n-- NULL VALUES  \n-- all the customer who do not have phone\nSELECT *\nFROM customers \n-- WHERE phone IS NULL; \nWHERE phone IS NOT NULL;\n-- THE ORDER BY CLASUE\nSELECT * \nFROM customers \n-- ORDER BY first_name;\n-- ORDER BY first_name DESC;\n\n-- Sort data by multiple columns\n-- ORDER BY state, first_name; \n-- ORDER BY first_name, state;\n-- ORDER BY first_name DESC;\nORDER BY state DESC, first_name ASC; \n\n-- Another way of sorting\nSELECT first_name, last_name \nFROM customers\nORDER BY birth_date; \n\n-- sort by data using column position that are selecting to show\nSELECT first_name, last_name\nFROM customers\n-- 1 -> first_name, 2 -> last_name \nORDER BY 1, 2;  \n\n-- order creating alaise\nSELECT first_name, last_name, 10 + 10 AS points\nFROM customers\nORDER BY points, first_name; \n\n-- LIMIT data, it always come into last\nSELECT *\nFROM customers \n-- LIMIT 3;\n-- LIMIT 300;   \n-- for pagination or Offseting\n-- 6 -> skip first 6, 3 -> show 3 records\nLIMIT 6, 3\n-- INNER JOIN\nSELECT * \nFROM orders \n-- INNER is optiinal \nINNER JOIN customers \nON orders.customer_id = customers.customer_id;\n\n-- specify columns \nSELECT order_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- Here customer_id is ambiguous, cause both orders and customers table have customer_id. So we have to specify which tables customer_id\nSELECT order_id, customer_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- \nSELECT order_id, orders.customer_id, first_name, last_name\nFROM orders \nINNER JOIN customers \nON orders.customer_id = customers.customer_id;\n\n-- using alias in table name for simply the code, when you define an alias, you have to use it everywhere\nSELECT order_id, ord.customer_id, first_name, last_name\nFROM orders ord\nINNER JOIN customers cus\nON ord.customer_id = cus.customer_id; \n-- Working with multiple database \n-- How to combine columns from tables accross multiple databases\n\n-- sql_inventory is out of this database\nSELECT * \nFROM order_items oi \nJOIN sql_inventory.products prd\nON oi.product_id = prd.product_id;\n\n-- This query can be written in different way. When we consider our selected table is sql_inventory\nUSE sql_inventory; \n\nSELECT *\nFROM sql_store.order_items oi \nJOIN products prd\nON oi.product_id = prd.product_id\n\n-- SELF JOIN\n-- Here Join will perform on same table or on that table\n-- One colum data(Like reports_to) refer to the main colum(primary key id) on that table\n-- In the sql_hr database employee reports to another employee(a manager)\n-- we have to use different aliases\n\nUSE sql_hr;   \n\nSELECT *\nFROM employees e \nJOIN employees m\nON e.reports_to = m.employee_id;\n\nSELECT e.employee_id, e.first_name AS employee_name, m.first_name AS manger\nFROM employees e \nJOIN employees m\nON e.reports_to = m.employee_id\n\n\n-- JOINING MULTIPLE TABLES \n-- JOINING THREE TABLES\n\nUSE sql_store;\n\nSELECT * \nFROM orders o\nJOIN customers c \n  ON o.customer_id = c.customer_id\nJOIN order_statuses os\n  ON o.status = os.order_status_id;\n\n\nSELECT \n    o.order_id,\n    o.order_date,\n    c.first_name,\n    c.last_name,\n    os.name AS status\nFROM orders o\nJOIN customers c \n  ON o.customer_id = c.customer_id\nJOIN order_statuses os\n  ON o.status = os.order_status_id \n-- Compound Join Condition, combine two primary key as composite key\nSELECT *\nFROM order_items oi  \nJOIN order_item_notes oin \n   ON oi.order_id = oin.order_id\n   AND oi.product_id = oin.product_id;\n\n\nSELECT *  \nFROM orders o\nJOIN customers c \nON o.customer_id = c.customer_id;\n-- Above code can be written using IMPLICIT JOIN(Here basically query perform without JOIN keyword)\nSELECT * \nFROM orders o, customers c\nWHERE o.customer_id = c.customer_id;\n\n-- OUTER JOIN \n-- INNER and OUTER JOIN are vice versa\n-- Basically difference in FROM table , JOIN table\n\nSELECT *  \nFROM customers c  \nJOIN orders o\nON o.customer_id = c.customer_id;\n\n\nSELECT \n    c.customer_id, \n    c.first_name,\n     o.order_id\nFROM customers c  \nJOIN orders o\nON o.customer_id = c.customer_id\nORDER BY c.customer_id;\n-- the above code only return the matched customers but if you want to show the all customers who have any order or not\n-- then we have to use OUTER JOIN\n\n-- Outer joins are joins that return matched values and unmatched values from either or both tables. There are a few types of outer joins:\n-- LEFT JOIN returns only unmatched rows from the left table, as well as matched rows in both tables.\n-- RIGHT JOIN returns only unmatched rows from the right table , as well as matched rows in both tables.\n-- FULL OUTER JOIN returns unmatched rows from both tables,as well as matched rows in both tables.\n\n-- LEFT JOIN\nSELECT \n    c.customer_id, \n    c.first_name,\n    o.order_id\n-- customers is a LEFT table\n-- All the record from the left table are returned whether the condition is true or not\nFROM customers c  \nLEFT JOIN orders o\n-- LEFT OUTER JOIN orders o\n-- Condition\nON o.customer_id = c.customer_id\nORDER BY c.customer_id\n\n\n-- RIGHT JOIN \nSELECT \n    o.order_id,\n    c.customer_id, \n    c.first_name\n-- orders is a RIGHT table\n-- All the record from the right table are returned whether the condition is true or not\n-- Here basically all the customer_id in orders table will exist in the customers table\nFROM orders o \nRIGHT JOIN customers c\n-- RIGHT OUTER JOIN customers c\n-- Condition\nON o.customer_id = c.customer_id\nORDER BY c.customer_id\n-- RIGHT JOIN\n-- Also RIGHT JOIN can be written as follows\nSELECT \n    c.customer_id, \n    c.first_name,\n    o.order_id\n-- Here basically all the customer_id in orders table will exist in the customers table\nFROM customers c \nRIGHT JOIN orders o \n-- Condition\nON o.customer_id = c.customer_id\nORDER BY c.customer_id \n-- https://stackoverflow.com/questions/57095115/why-we-use-left-join-right-join-differently-we-can-get-same-output-from-left\n\n-- There really is no difference between a LEFT JOIN and a LEFT OUTER JOIN. \n-- Both versions of the syntax will produce the exact same result in PL/SQL. \n-- Some people do recommend including outer in a LEFT JOIN clause so it's clear that you're creating an outer join, but that's entirely optional. \n-- The same is true of a RIGHT JOIN and a RIGHT OUTER JOIN. In the end, then, it isn't a question of a LEFT JOIN vs. LEFT OUTER JOIN. \n-- They're one and the same thing.\n\n-- LEFT JOIN -> It is also known as LEFT OUTER JOIN. \tRIGHT JOIN -> It is also called as RIGHT OUTER JOIN.\n-- OUTER JOIN BETWEEN MULTIPLE TABLE \nSELECT \n    c.customer_id, \n    c.first_name,\n    o.order_id\n\nFROM customers c \nLEFT JOIN orders o \n   ON o.customer_id = c.customer_id\nJOIN shippers sh \n   ON o.shipper_id = sh.shipper_id\nORDER BY c.customer_id;\n\n-- Above code only show the matched shipper_id with the orders table. But some of the orders have no shipper_id.\n-- Have to show both matvh and unmatched.\n\nSELECT \n    c.customer_id, \n    c.first_name,\n    o.order_id,\n    sh.shipper_id,\n    sh.name AS shipper\nFROM customers c \nLEFT JOIN orders o \n   ON o.customer_id = c.customer_id\nLEFT JOIN shippers sh \n   ON o.shipper_id = sh.shipper_id\nORDER BY c.customer_id;\n SELECT \n    o.order_id,\n    o.order_date,\n    c.first_name AS customer,\n    sh.name AS shipper,\n    os.name AS status\nFROM orders o \nJOIN customers c  \n  ON o.customer_id = c.customer_id\n  -- Here LEFT basically indicating the orders table  \nLEFT JOIN shippers sh \n  ON o.shipper_id = sh.shipper_id\nJOIN order_statuses os \n  ON o.status = os.order_status_id;\n-- SELF OUTER JOIN\nSELECT \n  e.employee_id, \n  e.first_name AS employee_name, \n  m.first_name AS manger\nFROM employees e \nLEFT JOIN employees m\nON e.reports_to = m.employee_id\n-- THE USING CLAUSE\nSELECT \n    o.order_id,\n    c.first_name,\n    sh.name AS shipper\nFROM orders o \nJOIN customers c  \n  -- ON o.customer_id = c.customer_id\n  -- To simply the above query, the code can be written as follows\n  -- USING keyword only works if the column name is eaxctly same accross the different table  \n  USING(customer_id) \n  -- Obiously some of our order are not shipped\nLEFT JOIN shippers sh \n  -- ON o.shipper_id = sh.shipper_id\n  USING(shipper_id)\n-- ANY, ALL\n-- ALL & ANY are logical operators in SQL. They return boolean value as a result.\n-- ALL operator is used to select all tuples of SELECT STATEMENT. It is also used to compare a value to every value in another value set or result from a subquery.\n-- The ALL operator returns TRUE if all of the subqueries values meet the condition. The ALL must be preceded by comparison operators and evaluates true if all of the subqueries values meet the condition.\n-- ALL is used with SELECT, WHERE, HAVING statement.\nUSE sql_hr;\n\n-- ALL\nSELECT COUNT(*) FROM employees\n                WHERE salary <\n                ALL(SELECT salary from employees);  \n\nSELECT * FROM employees\n                WHERE salary <\n                ALL(SELECT salary from employees WHERE office_id = 1);  \n\n\nSELECT count(*) FROM employees\n                WHERE salary >\n                ALL(SELECT salary from employees WHERE office_id = 1);   \n\n-- ANY\nSELECT count(*) FROM employees\n                WHERE salary >\n                ALL(SELECT salary from employees WHERE office_id = 1);  ",
+    "content": "-- Query performing on Mosh Course database : sql_hr, sql_inventory, sql_invooicing, sql_store\nUSE sql_store;\n-- Retrieving all data of customers  \n-- WHERE -> to filter the result\nSELECT * FROM customers; \n-- Another way \n-- SELECT * FROM `sql_store`.`customers` \n-- Retrieving specific colums of customers    \nSELECT points, customer_id, first_name FROM customers; \n-- Filtering cutomers:   \n-- KEYWORD order is important\nSELECT *  \nFROM customers\n-- WHERE customer_id = 1\n\n-- WHERE points > 3000\n\n-- Both uppercase and lowercase work perfectly\n-- WHERE state = 'VA'\n-- WHERE state = 'va'\n\n-- Search with date\n-- WHERE birth_date >= '1990-01-01'\n\n-- IN -> To specify multiple possible values for a column\n-- BETWEEN -> WHERE city IN ('Chicago','London')\n-- WHERE state NOT IN ('VA', 'FL', 'GA')\n\n-- NOT EQUAL -> <> or != \n-- WHERE points <> 796\n-- Or : Same Effect -> WHERE points != 1899\n\n-- LIKE -> Search for a pattern for both uppercase and lowercase\n-- % -> any number of characters, _ -> single character\n-- WHERE state LIKE 'f%'\n-- WHERE last_name LIKE 'b%'\n-- WHERE last_name LIKE 'brush%' \n\n-- matching 'b' at the beginning, middle or end \n-- WHERE last_name LIKE '%b%'\n\n-- all the customers last_name end by y\n-- WHERE last_name LIKE '%y'\n\n-- Match only two character end with y\n-- WHERE last_name LIKE '_y'\n\n-- Matchig the 6 character string last_name end with y\n-- WHERE last_name LIKE '_____y'\n\n-- Five character starting with b and ending with y\nWHERE last_name LIKE 'b____y'\n\n-- BETWEEN -> Between a certain range\n-- WHERE points >= 1000 AND points <= 3000\n-- same query can be wriiten in a clener way\n-- WHERE points BETWEEN 1000 AND 3000  \n-- WHERE birth_date BETWEEN '1990-01-01' AND '2000-01-01'  \n\n-- Multiple search condition in filtreing data\n-- WHERE birth_date >= '1990-01-01' AND points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 500 AND state = 'VA'\n\n-- AND operator execute first than OR\n-- Higer to Lower order : / -> * -> + -> - \n-- WHERE birth_date >= '1990-01-01' OR (points > 2500 AND state = 'VA')\n\n-- WHERE NOT (birth_date > '1990-01-01' OR points > 1000) \n-- Same query can be written as : \n-- WHERE birth_date <= '1990-01-01' AND points <= 1000\n\n-- The WHERE clause is not only used in SELECT statements, it is also used in UPDATE, DELETE, etc.\nORDER BY first_name;\n-- two columns and values\nSELECT 1, 2;   \n-- SELECT clause in details  \n-- SELECT last_name, first_name, points, points + 10\nSELECT  \n  last_name, \n  first_name,  \n  points,  \n  points * 10 + 100\nfrom customers;\nSELECT \n  last_name,  \n  first_name, \n  points, \n  (points + 10) * 100,\n  -- adding specific alias. to use alias, use 'AS' keyword before the given new name\n  -- Aliases are used to give a table, or a column in a table, a temporary name.\n  (points + 10) * 100 AS discount_factor,  \n  (points + 10) * 100 AS 'discount factor',  \n  (points + 10) * 100 AS \"discount factor\"  \nfrom customers;\n-- Update column  \n-- SELECT state FROM customers;   \nUPDATE customers SET city = 'Sylhet' WHERE (customer_id = 2); \n-- Retrieving all distinct state data of customers \nSELECT DISTINCT city FROM customers;  \nSELECT COUNT(DISTINCT city) FROM customers;  \nSELECT COUNT(city) FROM customers; \n-- REGEXP OPERATOR\nSELECT * \nFROM customers\n-- using normal form\n-- WHERE last_name LIKE '%field%';\n\n-- can be used by REGEXP keywoed\n-- WHERE last_name REGEXP 'field';\n \n-- ^ -> beginning, $ -> end, | -> logical or, [abcd] -> match any single character listed in the brackets, [a-z] -> any characters from a to z \n\n\n-- ^ -> beginning with 'field' string\n-- WHERE last_name REGEXP '^field'; \n\n-- $ -> ending with 'field' string\n-- WHERE last_name REGEXP 'field$';\n\n-- Match the string 'field' or 'mac' in strart or end\n-- | -> vertical bar or Pipe or Multiple search Pattern\n-- WHERE last_name REGEXP 'field|mac';\n\n-- WHERE last_name REGEXP 'field|mac|rose';\n\n-- WHERE last_name REGEXP '^field|mac|rose';\n\n-- WHERE last_name REGEXP 'field$|mac|rose';\n\n-- WHERE last_name REGEXP 'field$|mac|^rose';\n\n-- WHERE last_name REGEXP 'field$|mac$|^rose';\n \n-- matching customer name : ge or ie or me\n-- Any of the character from 'gim' before 'e'\n-- WHERE last_name REGEXP '[gim]e';\n\n-- Any of the character from 'gim' after 'e'\n-- WHERE last_name REGEXP 'e[gim]';\n\n-- range of characters\nWHERE last_name REGEXP '[a-h]e'; \n\n-- NULL VALUES  \n-- all the customer who do not have phone\nSELECT *\nFROM customers \n-- WHERE phone IS NULL; \nWHERE phone IS NOT NULL;\n-- THE ORDER BY CLASUE\nSELECT * \nFROM customers \n-- ORDER BY first_name;\n-- ORDER BY first_name DESC;\n\n-- Sort data by multiple columns\n-- ORDER BY state, first_name; \n-- ORDER BY first_name, state;\n-- ORDER BY first_name DESC;\nORDER BY state DESC, first_name ASC; \n\n-- Another way of sorting\nSELECT first_name, last_name \nFROM customers\nORDER BY birth_date; \n\n-- sort by data using column position that are selecting to show\nSELECT first_name, last_name\nFROM customers\n-- 1 -> first_name, 2 -> last_name \nORDER BY 1, 2;  \n\n-- order creating alaise\nSELECT first_name, last_name, 10 + 10 AS points\nFROM customers\nORDER BY points, first_name; \n\n-- LIMIT data, it always come into last\nSELECT *\nFROM customers \n-- LIMIT 3;\n-- LIMIT 300;   \n-- for pagination or Offseting\n-- 6 -> skip first 6, 3 -> show 3 records\nLIMIT 6, 3\n-- INNER JOIN\nSELECT * \nFROM orders \n-- INNER is optiinal \nINNER JOIN customers \nON orders.customer_id = customers.customer_id;\n\n-- specify columns \nSELECT order_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- Here customer_id is ambiguous, cause both orders and customers table have customer_id. So we have to specify which tables customer_id\nSELECT order_id, customer_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- \nSELECT order_id, orders.customer_id, first_name, last_name\nFROM orders \nINNER JOIN customers \nON orders.customer_id = customers.customer_id;\n\n-- using alias in table name for simply the code, when you define an alias, you have to use it everywhere\nSELECT order_id, ord.customer_id, first_name, last_name\nFROM orders ord\nINNER JOIN customers cus\nON ord.customer_id = cus.customer_id; \n-- Working with multiple database \n-- How to combine columns from tables accross multiple databases\n\n-- sql_inventory is out of this database\nSELECT * \nFROM order_items oi \nJOIN sql_inventory.products prd\nON oi.product_id = prd.product_id;\n\n-- This query can be written in different way. When we consider our selected table is sql_inventory\nUSE sql_inventory; \n\nSELECT *\nFROM sql_store.order_items oi \nJOIN products prd\nON oi.product_id = prd.product_id\n\n-- SELF JOIN\n-- Here Join will perform on same table or on that table\n-- One colum data(Like reports_to) refer to the main colum(primary key id) on that table\n-- In the sql_hr database employee reports to another employee(a manager)\n-- we have to use different aliases\n\nUSE sql_hr;   \n\nSELECT *\nFROM employees e \nJOIN employees m\nON e.reports_to = m.employee_id;\n\nSELECT e.employee_id, e.first_name AS employee_name, m.first_name AS manger\nFROM employees e \nJOIN employees m\nON e.reports_to = m.employee_id\n\n\n-- JOINING MULTIPLE TABLES \n-- JOINING THREE TABLES\n\nUSE sql_store;\n\nSELECT * \nFROM orders o\nJOIN customers c \n  ON o.customer_id = c.customer_id\nJOIN order_statuses os\n  ON o.status = os.order_status_id;\n\n\nSELECT \n    o.order_id,\n    o.order_date,\n    c.first_name,\n    c.last_name,\n    os.name AS status\nFROM orders o\nJOIN customers c \n  ON o.customer_id = c.customer_id\nJOIN order_statuses os\n  ON o.status = os.order_status_id \n-- Compound Join Condition, combine two primary key as composite key\nSELECT *\nFROM order_items oi  \nJOIN order_item_notes oin \n   ON oi.order_id = oin.order_id\n   AND oi.product_id = oin.product_id;\n\n\nSELECT *  \nFROM orders o\nJOIN customers c \nON o.customer_id = c.customer_id;\n-- Above code can be written using IMPLICIT JOIN(Here basically query perform without JOIN keyword)\nSELECT * \nFROM orders o, customers c\nWHERE o.customer_id = c.customer_id;\n\n-- OUTER JOIN \n-- INNER and OUTER JOIN are vice versa\n-- Basically difference in FROM table , JOIN table\n\nSELECT *  \nFROM customers c  \nJOIN orders o\nON o.customer_id = c.customer_id;\n\n\nSELECT \n    c.customer_id, \n    c.first_name,\n     o.order_id\nFROM customers c  \nJOIN orders o\nON o.customer_id = c.customer_id\nORDER BY c.customer_id;\n-- the above code only return the matched customers but if you want to show the all customers who have any order or not\n-- then we have to use OUTER JOIN\n\n-- Outer joins are joins that return matched values and unmatched values from either or both tables. There are a few types of outer joins:\n-- LEFT JOIN returns only unmatched rows from the left table, as well as matched rows in both tables.\n-- RIGHT JOIN returns only unmatched rows from the right table , as well as matched rows in both tables.\n-- FULL OUTER JOIN returns unmatched rows from both tables,as well as matched rows in both tables.\n\n-- LEFT JOIN\nSELECT \n    c.customer_id, \n    c.first_name,\n    o.order_id\n-- customers is a LEFT table\n-- All the record from the left table are returned whether the condition is true or not\nFROM customers c  \nLEFT JOIN orders o\n-- LEFT OUTER JOIN orders o\n-- Condition\nON o.customer_id = c.customer_id\nORDER BY c.customer_id\n\n\n-- RIGHT JOIN \nSELECT \n    o.order_id,\n    c.customer_id, \n    c.first_name\n-- orders is a RIGHT table\n-- All the record from the right table are returned whether the condition is true or not\n-- Here basically all the customer_id in orders table will exist in the customers table\nFROM orders o \nRIGHT JOIN customers c\n-- RIGHT OUTER JOIN customers c\n-- Condition\nON o.customer_id = c.customer_id\nORDER BY c.customer_id\n-- RIGHT JOIN\n-- Also RIGHT JOIN can be written as follows\nSELECT \n    c.customer_id, \n    c.first_name,\n    o.order_id\n-- Here basically all the customer_id in orders table will exist in the customers table\nFROM customers c \nRIGHT JOIN orders o \n-- Condition\nON o.customer_id = c.customer_id\nORDER BY c.customer_id \n-- https://stackoverflow.com/questions/57095115/why-we-use-left-join-right-join-differently-we-can-get-same-output-from-left\n\n-- There really is no difference between a LEFT JOIN and a LEFT OUTER JOIN. \n-- Both versions of the syntax will produce the exact same result in PL/SQL. \n-- Some people do recommend including outer in a LEFT JOIN clause so it's clear that you're creating an outer join, but that's entirely optional. \n-- The same is true of a RIGHT JOIN and a RIGHT OUTER JOIN. In the end, then, it isn't a question of a LEFT JOIN vs. LEFT OUTER JOIN. \n-- They're one and the same thing.\n\n-- LEFT JOIN -> It is also known as LEFT OUTER JOIN. \tRIGHT JOIN -> It is also called as RIGHT OUTER JOIN.\n-- OUTER JOIN BETWEEN MULTIPLE TABLE \nSELECT \n    c.customer_id, \n    c.first_name,\n    o.order_id\n\nFROM customers c \nLEFT JOIN orders o \n   ON o.customer_id = c.customer_id\nJOIN shippers sh \n   ON o.shipper_id = sh.shipper_id\nORDER BY c.customer_id;\n\n-- Above code only show the matched shipper_id with the orders table. But some of the orders have no shipper_id.\n-- Have to show both matvh and unmatched.\n\nSELECT \n    c.customer_id, \n    c.first_name,\n    o.order_id,\n    sh.shipper_id,\n    sh.name AS shipper\nFROM customers c \nLEFT JOIN orders o \n   ON o.customer_id = c.customer_id\nLEFT JOIN shippers sh \n   ON o.shipper_id = sh.shipper_id\nORDER BY c.customer_id;\n SELECT \n    o.order_id,\n    o.order_date,\n    c.first_name AS customer,\n    sh.name AS shipper,\n    os.name AS status\nFROM orders o \nJOIN customers c  \n  ON o.customer_id = c.customer_id\n  -- Here LEFT basically indicating the orders table  \nLEFT JOIN shippers sh \n  ON o.shipper_id = sh.shipper_id\nJOIN order_statuses os \n  ON o.status = os.order_status_id;\n-- SELF OUTER JOIN\nSELECT \n  e.employee_id, \n  e.first_name AS employee_name, \n  m.first_name AS manger\nFROM employees e \nLEFT JOIN employees m\nON e.reports_to = m.employee_id\n-- THE USING CLAUSE\nSELECT \n    o.order_id,\n    c.first_name,\n    sh.name AS shipper\nFROM orders o \nJOIN customers c  \n  -- ON o.customer_id = c.customer_id\n  -- To simply the above query, the code can be written as follows\n  -- USING keyword only works if the column name is eaxctly same accross the different table  \n  USING(customer_id) \n  -- Obiously some of our order are not shipped\nLEFT JOIN shippers sh \n  -- ON o.shipper_id = sh.shipper_id\n  USING(shipper_id)\n-- ANY, ALL\n-- ALL & ANY are logical operators in SQL. They return boolean value as a result.\n-- ALL operator is used to select all tuples of SELECT STATEMENT. It is also used to compare a value to every value in another value set or result from a subquery.\n-- The ALL operator returns TRUE if all of the subqueries values meet the condition. The ALL must be preceded by comparison operators and evaluates true if all of the subqueries values meet the condition.\n-- ALL is used with SELECT, WHERE, HAVING statement.\nUSE sql_hr;\n\n-- ALL\nSELECT COUNT(*) FROM employees\n                WHERE salary <\n                ALL(SELECT salary from employees);  \n\nSELECT * FROM employees\n                WHERE salary <\n                ALL(SELECT salary from employees WHERE office_id = 1);  \n\n\nSELECT * FROM employees\n                WHERE salary >\n                ALL(SELECT salary from employees WHERE office_id = 1);   \n\nSELECT count(*) FROM employees\n                WHERE salary =\n                ALL(SELECT salary from employees WHERE office_id = 1); \n\n-- ANY\n-- returns a boolean value as a result\n-- returns TRUE if ANY of the subquery values meet the condition\n\nSELECT count(*) FROM employees\n                WHERE salary >\n                ANY(SELECT salary from employees);  \n\nSELECT count(*) FROM employees\n                WHERE salary <\n                ANY(SELECT salary from employees); \n\nSELECT COUNT(*) FROM employees\n         WHERE salary =\n         ANY(SELECT salary from employees); \n\nSELECT * FROM employees\n         WHERE salary =\n         ANY(SELECT salary from employees GROUP BY employee_id); \nSELECT ProductName \nFROM Products\nWHERE ProductID = ALL (SELECT ProductId\n                       FROM OrderDetails\n                       WHERE Quantity = 6 OR Quantity = 2);\n\n\nSELECT OrderID \nFROM OrderDetails \nGROUP BY OrderID \nHAVING max(Quantity) > ALL (SELECT avg(Quantity) \n                            FROM OrderDetails \n                            GROUP BY OrderID);",
     "options": {
         "tabSize": 4,
         "insertSpaces": true,
@@ -13,24 +13,24 @@
     "viewState": {
         "cursorState": [
             {
-                "inSelectionMode": false,
+                "inSelectionMode": true,
                 "selectionStart": {
-                    "lineNumber": 449,
-                    "column": 10
+                    "lineNumber": 458,
+                    "column": 17
                 },
                 "position": {
-                    "lineNumber": 449,
-                    "column": 10
+                    "lineNumber": 458,
+                    "column": 20
                 }
             }
         ],
         "viewState": {
             "scrollLeft": 0,
             "firstPosition": {
-                "lineNumber": 441,
+                "lineNumber": 449,
                 "column": 1
             },
-            "firstPositionDeltaTop": -1
+            "firstPositionDeltaTop": -5
         },
         "contributionsState": {
             "editor.contrib.folding": {},
@@ -4808,18 +4808,15 @@
         {
             "state": {
                 "start": 435,
-                "end": 455,
+                "end": 459,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "c63d58c0-fb81-4298-ea10-7d7bbf942736",
-                        "91db2ea6-863f-41b2-d000-96a5bfb96c48",
-                        "a97f3113-47c2-4171-afcf-aad79b65cc42",
-                        "eecefe1e-4f00-449d-92a8-5f158b91f6c0"
+                        "420fa029-21ec-45b4-a9d0-76aba0efc500"
                     ]
                 },
-                "currentHeight": 118.09375,
+                "currentHeight": 91.09375,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -4852,7 +4849,7 @@
                         "delimiter": ";",
                         "span": {
                             "start": 777,
-                            "length": 137
+                            "length": 130
                         },
                         "contentStart": 782,
                         "state": 0
@@ -4860,10 +4857,19 @@
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 914,
-                            "length": 4
+                            "start": 907,
+                            "length": 137
                         },
-                        "contentStart": 913,
+                        "contentStart": 912,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 1044,
+                            "length": 2
+                        },
+                        "contentStart": 1043,
                         "state": 3
                     }
                 ]
@@ -4871,7 +4877,105 @@
             "data": [
                 {
                     "tabId": "8abf464e-b289-49b8-ccd2-83babbaee044",
-                    "resultId": "c63d58c0-fb81-4298-ea10-7d7bbf942736",
+                    "resultId": "420fa029-21ec-45b4-a9d0-76aba0efc500",
+                    "rows": [
+                        {
+                            "0": 5
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "count(*)",
+                            "field": "0",
+                            "dataType": {
+                                "type": 4
+                            }
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 1 record retrieved in 1.126ms"
+                    },
+                    "totalRowCount": 1,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "   \n\nSELECT count(*) FROM employees\n                WHERE salary =\n                ANY(SELECT salary from employees WHERE office_id = 1);"
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 460,
+                "end": 478,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "4f63ca3c-94e1-4ad5-a94d-e1c55a6e15af"
+                    ]
+                },
+                "currentHeight": 36,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 224
+                        },
+                        "contentStart": 112,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 224,
+                            "length": 116
+                        },
+                        "contentStart": 228,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 340,
+                            "length": 101
+                        },
+                        "contentStart": 343,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 441,
+                            "length": 104
+                        },
+                        "contentStart": 442,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 545,
+                            "length": 11
+                        },
+                        "contentStart": 547,
+                        "state": 3
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 556,
+                            "length": 1
+                        },
+                        "contentStart": 555,
+                        "state": 3
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "8abf464e-b289-49b8-ccd2-83babbaee044",
+                    "resultId": "4f63ca3c-94e1-4ad5-a94d-e1c55a6e15af",
                     "rows": [
                         {
                             "0": 0
@@ -4887,161 +4991,20 @@
                         }
                     ],
                     "executionInfo": {
-                        "text": "OK, 1 record retrieved in 0.701ms"
+                        "text": "OK, 1 record retrieved in 0.937ms"
                     },
                     "totalRowCount": 1,
-                    "hasMoreRows": false,
-                    "currentPage": 0,
-                    "index": 1,
-                    "sql": "\n\n-- ALL\nSELECT COUNT(*) FROM employees\n                WHERE salary <\n                ALL(SELECT salary from employees)"
-                },
-                {
-                    "tabId": "8abf464e-b289-49b8-ccd2-83babbaee044",
-                    "resultId": "91db2ea6-863f-41b2-d000-96a5bfb96c48",
-                    "rows": [
-                        {
-                            "0": 63196,
-                            "1": "Alaster",
-                            "2": "Scutchin",
-                            "3": "Assistant Professor",
-                            "4": 32179,
-                            "5": 37270,
-                            "6": 2
-                        },
-                        {
-                            "0": 68249,
-                            "1": "Nisse",
-                            "2": "Voysey",
-                            "3": "Financial Advisor",
-                            "4": 52832,
-                            "5": 37270,
-                            "6": 2
-                        },
-                        {
-                            "0": 75900,
-                            "1": "Virge",
-                            "2": "Goodrum",
-                            "3": "Information Systems Manager",
-                            "4": 54578,
-                            "5": 37270,
-                            "6": 3
-                        },
-                        {
-                            "0": 96513,
-                            "1": "Theresa",
-                            "2": "Binney",
-                            "3": "Food Chemist",
-                            "4": 47354,
-                            "5": 37270,
-                            "6": 5
-                        }
-                    ],
-                    "columns": [
-                        {
-                            "title": "employee_id",
-                            "field": "0",
-                            "dataType": {
-                                "type": 4
-                            }
-                        },
-                        {
-                            "title": "first_name",
-                            "field": "1",
-                            "dataType": {
-                                "type": 17
-                            }
-                        },
-                        {
-                            "title": "last_name",
-                            "field": "2",
-                            "dataType": {
-                                "type": 17
-                            }
-                        },
-                        {
-                            "title": "job_title",
-                            "field": "3",
-                            "dataType": {
-                                "type": 17
-                            }
-                        },
-                        {
-                            "title": "salary",
-                            "field": "4",
-                            "dataType": {
-                                "type": 4
-                            }
-                        },
-                        {
-                            "title": "reports_to",
-                            "field": "5",
-                            "dataType": {
-                                "type": 4
-                            }
-                        },
-                        {
-                            "title": "office_id",
-                            "field": "6",
-                            "dataType": {
-                                "type": 4
-                            }
-                        }
-                    ],
-                    "executionInfo": {
-                        "text": "OK, 4 records retrieved in 0.726ms"
-                    },
-                    "totalRowCount": 4,
-                    "hasMoreRows": false,
-                    "currentPage": 0,
-                    "index": 2,
-                    "sql": "  \n\nSELECT * FROM employees\n                WHERE salary <\n                ALL(SELECT salary from employees WHERE office_id = 1)"
-                },
-                {
-                    "tabId": "8abf464e-b289-49b8-ccd2-83babbaee044",
-                    "resultId": "a97f3113-47c2-4171-afcf-aad79b65cc42",
-                    "rows": [
-                        {
-                            "0": 3
-                        }
-                    ],
-                    "columns": [
-                        {
-                            "title": "count(*)",
-                            "field": "0",
-                            "dataType": {
-                                "type": 4
-                            }
-                        }
-                    ],
-                    "executionInfo": {
-                        "text": "OK, 1 record retrieved in 0.701ms"
-                    },
-                    "totalRowCount": 1,
-                    "hasMoreRows": false,
-                    "currentPage": 0,
-                    "index": 3,
-                    "sql": "  \n\n\nSELECT count(*) FROM employees\n                WHERE salary >\n                ALL(SELECT salary from employees WHERE office_id = 1)"
-                },
-                {
-                    "tabId": "8abf464e-b289-49b8-ccd2-83babbaee044",
-                    "resultId": "eecefe1e-4f00-449d-92a8-5f158b91f6c0",
-                    "rows": [],
-                    "executionInfo": {
-                        "text": "OK, 0 records retrieved in 0.4ms",
-                        "type": 4
-                    },
-                    "totalRowCount": 0,
                     "hasMoreRows": false,
                     "currentPage": 0,
                     "index": 0,
-                    "sql": "-- ANY, ALL\n-- ALL & ANY are logical operators in SQL. They return boolean value as a result.\n-- ALL operator is used to select all tuples of SELECT STATEMENT. It is also used to compare a value to every value in another value set or result from a subquery.\n-- The ALL operator returns TRUE if all of the subqueries values meet the condition. The ALL must be preceded by comparison operators and evaluates true if all of the subqueries values meet the condition.\n-- ALL is used with SELECT, WHERE, HAVING statement.\nUSE sql_hr"
+                    "sql": " \n\nSELECT COUNT(*) FROM employees\n         WHERE salary =\n         ALL(SELECT salary from employees);"
                 }
             ]
         },
         {
             "state": {
-                "start": 456,
-                "end": 459,
+                "start": 479,
+                "end": 491,
                 "language": "mysql",
                 "currentHeight": 180,
                 "statements": [
@@ -5049,19 +5012,19 @@
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 139
+                            "length": 174
                         },
-                        "contentStart": 7,
+                        "contentStart": 0,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 139,
-                            "length": 2
+                            "start": 174,
+                            "length": 199
                         },
-                        "contentStart": 138,
-                        "state": 3
+                        "contentStart": 177,
+                        "state": 0
                     }
                 ]
             },
