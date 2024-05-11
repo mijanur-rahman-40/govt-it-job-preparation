@@ -2,7 +2,7 @@
     "type": "MySQLNotebook",
     "version": "1.0",
     "caption": "DB Notebook",
-    "content": "-- Query performing on Mosh Course database : sql_hr, sql_inventory, sql_invooicing, sql_store\nUSE sql_store;\n-- Retrieving all data of customers  \n-- WHERE -> to filter the result\nSELECT * FROM customers; \n-- Another way \n-- SELECT * FROM `sql_store`.`customers` \n-- Retrieving specific colums of customers    \nSELECT points, customer_id, first_name FROM customers; \n-- Filtering cutomers:   \n-- KEYWORD order is important\nSELECT *  \nFROM customers\n-- WHERE customer_id = 1\n\n-- WHERE points > 3000\n\n-- Both uppercase and lowercase work perfectly\n-- WHERE state = 'VA'\n-- WHERE state = 'va'\n\n-- Search with date\n-- WHERE birth_date >= '1990-01-01'\n\n-- IN -> To specify multiple possible values for a column\n-- BETWEEN -> WHERE city IN ('Chicago','London')\n-- WHERE state NOT IN ('VA', 'FL', 'GA')\n\n-- NOT EQUAL -> <> or != \n-- WHERE points <> 796\n-- Or : Same Effect -> WHERE points != 1899\n\n-- LIKE -> Search for a pattern for both uppercase and lowercase\n-- % -> any number of characters, _ -> single character\n-- WHERE state LIKE 'f%'\n-- WHERE last_name LIKE 'b%'\n-- WHERE last_name LIKE 'brush%' \n\n-- matching 'b' at the beginning, middle or end \n-- WHERE last_name LIKE '%b%'\n\n-- all the customers last_name end by y\n-- WHERE last_name LIKE '%y'\n\n-- Match only two character end with y\n-- WHERE last_name LIKE '_y'\n\n-- Matchig the 6 character string last_name end with y\n-- WHERE last_name LIKE '_____y'\n\n-- Five character starting with b and ending with y\nWHERE last_name LIKE 'b____y'\n\n-- BETWEEN -> Between a certain range\n-- WHERE points >= 1000 AND points <= 3000\n-- same query can be wriiten in a clener way\n-- WHERE points BETWEEN 1000 AND 3000  \n-- WHERE birth_date BETWEEN '1990-01-01' AND '2000-01-01'  \n\n-- Multiple search condition in filtreing data\n-- WHERE birth_date >= '1990-01-01' AND points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 500 AND state = 'VA'\n\n-- AND operator execute first than OR\n-- Higer to Lower order : / -> * -> + -> - \n-- WHERE birth_date >= '1990-01-01' OR (points > 2500 AND state = 'VA')\n\n-- WHERE NOT (birth_date > '1990-01-01' OR points > 1000) \n-- Same query can be written as : \n-- WHERE birth_date <= '1990-01-01' AND points <= 1000\n\n-- The WHERE clause is not only used in SELECT statements, it is also used in UPDATE, DELETE, etc.\nORDER BY first_name;\n-- two columns and values\nSELECT 1, 2;   \n-- SELECT clause in details  \n-- SELECT last_name, first_name, points, points + 10\nSELECT   \n  last_name, \n  first_name,  \n  points,  \n  points * 10 + 100\nfrom customers;\nSELECT \n  last_name,  \n  first_name, \n  points p, \n  (points + 10) * 100,\n  -- adding specific alias. to use alias, use 'AS' keyword before the given new name \n  -- You can create Alias with AS keyword, Jus an alias name is enough \n  -- Aliases are used to give a table, or a column in a table, a temporary name.\n  (points + 10) * 100 AS discount_factor,  \n    (points + 10) * 100 discount_factor,  \n  (points + 10) * 100 AS 'discount factor',  \n  (points + 10) * 100 AS \"discount factor\"   \nfrom customers;\n-- Update column  \n-- SELECT state FROM customers;   \nUPDATE customers SET city = 'Sylhet' WHERE (customer_id = 2); \n-- Retrieving all distinct state data of customers \nSELECT DISTINCT city FROM customers;  \nSELECT COUNT(DISTINCT city) FROM customers;  \nSELECT COUNT(city) FROM customers;  \n-- REGEXP OPERATOR\nSELECT * \nFROM customers\n-- using normal form\n-- WHERE last_name LIKE '%field%';\n\n-- can be used by REGEXP keywoed\n-- WHERE last_name REGEXP 'field';\n \n-- ^ -> beginning, $ -> end, | -> logical or, [abcd] -> match any single character listed in the brackets, [a-z] -> any characters from a to z \n\n\n-- ^ -> beginning with 'field' string\n-- WHERE last_name REGEXP '^field'; \n\n-- $ -> ending with 'field' string\n-- WHERE last_name REGEXP 'field$';\n\n-- Match the string 'field' or 'mac' in strart or end\n-- | -> vertical bar or Pipe or Multiple search Pattern\n-- WHERE last_name REGEXP 'field|mac';\n \n-- WHERE last_name REGEXP 'field|mac|rose';\n\n-- WHERE last_name REGEXP '^field|mac|rose';\n\n-- WHERE last_name REGEXP 'field$|mac|rose';\n\n-- WHERE last_name REGEXP 'field$|mac|^rose';\n\n-- WHERE last_name REGEXP 'field$|mac$|^rose';\n \n-- matching customer name : ge or ie or me\n-- Any of the character from 'gim' before 'e'\n-- WHERE last_name REGEXP '[gim]e';\n\n-- Any of the character from 'gim' after 'e'\n-- WHERE last_name REGEXP 'e[gim]';\n\n-- range of characters\nWHERE last_name REGEXP '[a-h]e'; \n\n-- NULL VALUES  \n-- all the customer who do not have phone\nSELECT *\nFROM customers \n-- WHERE phone IS NULL; \nWHERE phone IS NOT NULL;\n-- THE ORDER BY CLASUE\nSELECT * \nFROM customers \n-- ORDER BY first_name;\n-- ORDER BY first_name DESC;\n\n-- Sort data by multiple columns\n-- ORDER BY state, first_name; \n-- ORDER BY first_name, state;\n-- ORDER BY first_name DESC;\nORDER BY state DESC, first_name ASC; \n\n-- Another way of sorting\nSELECT first_name, last_name \nFROM customers\nORDER BY birth_date; \n\n-- sort by data using column position that are selecting to show\nSELECT first_name, last_name\nFROM customers\n-- 1 -> first_name, 2 -> last_name \nORDER BY 1, 2;  \n\n-- order creating alaise\nSELECT first_name, last_name, 10 + 10 AS points\nFROM customers\nORDER BY points, first_name; \n\n-- LIMIT data, it always come into last\nSELECT *\nFROM customers \n-- LIMIT 3;\n-- LIMIT 300;   \n-- for pagination or Offseting\n-- 6 -> skip first 6, 3 -> show 3 records\nLIMIT 6, 3\n-- INNER JOIN\nSELECT * \nFROM orders \n-- INNER is optiinal \nINNER JOIN customers \nON orders.customer_id = customers.customer_id;\n\n-- specify columns \nSELECT order_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- Here customer_id is ambiguous, cause both orders and customers table have customer_id. So we have to specify which tables customer_id\nSELECT order_id, customer_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- \nSELECT order_id, orders.customer_id, first_name, last_name\nFROM orders \nINNER JOIN customers \nON orders.customer_id = customers.customer_id;\n\n-- using alias in table name for simply the code, when you define an alias, you have to use it everywhere\nSELECT order_id, ord.customer_id, first_name, last_name\nFROM orders ord\nINNER JOIN customers cus\nON ord.customer_id = cus.customer_id; \n-- Working with multiple database \n-- How to combine columns from tables accross multiple databases\n\n-- sql_inventory is out of this database\nSELECT * \nFROM order_items oi \nJOIN sql_inventory.products prd\nON oi.product_id = prd.product_id;\n\n-- This query can be written in different way. When we consider our selected table is sql_inventory\nUSE sql_inventory; \n\nSELECT *\nFROM sql_store.order_items oi \nJOIN products prd\nON oi.product_id = prd.product_id\n\n-- SELF JOIN\n-- Here Join will perform on same table or on that table\n-- One colum data(Like reports_to) refer to the main colum(primary key id) on that table\n-- In the sql_hr database employee reports to another employee(a manager)\n-- we have to use different aliases\n\nUSE sql_hr;   \n\nSELECT *\nFROM employees e \nJOIN employees m\nON e.reports_to = m.employee_id;\n\nSELECT e.employee_id, e.first_name AS employee_name, m.first_name AS manger\nFROM employees e \nJOIN employees m\nON e.reports_to = m.employee_id\n\n\n-- JOINING MULTIPLE TABLES \n-- JOINING THREE TABLES\n\nUSE sql_store;\n\nSELECT * \nFROM orders o\nJOIN customers c \n  ON o.customer_id = c.customer_id\nJOIN order_statuses os\n  ON o.status = os.order_status_id;\n\n\nSELECT \n    o.order_id,\n    o.order_date,\n    c.first_name,\n    c.last_name,\n    os.name AS status\nFROM orders o\nJOIN customers c \n  ON o.customer_id = c.customer_id\nJOIN order_statuses os\n  ON o.status = os.order_status_id \n-- Compound Join Condition, combine two primary key as composite key\nSELECT *\nFROM order_items oi  \nJOIN order_item_notes oin \n   ON oi.order_id = oin.order_id\n   AND oi.product_id = oin.product_id;\n\n\nSELECT *  \nFROM orders o\nJOIN customers c \nON o.customer_id = c.customer_id;\n-- Above code can be written using IMPLICIT JOIN(Here basically query perform without JOIN keyword)\nSELECT * \nFROM orders o, customers c\nWHERE o.customer_id = c.customer_id;\n\n-- OUTER JOIN \n-- INNER and OUTER JOIN are vice versa\n-- Basically difference in FROM table , JOIN table\n\nSELECT *  \nFROM customers c  \nJOIN orders o\nON o.customer_id = c.customer_id;\n\n\nSELECT \n    c.customer_id, \n    c.first_name,\n     o.order_id\nFROM customers c  \nJOIN orders o\nON o.customer_id = c.customer_id\nORDER BY c.customer_id;\n-- the above code only return the matched customers but if you want to show the all customers who have any order or not\n-- then we have to use OUTER JOIN\n\n-- Outer joins are joins that return matched values and unmatched values from either or both tables. There are a few types of outer joins:\n-- LEFT JOIN returns only unmatched rows from the left table, as well as matched rows in both tables.\n-- RIGHT JOIN returns only unmatched rows from the right table , as well as matched rows in both tables.\n-- FULL OUTER JOIN returns unmatched rows from both tables,as well as matched rows in both tables.\n\n-- LEFT JOIN\nSELECT \n    c.customer_id, \n    c.first_name,\n    o.order_id\n-- customers is a LEFT table\n-- All the record from the left table are returned whether the condition is true or not\nFROM customers AS c  \nLEFT JOIN orders AS o\n-- LEFT OUTER JOIN orders o\n-- Condition \nON o.customer_id = c.customer_id\nORDER BY c.customer_id\n\n\n-- RIGHT JOIN \nSELECT \n    o.order_id,\n    c.customer_id, \n    c.first_name\n-- orders is a RIGHT table\n-- All the record from the right table are returned whether the condition is true or not\n-- Here basically all the customer_id in orders table will exist in the customers table\nFROM orders o \nRIGHT JOIN customers c\n-- RIGHT OUTER JOIN customers c\n-- Condition\nON o.customer_id = c.customer_id\nORDER BY c.customer_id\n-- RIGHT JOIN\n-- Also RIGHT JOIN can be written as follows\nSELECT  \n    c.customer_id, \n    c.first_name,\n    o.order_id\n-- Here basically all the customer_id in orders table will exist in the customers table\nFROM customers c \nRIGHT JOIN orders o \n-- Condition\nON o.customer_id = c.customer_id\nORDER BY c.customer_id \n-- https://stackoverflow.com/questions/57095115/why-we-use-left-join-right-join-differently-we-can-get-same-output-from-left\n\n-- There really is no difference between a LEFT JOIN and a LEFT OUTER JOIN. \n-- Both versions of the syntax will produce the exact same result in PL/SQL. \n-- Some people do recommend including outer in a LEFT JOIN clause so it's clear that you're creating an outer join, but that's entirely optional. \n-- The same is true of a RIGHT JOIN and a RIGHT OUTER JOIN. In the end, then, it isn't a question of a LEFT JOIN vs. LEFT OUTER JOIN. \n-- They're one and the same thing.\n\n-- LEFT JOIN -> It is also known as LEFT OUTER JOIN. \tRIGHT JOIN -> It is also called as RIGHT OUTER JOIN.\n-- OUTER JOIN BETWEEN MULTIPLE TABLE \nSELECT \n    c.customer_id, \n    c.first_name,\n    o.order_id\n\nFROM customers c \nLEFT JOIN orders o \n   ON o.customer_id = c.customer_id\nJOIN shippers sh \n   ON o.shipper_id = sh.shipper_id\nORDER BY c.customer_id;\n\n-- Above code only show the matched shipper_id with the orders table. But some of the orders have no shipper_id.\n-- Have to show both matvh and unmatched.\n\nSELECT \n    c.customer_id, \n    c.first_name,\n    o.order_id,\n    sh.shipper_id,\n    sh.name AS shipper\nFROM customers c \nLEFT JOIN orders o \n   ON o.customer_id = c.customer_id\nLEFT JOIN shippers sh \n   ON o.shipper_id = sh.shipper_id\nORDER BY c.customer_id;\n SELECT \n    o.order_id,\n    o.order_date,\n    c.first_name AS customer,\n    sh.name AS shipper,\n    os.name AS status\nFROM orders o \nJOIN customers c  \n  ON o.customer_id = c.customer_id\n  -- Here LEFT basically indicating the orders table  \nLEFT JOIN shippers sh \n  ON o.shipper_id = sh.shipper_id\nJOIN order_statuses os \n  ON o.status = os.order_status_id;\n-- SELF OUTER JOIN\nSELECT \n  e.employee_id, \n  e.first_name AS employee_name, \n  m.first_name AS manger\nFROM employees e \nLEFT JOIN employees m\nON e.reports_to = m.employee_id\n-- THE USING CLAUSE\nSELECT \n    o.order_id,\n    c.first_name,\n    sh.name AS shipper\nFROM orders o \nJOIN customers c  \n  -- ON o.customer_id = c.customer_id\n  -- To simply the above query, the code can be written as follows\n  -- USING keyword only works if the column name is eaxctly same accross the different table  \n  USING(customer_id) \n  -- Obiously some of our order are not shipped\nLEFT JOIN shippers sh \n  -- ON o.shipper_id = sh.shipper_id\n  USING(shipper_id) \n-- ANY, ALL\n-- ALL & ANY are logical operators in SQL. They return boolean value as a result.\n-- ALL operator is used to select all tuples of SELECT STATEMENT. It is also used to compare a value to every value in another value set or result from a subquery.\n-- The ALL operator returns TRUE if all of the subqueries values meet the condition. The ALL must be preceded by comparison operators and evaluates true if all of the subqueries values meet the condition.\n-- ALL is used with SELECT, WHERE, HAVING statement.\nUSE sql_hr;\n\n-- ALL\nSELECT COUNT(*) FROM employees\n                WHERE salary <\n                ALL(SELECT salary from employees);  \n\nSELECT salary from employees WHERE office_id = 1;\n\nSELECT * FROM employees\n                WHERE salary <\n                ALL(SELECT salary from employees WHERE office_id = 1);  \n\nSELECT * FROM employees\n                WHERE salary >\n                ALL(SELECT salary from employees WHERE office_id = 1);   \n \nSELECT count(*) FROM employees\n                WHERE salary =\n                ALL(SELECT salary from employees WHERE office_id = 1); \n  \nSELECT count(*) FROM employees\n                WHERE salary =\n                ALL(SELECT salary from employees GROUP BY first_name); \n-- ANY\n-- returns a boolean value as a result\n-- returns TRUE if ANY of the subquery values meet the condition\n\nSELECT count(*) FROM employees\n                WHERE salary >\n                ANY(SELECT salary from employees);  \n\nSELECT count(*) FROM employees\n                WHERE salary <\n                ANY(SELECT salary from employees); \n\nSELECT COUNT(*) FROM employees \n         WHERE salary =\n         ANY(SELECT salary from employees); \n\nSELECT * FROM employees \n         WHERE salary =\n         ANY(SELECT salary from employees GROUP BY first_name); \nUSE sql_store;\n\nSELECT product_id \nFROM order_items\nWHERE quantity = 4\nGROUP BY product_id;\n\nSELECT name AS ProductName \nFROM products\nWHERE product_id = ALL (SELECT product_id \n                       FROM order_items\n                       WHERE quantity = 4 or quantity = 10);\n\nSELECT avg(quantity) \nFROM order_items\nGROUP BY order_id;\n\n-- Every Aggregate Function must have GROUP BY statement\nSELECT order_id AS OrderID \nFROM order_items \nGROUP BY order_id \nHAVING max(quantity) > ALL (SELECT avg(quantity) \n                            FROM order_items \n                            GROUP BY order_id);\n-- EXISTS\n-- The EXISTS operator is used to test for the existence of any record in a subquery.\n-- The EXISTS operator returns TRUE if the subquery returns one or more records.\n-- EXISTS operator generally used with Correlated Subqueries\n\n-- Here exists basically return those matched product_id\n-- If the same product_id matches multiple time, then it consider once. \nSELECT name\nFROM products\nWHERE EXISTS (SELECT * FROM order_items \n                       WHERE order_items.product_id = products.product_id \n                       AND quantity > 5);\nSELECT name\nFROM products\nWHERE EXISTS (SELECT 1 FROM order_items \n                       WHERE order_items.product_id = products.product_id \n                       AND quantity > 5);\n\n-- Same query can be written using 'IN' keyword\n-- Both have some key differences\n\nSELECT name\nFROM products\nWHERE product_id IN (SELECT product_id FROM order_items \n                       WHERE order_items.product_id = products.product_id \n                       AND quantity > 5);\n\n\n-- SQL Aggregate Functions\n-- Aggregate functions are often used with the GROUP BY clause of the SELECT statement. The GROUP BY clause splits the result-set into groups of values and the aggregate function can be used to return a single value for each group.\n-- The most commonly used SQL aggregate functions are:\n\n-- MIN() - returns the smallest value within the selected column\n-- MAX() - returns the largest value within the selected column\n-- COUNT() - returns the number of rows in a set\n-- SUM() - returns the total sum of a numerical column\n-- AVG() - returns the average value of a numerical column\n-- UPDATE \nUPDATE customers\nSET first_name = 'Alfred Schmidt', city = 'Frankfurt'\nWHERE customer_id = 1;\n-- HAVING : \n-- The HAVING clause was added to SQL because the WHERE keyword cannot be used with aggregate functions.\n-- The following SQL statement lists the number of customers in each country. Only include countries with more than 5 customers:\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nHAVING COUNT(customer_id) > 1;\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nWHERE city = 'Dhaka'\nGROUP BY city;\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nORDER BY total_customers DESC;\n\n-- Same output\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nHAVING total_customers\nORDER BY total_customers DESC;\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nHAVING total_customers = 3\nORDER BY total_customers DESC;\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nHAVING total_customers > 1\nORDER BY total_customers DESC;\n-- GROUP BY\n-- It is followed by aggregate function\nSELECT\n  product_id,\n  SUM(quantity) as quantity\nFROM order_items\nGROUP BY product_id;\n\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nORDER BY total_customers DESC;\n\n-- UNION \n-- The UNION operator is used to combine the result-set of two or more SELECT statements.\n-- Every SELECT statement within UNION must have the same number of columns\n-- The columns must also have similar data types\n-- The columns in every SELECT statement must also be in the same order\n\nSELECT name FROM products\nUNION\nSELECT name FROM shippers\nORDER BY name;\n-- CASE \n-- The CASE statement goes through conditions and returns a value when the first condition is met (like an if-then-else statement). So, once a condition is true, it will stop reading and return the result. If no conditions are true, it returns the value in the ELSE clause.\n-- If there is no ELSE part and no conditions are true, it returns NULL.\n\nSELECT order_id, quantity,\nCASE \n     WHEN quantity > 10 THEN 'The quantity is greater than 10'\n     WHEN quantity = 10 THEN 'The quantity is 10'\n     ELSE 'The quantity is under 10'\nEND AS QuantityText\nFROM order_items;",
+    "content": "-- Query performing on Mosh Course database : sql_hr, sql_inventory, sql_invooicing, sql_store\nUSE sql_store;\n-- Retrieving all data of customers  \n-- WHERE -> to filter the result\nSELECT * FROM customers; \n-- Another way \n-- SELECT * FROM `sql_store`.`customers` \n-- Retrieving specific colums of customers    \nSELECT points, customer_id, first_name FROM customers; \n-- Filtering cutomers:   \n-- KEYWORD order is important\nSELECT *  \nFROM customers\n-- WHERE customer_id = 1\n\n-- WHERE points > 3000\n\n-- Both uppercase and lowercase work perfectly\n-- WHERE state = 'VA'\n-- WHERE state = 'va'\n\n-- Search with date\n-- WHERE birth_date >= '1990-01-01'\n\n-- IN -> To specify multiple possible values for a column\n-- BETWEEN -> WHERE city IN ('Chicago','London')\n-- WHERE state NOT IN ('VA', 'FL', 'GA')\n\n-- NOT EQUAL -> <> or != \n-- WHERE points <> 796\n-- Or : Same Effect -> WHERE points != 1899\n\n-- LIKE -> Search for a pattern for both uppercase and lowercase\n-- % -> any number of characters, _ -> single character\n-- WHERE state LIKE 'f%'\n-- WHERE last_name LIKE 'b%'\n-- WHERE last_name LIKE 'brush%' \n\n-- matching 'b' at the beginning, middle or end \n-- WHERE last_name LIKE '%b%'\n\n-- all the customers last_name end by y\n-- WHERE last_name LIKE '%y'\n\n-- Match only two character end with y\n-- WHERE last_name LIKE '_y'\n\n-- Matchig the 6 character string last_name end with y\n-- WHERE last_name LIKE '_____y'\n\n-- Five character starting with b and ending with y\nWHERE last_name LIKE 'b____y'\n\n-- BETWEEN -> Between a certain range\n-- WHERE points >= 1000 AND points <= 3000\n-- same query can be wriiten in a clener way\n-- WHERE points BETWEEN 1000 AND 3000  \n-- WHERE birth_date BETWEEN '1990-01-01' AND '2000-01-01'  \n\n-- Multiple search condition in filtreing data\n-- WHERE birth_date >= '1990-01-01' AND points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 500 AND state = 'VA'\n\n-- AND operator execute first than OR\n-- Higer to Lower order : / -> * -> + -> - \n-- WHERE birth_date >= '1990-01-01' OR (points > 2500 AND state = 'VA')\n\n-- WHERE NOT (birth_date > '1990-01-01' OR points > 1000) \n-- Same query can be written as : \n-- WHERE birth_date <= '1990-01-01' AND points <= 1000\n\n-- The WHERE clause is not only used in SELECT statements, it is also used in UPDATE, DELETE, etc.\nORDER BY first_name;\n-- two columns and values\nSELECT 1, 2;   \n-- SELECT clause in details  \n-- SELECT last_name, first_name, points, points + 10\nSELECT   \n  last_name, \n  first_name,  \n  points,  \n  points * 10 + 100\nfrom customers;\nSELECT \n  last_name,  \n  first_name, \n  points p, \n  (points + 10) * 100,\n  -- adding specific alias. to use alias, use 'AS' keyword before the given new name \n  -- You can create Alias with AS keyword, Jus an alias name is enough \n  -- Aliases are used to give a table, or a column in a table, a temporary name.\n  (points + 10) * 100 AS discount_factor,  \n    (points + 10) * 100 discount_factor,  \n  (points + 10) * 100 AS 'discount factor',  \n  (points + 10) * 100 AS \"discount factor\"   \nfrom customers;\n-- Update column  \n-- SELECT state FROM customers;   \nUPDATE customers SET city = 'Sylhet' WHERE (customer_id = 2); \n-- Retrieving all distinct state data of customers \nSELECT DISTINCT city FROM customers;  \nSELECT COUNT(DISTINCT city) FROM customers;  \nSELECT COUNT(city) FROM customers;  \n-- REGEXP OPERATOR\nSELECT * \nFROM customers\n-- using normal form\n-- WHERE last_name LIKE '%field%';\n\n-- can be used by REGEXP keywoed\n-- WHERE last_name REGEXP 'field';\n \n-- ^ -> beginning, $ -> end, | -> logical or, [abcd] -> match any single character listed in the brackets, [a-z] -> any characters from a to z \n\n\n-- ^ -> beginning with 'field' string\n-- WHERE last_name REGEXP '^field'; \n\n-- $ -> ending with 'field' string\n-- WHERE last_name REGEXP 'field$';\n\n-- Match the string 'field' or 'mac' in strart or end\n-- | -> vertical bar or Pipe or Multiple search Pattern\n-- WHERE last_name REGEXP 'field|mac';\n \n-- WHERE last_name REGEXP 'field|mac|rose';\n\n-- WHERE last_name REGEXP '^field|mac|rose';\n\n-- WHERE last_name REGEXP 'field$|mac|rose';\n\n-- WHERE last_name REGEXP 'field$|mac|^rose';\n\n-- WHERE last_name REGEXP 'field$|mac$|^rose';\n \n-- matching customer name : ge or ie or me\n-- Any of the character from 'gim' before 'e'\n-- WHERE last_name REGEXP '[gim]e';\n\n-- Any of the character from 'gim' after 'e'\n-- WHERE last_name REGEXP 'e[gim]';\n\n-- range of characters\nWHERE last_name REGEXP '[a-h]e'; \n\n-- NULL VALUES  \n-- all the customer who do not have phone\nSELECT *\nFROM customers \n-- WHERE phone IS NULL; \nWHERE phone IS NOT NULL;\n-- THE ORDER BY CLASUE\nSELECT * \nFROM customers \n-- ORDER BY first_name;\n-- ORDER BY first_name DESC;\n\n-- Sort data by multiple columns\n-- ORDER BY state, first_name; \n-- ORDER BY first_name, state;\n-- ORDER BY first_name DESC;\nORDER BY state DESC, first_name ASC; \n\n-- Another way of sorting\nSELECT first_name, last_name \nFROM customers\nORDER BY birth_date; \n\n-- sort by data using column position that are selecting to show\nSELECT first_name, last_name\nFROM customers\n-- 1 -> first_name, 2 -> last_name \nORDER BY 1, 2;  \n\n-- order creating alaise\nSELECT first_name, last_name, 10 + 10 AS points\nFROM customers\nORDER BY points, first_name; \n\n-- LIMIT data, it always come into last\nSELECT *\nFROM customers \n-- LIMIT 3;\n-- LIMIT 300;   \n-- for pagination or Offseting\n-- 6 -> skip first 6, 3 -> show 3 records\nLIMIT 6, 3\n-- INNER JOIN\nSELECT * \nFROM orders \n-- INNER is optiinal \nINNER JOIN customers \nON orders.customer_id = customers.customer_id;\n\n-- specify columns \nSELECT order_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- Here customer_id is ambiguous, cause both orders and customers table have customer_id. So we have to specify which tables customer_id\nSELECT order_id, customer_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- \nSELECT order_id, orders.customer_id, first_name, last_name\nFROM orders \nINNER JOIN customers \nON orders.customer_id = customers.customer_id;\n\n-- using alias in table name for simply the code, when you define an alias, you have to use it everywhere\nSELECT order_id, ord.customer_id, first_name, last_name\nFROM orders ord\nINNER JOIN customers cus\nON ord.customer_id = cus.customer_id; \n-- Working with multiple database \n-- How to combine columns from tables accross multiple databases\n\n-- sql_inventory is out of this database\nSELECT * \nFROM order_items oi \nJOIN sql_inventory.products prd\nON oi.product_id = prd.product_id;\n\n-- This query can be written in different way. When we consider our selected table is sql_inventory\nUSE sql_inventory; \n\nSELECT *\nFROM sql_store.order_items oi \nJOIN products prd\nON oi.product_id = prd.product_id\n\n-- SELF JOIN\n-- Here Join will perform on same table or on that table\n-- One colum data(Like reports_to) refer to the main colum(primary key id) on that table\n-- In the sql_hr database employee reports to another employee(a manager)\n-- we have to use different aliases\n\nUSE sql_hr;   \n\nSELECT *\nFROM employees e \nJOIN employees m\nON e.reports_to = m.employee_id;\n\nSELECT e.employee_id, e.first_name AS employee_name, m.first_name AS manger\nFROM employees e \nJOIN employees m\nON e.reports_to = m.employee_id\n\n\n-- JOINING MULTIPLE TABLES \n-- JOINING THREE TABLES\n\nUSE sql_store;\n\nSELECT * \nFROM orders o\nJOIN customers c \n  ON o.customer_id = c.customer_id\nJOIN order_statuses os\n  ON o.status = os.order_status_id;\n\n\nSELECT \n    o.order_id,\n    o.order_date,\n    c.first_name,\n    c.last_name,\n    os.name AS status\nFROM orders o\nJOIN customers c \n  ON o.customer_id = c.customer_id\nJOIN order_statuses os\n  ON o.status = os.order_status_id \n-- Compound Join Condition, combine two primary key as composite key\nSELECT *\nFROM order_items oi  \nJOIN order_item_notes oin \n   ON oi.order_id = oin.order_id\n   AND oi.product_id = oin.product_id;\n\n\nSELECT *  \nFROM orders o\nJOIN customers c \nON o.customer_id = c.customer_id;\n-- Above code can be written using IMPLICIT JOIN(Here basically query perform without JOIN keyword)\nSELECT * \nFROM orders o, customers c\nWHERE o.customer_id = c.customer_id;\n\n-- OUTER JOIN \n-- INNER and OUTER JOIN are vice versa\n-- Basically difference in FROM table , JOIN table\n\nSELECT *  \nFROM customers c  \nJOIN orders o\nON o.customer_id = c.customer_id;\n\n\nSELECT \n    c.customer_id, \n    c.first_name,\n     o.order_id\nFROM customers c  \nJOIN orders o\nON o.customer_id = c.customer_id\nORDER BY c.customer_id;\n-- the above code only return the matched customers but if you want to show the all customers who have any order or not\n-- then we have to use OUTER JOIN\n\n-- Outer joins are joins that return matched values and unmatched values from either or both tables. There are a few types of outer joins:\n-- LEFT JOIN returns only unmatched rows from the left table, as well as matched rows in both tables.\n-- RIGHT JOIN returns only unmatched rows from the right table , as well as matched rows in both tables.\n-- FULL OUTER JOIN returns unmatched rows from both tables,as well as matched rows in both tables.\n\n-- LEFT JOIN\nSELECT \n    c.customer_id, \n    c.first_name,\n    o.order_id\n-- customers is a LEFT table\n-- All the record from the left table are returned whether the condition is true or not\nFROM customers AS c  \nLEFT JOIN orders AS o\n-- LEFT OUTER JOIN orders o\n-- Condition \nON o.customer_id = c.customer_id\nORDER BY c.customer_id\n\n\n-- RIGHT JOIN \nSELECT \n    o.order_id,\n    c.customer_id, \n    c.first_name\n-- orders is a RIGHT table\n-- All the record from the right table are returned whether the condition is true or not\n-- Here basically all the customer_id in orders table will exist in the customers table\nFROM orders o \nRIGHT JOIN customers c\n-- RIGHT OUTER JOIN customers c\n-- Condition\nON o.customer_id = c.customer_id\nORDER BY c.customer_id\n-- RIGHT JOIN\n-- Also RIGHT JOIN can be written as follows\nSELECT  \n    c.customer_id, \n    c.first_name,\n    o.order_id\n-- Here basically all the customer_id in orders table will exist in the customers table\nFROM customers c \nRIGHT JOIN orders o \n-- Condition\nON o.customer_id = c.customer_id\nORDER BY c.customer_id \n-- https://stackoverflow.com/questions/57095115/why-we-use-left-join-right-join-differently-we-can-get-same-output-from-left\n\n-- There really is no difference between a LEFT JOIN and a LEFT OUTER JOIN. \n-- Both versions of the syntax will produce the exact same result in PL/SQL. \n-- Some people do recommend including outer in a LEFT JOIN clause so it's clear that you're creating an outer join, but that's entirely optional. \n-- The same is true of a RIGHT JOIN and a RIGHT OUTER JOIN. In the end, then, it isn't a question of a LEFT JOIN vs. LEFT OUTER JOIN. \n-- They're one and the same thing.\n\n-- LEFT JOIN -> It is also known as LEFT OUTER JOIN. \tRIGHT JOIN -> It is also called as RIGHT OUTER JOIN.\n-- OUTER JOIN BETWEEN MULTIPLE TABLE \nSELECT \n    c.customer_id, \n    c.first_name,\n    o.order_id\n\nFROM customers c \nLEFT JOIN orders o \n   ON o.customer_id = c.customer_id\nJOIN shippers sh \n   ON o.shipper_id = sh.shipper_id\nORDER BY c.customer_id;\n\n-- Above code only show the matched shipper_id with the orders table. But some of the orders have no shipper_id.\n-- Have to show both matvh and unmatched.\n\nSELECT \n    c.customer_id, \n    c.first_name,\n    o.order_id,\n    sh.shipper_id,\n    sh.name AS shipper\nFROM customers c \nLEFT JOIN orders o \n   ON o.customer_id = c.customer_id\nLEFT JOIN shippers sh \n   ON o.shipper_id = sh.shipper_id\nORDER BY c.customer_id;\n SELECT \n    o.order_id,\n    o.order_date,\n    c.first_name AS customer,\n    sh.name AS shipper,\n    os.name AS status\nFROM orders o \nJOIN customers c  \n  ON o.customer_id = c.customer_id\n  -- Here LEFT basically indicating the orders table  \nLEFT JOIN shippers sh \n  ON o.shipper_id = sh.shipper_id\nJOIN order_statuses os \n  ON o.status = os.order_status_id;\n-- SELF OUTER JOIN\nSELECT \n  e.employee_id, \n  e.first_name AS employee_name, \n  m.first_name AS manger\nFROM employees e \nLEFT JOIN employees m\nON e.reports_to = m.employee_id\n-- THE USING CLAUSE\nSELECT \n    o.order_id,\n    c.first_name,\n    sh.name AS shipper\nFROM orders o \nJOIN customers c  \n  -- ON o.customer_id = c.customer_id\n  -- To simply the above query, the code can be written as follows\n  -- USING keyword only works if the column name is eaxctly same accross the different table  \n  USING(customer_id) \n  -- Obiously some of our order are not shipped\nLEFT JOIN shippers sh \n  -- ON o.shipper_id = sh.shipper_id\n  USING(shipper_id) \n-- ANY, ALL\n-- ALL & ANY are logical operators in SQL. They return boolean value as a result.\n-- ALL operator is used to select all tuples of SELECT STATEMENT. It is also used to compare a value to every value in another value set or result from a subquery.\n-- The ALL operator returns TRUE if all of the subqueries values meet the condition. The ALL must be preceded by comparison operators and evaluates true if all of the subqueries values meet the condition.\n-- ALL is used with SELECT, WHERE, HAVING statement.\nUSE sql_hr;\n\n-- ALL\nSELECT COUNT(*) FROM employees\n                WHERE salary <\n                ALL(SELECT salary from employees);  \n\nSELECT salary from employees WHERE office_id = 1;\n\nSELECT * FROM employees\n                WHERE salary <\n                ALL(SELECT salary from employees WHERE office_id = 1);  \n\nSELECT * FROM employees\n                WHERE salary >\n                ALL(SELECT salary from employees WHERE office_id = 1);   \n \nSELECT count(*) FROM employees\n                WHERE salary =\n                ALL(SELECT salary from employees WHERE office_id = 1); \n  \nSELECT count(*) FROM employees\n                WHERE salary =\n                ALL(SELECT salary from employees GROUP BY first_name); \n-- ANY\n-- returns a boolean value as a result\n-- returns TRUE if ANY of the subquery values meet the condition\n\nSELECT count(*) FROM employees\n                WHERE salary >\n                ANY(SELECT salary from employees);  \n\nSELECT count(*) FROM employees\n                WHERE salary <\n                ANY(SELECT salary from employees); \n\nSELECT COUNT(*) FROM employees \n         WHERE salary =\n         ANY(SELECT salary from employees); \n\nSELECT * FROM employees \n         WHERE salary =\n         ANY(SELECT salary from employees GROUP BY first_name); \nUSE sql_store;\n\nSELECT product_id \nFROM order_items\nWHERE quantity = 4\nGROUP BY product_id;\n\nSELECT name AS ProductName \nFROM products\nWHERE product_id = ALL (SELECT product_id \n                       FROM order_items\n                       WHERE quantity = 4 or quantity = 10);\n\nSELECT avg(quantity) \nFROM order_items\nGROUP BY order_id;\n\n-- Every Aggregate Function must have GROUP BY statement\nSELECT order_id AS OrderID \nFROM order_items \nGROUP BY order_id \nHAVING max(quantity) > ALL (SELECT avg(quantity) \n                            FROM order_items \n                            GROUP BY order_id);\n-- EXISTS\n-- The EXISTS operator is used to test for the existence of any record in a subquery.\n-- The EXISTS operator returns TRUE if the subquery returns one or more records.\n-- EXISTS operator generally used with Correlated Subqueries\n\n-- Here exists basically return those matched product_id\n-- If the same product_id matches multiple time, then it consider once. \nSELECT name\nFROM products\nWHERE EXISTS (SELECT * FROM order_items \n                       WHERE order_items.product_id = products.product_id \n                       AND quantity > 5);\nSELECT name\nFROM products\nWHERE EXISTS (SELECT 1 FROM order_items \n                       WHERE order_items.product_id = products.product_id \n                       AND quantity > 5);\n\n-- Same query can be written using 'IN' keyword\n-- Both have some key differences\n\nSELECT name\nFROM products\nWHERE product_id IN (SELECT product_id FROM order_items \n                       WHERE order_items.product_id = products.product_id \n                       AND quantity > 5);\n\n\n-- SQL Aggregate Functions\n-- Aggregate functions are often used with the GROUP BY clause of the SELECT statement. The GROUP BY clause splits the result-set into groups of values and the aggregate function can be used to return a single value for each group.\n-- The most commonly used SQL aggregate functions are:\n\n-- MIN() - returns the smallest value within the selected column\n-- MAX() - returns the largest value within the selected column\n-- COUNT() - returns the number of rows in a set\n-- SUM() - returns the total sum of a numerical column\n-- AVG() - returns the average value of a numerical column\n-- UPDATE \nUPDATE customers\nSET first_name = 'Alfred Schmidt', city = 'Frankfurt'\nWHERE customer_id = 1;\n-- HAVING : \n-- The HAVING clause was added to SQL because the WHERE keyword cannot be used with aggregate functions.\n-- The following SQL statement lists the number of customers in each country. Only include countries with more than 5 customers:\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nHAVING COUNT(customer_id) > 1;\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nWHERE city = 'Dhaka'\nGROUP BY city;\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nORDER BY total_customers DESC;\n\n-- Same output\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nHAVING total_customers\nORDER BY total_customers DESC;\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nHAVING total_customers = 3\nORDER BY total_customers DESC;\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nHAVING total_customers > 1\nORDER BY total_customers DESC;\n-- GROUP BY\n-- It is followed by aggregate function\nSELECT\n  product_id,\n  SUM(quantity) as quantity\nFROM order_items\nGROUP BY product_id;\n\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nORDER BY total_customers DESC;\n\n-- UNION \n-- The UNION operator is used to combine the result-set of two or more SELECT statements.\n-- Every SELECT statement within UNION must have the same number of columns\n-- The columns must also have similar data types\n-- The columns in every SELECT statement must also be in the same order\n\nSELECT name FROM products\nUNION\nSELECT name FROM shippers\nORDER BY name;\n-- CASE \n-- The CASE statement goes through conditions and returns a value when the first condition is met (like an if-then-else statement). So, once a condition is true, it will stop reading and return the result. If no conditions are true, it returns the value in the ELSE clause.\n-- If there is no ELSE part and no conditions are true, it returns NULL.\n\nSELECT order_id, quantity,\nCASE \n     WHEN quantity > 10 THEN 'The quantity is greater than 10'\n     WHEN quantity = 10 THEN 'The quantity is 10'\n     ELSE 'The quantity is under 10' \nEND AS QuantityText\nFROM order_items;",
     "options": {
         "tabSize": 4,
         "insertSpaces": true,
@@ -16,11 +16,11 @@
                 "inSelectionMode": false,
                 "selectionStart": {
                     "lineNumber": 618,
-                    "column": 36
+                    "column": 38
                 },
                 "position": {
                     "lineNumber": 618,
-                    "column": 36
+                    "column": 38
                 }
             }
         ],
@@ -117,7 +117,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "5d0355b8-2bfe-455e-e462-544329bcfe7d"
+                        "463a0835-3edd-41c2-99f2-0dde0efc1b3f"
                     ]
                 },
                 "currentHeight": 36,
@@ -144,8 +144,8 @@
             },
             "data": [
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "5d0355b8-2bfe-455e-e462-544329bcfe7d",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "463a0835-3edd-41c2-99f2-0dde0efc1b3f",
                     "rows": [
                         {
                             "0": 1,
@@ -342,7 +342,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "c3e3fce5-e602-4c52-ef42-44d7a41f9b62"
+                        "783da24f-84b6-48e4-a746-fdfd7b47ce82"
                     ]
                 },
                 "currentHeight": 36,
@@ -369,8 +369,8 @@
             },
             "data": [
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "c3e3fce5-e602-4c52-ef42-44d7a41f9b62",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "783da24f-84b6-48e4-a746-fdfd7b47ce82",
                     "rows": [
                         {
                             "0": 2273,
@@ -465,7 +465,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "02addf92-2f8a-4c6e-9a60-6f0e176c5451"
+                        "6adaedce-d613-453c-97f6-5b591c157d77"
                     ]
                 },
                 "currentHeight": 36,
@@ -501,8 +501,8 @@
             },
             "data": [
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "02addf92-2f8a-4c6e-9a60-6f0e176c5451",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "6adaedce-d613-453c-97f6-5b591c157d77",
                     "rows": [
                         {
                             "0": 3,
@@ -600,7 +600,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "4dafb370-689e-438e-d2e5-8c9f1118fcc5"
+                        "6b5568d7-db2f-4463-c49a-2074d88cd1b7"
                     ]
                 },
                 "currentHeight": 36,
@@ -627,8 +627,8 @@
             },
             "data": [
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "4dafb370-689e-438e-d2e5-8c9f1118fcc5",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "6b5568d7-db2f-4463-c49a-2074d88cd1b7",
                     "rows": [
                         {
                             "0": 1,
@@ -670,7 +670,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "4e57fe19-071e-448c-f3e4-83a979667b7d"
+                        "4cee1831-9887-4da2-98af-61cd7f662c52"
                     ]
                 },
                 "currentHeight": 198,
@@ -688,8 +688,8 @@
             },
             "data": [
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "4e57fe19-071e-448c-f3e4-83a979667b7d",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "4cee1831-9887-4da2-98af-61cd7f662c52",
                     "rows": [
                         {
                             "0": "MacCaffrey",
@@ -801,7 +801,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "4c6fcb6c-add3-4a20-bed0-fc443f117834"
+                        "dd4cf9f5-19b3-4754-991c-75d528c9d19d"
                     ]
                 },
                 "currentHeight": 36,
@@ -819,8 +819,8 @@
             },
             "data": [
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "4c6fcb6c-add3-4a20-bed0-fc443f117834",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "dd4cf9f5-19b3-4754-991c-75d528c9d19d",
                     "rows": [
                         {
                             "0": "MacCaffrey",
@@ -1040,7 +1040,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "1582992e-41c7-44f3-e08b-6149195ba306"
+                        "c30d4787-ea8f-49bc-cc5e-f0ab4b413506"
                     ]
                 },
                 "currentHeight": 103,
@@ -1085,8 +1085,8 @@
             },
             "data": [
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "1582992e-41c7-44f3-e08b-6149195ba306",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "c30d4787-ea8f-49bc-cc5e-f0ab4b413506",
                     "rows": [
                         {
                             "0": 7
@@ -1120,7 +1120,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "7b5ede65-71d9-4541-b5af-f1b41709ee34"
+                        "90af8a5d-db32-4226-9d8b-6bf4d04f2541"
                     ]
                 },
                 "currentHeight": 36,
@@ -1147,8 +1147,8 @@
             },
             "data": [
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "7b5ede65-71d9-4541-b5af-f1b41709ee34",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "90af8a5d-db32-4226-9d8b-6bf4d04f2541",
                     "rows": [
                         {
                             "0": 3,
@@ -1268,7 +1268,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "6c23039f-4c92-4b06-d552-5a5bcf74d549"
+                        "1013efc4-53db-44c7-cca2-74333843d11f"
                     ]
                 },
                 "currentHeight": 36,
@@ -1286,8 +1286,8 @@
             },
             "data": [
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "6c23039f-4c92-4b06-d552-5a5bcf74d549",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "1013efc4-53db-44c7-cca2-74333843d11f",
                     "rows": [
                         {
                             "0": 1,
@@ -1493,7 +1493,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "afbb97ac-552e-4d0b-bbbf-13821ef838ef"
+                        "73f7c0ed-3d94-4321-a89e-2545a5aea4c5"
                     ]
                 },
                 "currentHeight": 180,
@@ -1547,8 +1547,8 @@
             },
             "data": [
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "afbb97ac-552e-4d0b-bbbf-13821ef838ef",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "73f7c0ed-3d94-4321-a89e-2545a5aea4c5",
                     "rows": [
                         {
                             "0": "Ambur",
@@ -1643,7 +1643,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "c2f92799-9e1c-49c7-e652-2c2a143c567d"
+                        "a97e0908-80bf-4999-998f-7b55b123b714"
                     ]
                 },
                 "currentHeight": 36,
@@ -1661,8 +1661,8 @@
             },
             "data": [
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "c2f92799-9e1c-49c7-e652-2c2a143c567d",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "a97e0908-80bf-4999-998f-7b55b123b714",
                     "rows": [
                         {
                             "0": 7,
@@ -1782,7 +1782,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "38dcde38-99a4-4e6c-e940-c592b1bbc826"
+                        "6b6e04c2-efa2-40cf-8243-85230abab9b7"
                     ]
                 },
                 "currentHeight": 322,
@@ -1845,8 +1845,8 @@
             },
             "data": [
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "38dcde38-99a4-4e6c-e940-c592b1bbc826",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "6b6e04c2-efa2-40cf-8243-85230abab9b7",
                     "rows": [
                         {
                             "0": 1,
@@ -2162,8 +2162,8 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "d4ead8ac-93d4-420a-bdcc-2cc3309f1950",
-                        "b861cb75-acd2-4640-9bff-510d1fca6c40"
+                        "53a38a86-9a9b-43ab-af2f-82d6d8bea4c6",
+                        "0888b837-7f8a-4a5d-b8ce-7f077f7b7523"
                     ]
                 },
                 "currentHeight": 36,
@@ -2199,8 +2199,8 @@
             },
             "data": [
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "d4ead8ac-93d4-420a-bdcc-2cc3309f1950",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "53a38a86-9a9b-43ab-af2f-82d6d8bea4c6",
                     "rows": [
                         {
                             "0": 2,
@@ -2451,8 +2451,8 @@
                     "sql": "\n\nSELECT *\nFROM sql_store.order_items oi \nJOIN products prd\nON oi.product_id = prd.product_id\n"
                 },
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "b861cb75-acd2-4640-9bff-510d1fca6c40",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "0888b837-7f8a-4a5d-b8ce-7f077f7b7523",
                     "rows": [],
                     "executionInfo": {
                         "text": "OK, 0 records retrieved in 0.4ms",
@@ -2474,7 +2474,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "6aeb2cf4-db85-44cf-f0ae-64213f31f146"
+                        "48b81d6b-64b7-4823-a835-beece945563e"
                     ]
                 },
                 "currentHeight": 36,
@@ -2510,8 +2510,8 @@
             },
             "data": [
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "6aeb2cf4-db85-44cf-f0ae-64213f31f146",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "48b81d6b-64b7-4823-a835-beece945563e",
                     "rows": [
                         {
                             "0": 33391,
@@ -2651,7 +2651,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "00311283-737f-4d06-a296-adb267d2fb64"
+                        "128bd3b1-a2b2-4cfc-8e17-2f10e590b844"
                     ]
                 },
                 "currentHeight": 295,
@@ -2687,8 +2687,8 @@
             },
             "data": [
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "00311283-737f-4d06-a296-adb267d2fb64",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "128bd3b1-a2b2-4cfc-8e17-2f10e590b844",
                     "rows": [
                         {
                             "0": 8,
@@ -3038,9 +3038,9 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "368c7bfc-2546-4805-cd2e-780f172e4cec",
-                        "d4159a57-f18f-4f71-8105-78e18486a79a",
-                        "4f515eca-6f3d-4501-d7f7-a2ed4ee26a62"
+                        "4b19acfb-f308-4c88-c72c-c6f31dd9fda8",
+                        "e7dc3127-5363-482a-8d24-39d7fd83e6b4",
+                        "a69aa197-56dc-4f56-b7c3-363ec3bd57f4"
                     ]
                 },
                 "currentHeight": 36,
@@ -3086,8 +3086,8 @@
             },
             "data": [
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "368c7bfc-2546-4805-cd2e-780f172e4cec",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "4b19acfb-f308-4c88-c72c-c6f31dd9fda8",
                     "rows": [
                         {
                             "0": 1,
@@ -3394,8 +3394,8 @@
                     "sql": "\n\n\nSELECT *  \nFROM orders o\nJOIN customers c \nON o.customer_id = c.customer_id"
                 },
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "d4159a57-f18f-4f71-8105-78e18486a79a",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "e7dc3127-5363-482a-8d24-39d7fd83e6b4",
                     "rows": [
                         {
                             "0": 1,
@@ -3702,8 +3702,8 @@
                     "sql": "\n-- Above code can be written using IMPLICIT JOIN(Here basically query perform without JOIN keyword)\nSELECT * \nFROM orders o, customers c\nWHERE o.customer_id = c.customer_id"
                 },
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "4f515eca-6f3d-4501-d7f7-a2ed4ee26a62",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "a69aa197-56dc-4f56-b7c3-363ec3bd57f4",
                     "rows": [],
                     "executionInfo": {
                         "text": "OK, 0 records retrieved in 1.871ms",
@@ -3725,7 +3725,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "cc8d8ff2-fa38-4f53-e07b-45c161f7a0b8"
+                        "9c06070d-5e87-453f-ab8e-8dd45140329e"
                     ]
                 },
                 "currentHeight": 36,
@@ -3761,8 +3761,8 @@
             },
             "data": [
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "cc8d8ff2-fa38-4f53-e07b-45c161f7a0b8",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "9c06070d-5e87-453f-ab8e-8dd45140329e",
                     "rows": [
                         {
                             "0": 1,
@@ -3877,7 +3877,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "117724de-f205-4cbe-b0e3-399eb1b399ca"
+                        "20f9b23a-63e7-4fc7-8aed-d352fe9d8411"
                     ]
                 },
                 "currentHeight": 36,
@@ -3895,8 +3895,8 @@
             },
             "data": [
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "117724de-f205-4cbe-b0e3-399eb1b399ca",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "20f9b23a-63e7-4fc7-8aed-d352fe9d8411",
                     "rows": [
                         {
                             "0": null,
@@ -4011,7 +4011,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "23ec182e-885f-482c-989f-e324a4fcdefb"
+                        "00c9f4b9-811c-4b25-c3c2-64edae21a5a7"
                     ]
                 },
                 "currentHeight": 36,
@@ -4029,8 +4029,8 @@
             },
             "data": [
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "23ec182e-885f-482c-989f-e324a4fcdefb",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "00c9f4b9-811c-4b25-c3c2-64edae21a5a7",
                     "rows": [
                         {
                             "0": 2,
@@ -4156,8 +4156,8 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "c99d9efa-b838-4cbe-bc24-0a5a3212e6a5",
-                        "2392ac7f-60f9-4bce-b263-dcf2428a660e"
+                        "42de50a6-d28c-4165-9f93-6cc28696296f",
+                        "80945693-42be-49ff-9c52-340d6941e804"
                     ]
                 },
                 "currentHeight": 36,
@@ -4184,8 +4184,8 @@
             },
             "data": [
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "c99d9efa-b838-4cbe-bc24-0a5a3212e6a5",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "42de50a6-d28c-4165-9f93-6cc28696296f",
                     "rows": [
                         {
                             "0": 2,
@@ -4246,8 +4246,8 @@
                     "sql": "-- OUTER JOIN BETWEEN MULTIPLE TABLE\nSELECT \n    c.customer_id, \n    c.first_name,\n    o.order_id\n\nFROM customers c \nLEFT JOIN orders o \n   ON o.customer_id = c.customer_id\nJOIN shippers sh \n   ON o.shipper_id = sh.shipper_id\nORDER BY c.customer_id"
                 },
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "2392ac7f-60f9-4bce-b263-dcf2428a660e",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "80945693-42be-49ff-9c52-340d6941e804",
                     "rows": [
                         {
                             "0": 1,
@@ -4404,7 +4404,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "2df1d356-7e05-4944-de78-c2765d1e09ec"
+                        "e84ffb06-ba95-4f97-86d2-842721f04a15"
                     ]
                 },
                 "currentHeight": 36,
@@ -4422,8 +4422,8 @@
             },
             "data": [
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "2df1d356-7e05-4944-de78-c2765d1e09ec",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "e84ffb06-ba95-4f97-86d2-842721f04a15",
                     "rows": [
                         {
                             "0": 8,
@@ -4552,7 +4552,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "ebed4e15-4ad9-4ea5-bae4-23d4764cda3d"
+                        "2d85904a-19c9-4c7f-a638-c86880067312"
                     ]
                 },
                 "currentHeight": 133,
@@ -4570,8 +4570,8 @@
             },
             "data": [
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "ebed4e15-4ad9-4ea5-bae4-23d4764cda3d",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "2d85904a-19c9-4c7f-a638-c86880067312",
                     "rows": [
                         {
                             "0": 33391,
@@ -4716,7 +4716,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "c95acce3-1fd0-4f7c-87a9-a163c3204099"
+                        "bb378eb9-00a3-4a9d-c271-5f88319c4bb5"
                     ]
                 },
                 "currentHeight": 307.9375,
@@ -4734,8 +4734,8 @@
             },
             "data": [
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "c95acce3-1fd0-4f7c-87a9-a163c3204099",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "bb378eb9-00a3-4a9d-c271-5f88319c4bb5",
                     "rows": [
                         {
                             "0": 1,
@@ -4830,7 +4830,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "5ff3a64a-d25d-471c-f414-ff95e6bbb97d"
+                        "1b29b1fb-83ba-49ff-c198-c20b985ffffd"
                     ]
                 },
                 "currentHeight": 36,
@@ -4920,8 +4920,8 @@
             },
             "data": [
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "5ff3a64a-d25d-471c-f414-ff95e6bbb97d",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "1b29b1fb-83ba-49ff-c198-c20b985ffffd",
                     "rows": [
                         {
                             "0": 63196,
@@ -5030,7 +5030,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "317e961c-69d2-435e-c129-8c9ea8105608"
+                        "2a5dda5b-c066-4bea-e935-a665ea1764ec"
                     ]
                 },
                 "currentHeight": 313,
@@ -5084,8 +5084,8 @@
             },
             "data": [
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "317e961c-69d2-435e-c129-8c9ea8105608",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "2a5dda5b-c066-4bea-e935-a665ea1764ec",
                     "rows": [
                         {
                             "0": 33391,
@@ -5405,7 +5405,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "7fafd355-3dd3-4085-c847-f80993e52975"
+                        "8d6babc1-be25-401e-f3e6-b787f166dc91"
                     ]
                 },
                 "currentHeight": 36,
@@ -5450,8 +5450,8 @@
             },
             "data": [
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "7fafd355-3dd3-4085-c847-f80993e52975",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "8d6babc1-be25-401e-f3e6-b787f166dc91",
                     "rows": [
                         {
                             "0": "Foam Dinner Plate"
@@ -5556,12 +5556,12 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "27a90842-5b6a-49cd-ab23-c242ba0b9512",
-                        "c3a702c9-620b-4c6b-f865-b86895e6e069",
-                        "c6facdee-5580-4180-c018-b35bb9e0cba8",
-                        "218e0de4-9118-4e07-8536-ada33dfc0c23",
-                        "7b13dde2-ccb6-481b-cbf4-a6963c40b615",
-                        "098df31b-19c9-44a1-f888-c061c8eda429"
+                        "24d758f9-a2a4-4ae7-c72c-2506017aab63",
+                        "325324d7-e2bc-413a-9b52-a99f0e200539",
+                        "1a03600f-a901-4a61-b77d-c35d20298892",
+                        "2f314c20-bd16-49b5-ddc8-d092df9ecd0b",
+                        "a5cebb5e-40c4-409f-9d4b-e3b7701665b2",
+                        "8f0e9be0-bcca-45fc-b543-c5a109156b05"
                     ]
                 },
                 "currentHeight": 36,
@@ -5634,8 +5634,8 @@
             },
             "data": [
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "27a90842-5b6a-49cd-ab23-c242ba0b9512",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "24d758f9-a2a4-4ae7-c72c-2506017aab63",
                     "rows": [
                         {
                             "0": 2,
@@ -5672,8 +5672,8 @@
                     "sql": "-- HAVING : \n-- The HAVING clause was added to SQL because the WHERE keyword cannot be used with aggregate functions.\n-- The following SQL statement lists the number of customers in each country. Only include countries with more than 5 customers:\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nHAVING COUNT(customer_id) > 1"
                 },
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "c3a702c9-620b-4c6b-f865-b86895e6e069",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "325324d7-e2bc-413a-9b52-a99f0e200539",
                     "rows": [
                         {
                             "0": 3,
@@ -5706,8 +5706,8 @@
                     "sql": "\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nWHERE city ='Dhaka'\nGROUP BY city"
                 },
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "c6facdee-5580-4180-c018-b35bb9e0cba8",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "1a03600f-a901-4a61-b77d-c35d20298892",
                     "rows": [
                         {
                             "0": 3,
@@ -5764,8 +5764,8 @@
                     "sql": "\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nORDER BY total_customers DESC"
                 },
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "218e0de4-9118-4e07-8536-ada33dfc0c23",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "2f314c20-bd16-49b5-ddc8-d092df9ecd0b",
                     "rows": [
                         {
                             "0": 3,
@@ -5822,8 +5822,8 @@
                     "sql": "\n\n-- Same output\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nHAVING total_customers\nORDER BY total_customers DESC"
                 },
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "7b13dde2-ccb6-481b-cbf4-a6963c40b615",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "a5cebb5e-40c4-409f-9d4b-e3b7701665b2",
                     "rows": [
                         {
                             "0": 3,
@@ -5856,8 +5856,8 @@
                     "sql": "\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nHAVING total_customers = 3\nORDER BY total_customers DESC"
                 },
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "098df31b-19c9-44a1-f888-c061c8eda429",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "8f0e9be0-bcca-45fc-b543-c5a109156b05",
                     "rows": [
                         {
                             "0": 3,
@@ -5903,7 +5903,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "4adbc961-cad4-4e98-dfc3-525fa7f504bb"
+                        "6183188e-5709-43bc-fb34-49b3d0af6d63"
                     ]
                 },
                 "currentHeight": 36,
@@ -5939,8 +5939,8 @@
             },
             "data": [
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "4adbc961-cad4-4e98-dfc3-525fa7f504bb",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "6183188e-5709-43bc-fb34-49b3d0af6d63",
                     "rows": [
                         {
                             "0": 3,
@@ -6006,7 +6006,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "e8a9e7b4-234d-45f5-c716-61e0f6a49411"
+                        "d7f8c866-2493-40ae-9675-3f093945155b"
                     ]
                 },
                 "currentHeight": 36,
@@ -6024,8 +6024,8 @@
             },
             "data": [
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "e8a9e7b4-234d-45f5-c716-61e0f6a49411",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "d7f8c866-2493-40ae-9675-3f093945155b",
                     "rows": [
                         {
                             "0": "Brocolinni - Gaylan, Chinese"
@@ -6101,7 +6101,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "09323df9-9ddb-4c74-933f-f7dc3ad127b5"
+                        "fb8f2603-80a2-4b77-b02a-b81d4351bc33"
                     ]
                 },
                 "currentHeight": 352,
@@ -6110,7 +6110,7 @@
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 577
+                            "length": 578
                         },
                         "contentStart": 357,
                         "state": 0
@@ -6119,8 +6119,8 @@
             },
             "data": [
                 {
-                    "tabId": "477e5d35-f173-41b8-b1b7-f9a48a58ffd0",
-                    "resultId": "09323df9-9ddb-4c74-933f-f7dc3ad127b5",
+                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
+                    "resultId": "fb8f2603-80a2-4b77-b02a-b81d4351bc33",
                     "rows": [
                         {
                             "0": 1,
