@@ -267,8 +267,289 @@ FROM orders
 INNER JOIN customers
 ON orders.customer_id = customers.customer_id;
 
--- using alias in table name for simply the code
+-- using alias in table name for simply the code, when you define an alias, you have to use it everywhere.
 SELECT order_id, ord.customer_id, first_name, last_name
 FROM orders ord
 INNER JOIN customers cus
 ON ord.customer_id = cus.customer_id;
+
+
+
+
+
+-- Working with multiple database
+-- How to combine columns from tables accross multiple databases
+
+-- sql_inventory is out of this database
+SELECT * 
+FROM order_items oi 
+JOIN sql_inventory.products prd
+ON oi.product_id = prd.product_id;
+
+-- This query can be written in different way. When we consider our selected table is sql_inventory
+USE sql_inventory; 
+
+SELECT *
+FROM sql_store.order_items oi 
+JOIN products prd
+ON oi.product_id = prd.product_id
+
+
+
+
+
+-- SELF JOIN
+-- Here Join will perform on same table or on that table
+-- One colum data(Like reports_to) refer to the main colum(primary key id) on that table
+-- In the sql_hr database employee reports to another employee(a manager)
+-- we have to use different aliases
+
+USE sql_hr;  
+
+SELECT *
+FROM employees e 
+JOIN employees m
+ON e.reports_to = m.employee_id;
+
+SELECT e.employee_id, e.first_name AS employee_name, m.first_name AS manger
+FROM employees e 
+JOIN employees m
+ON e.reports_to = m.employee_id
+
+
+
+
+
+-- JOINING MULTIPLE TABLES
+-- JOINING THREE TABLES
+
+USE sql_store;
+
+SELECT * 
+FROM orders o
+JOIN customers c 
+  ON o.customer_id = c.customer_id
+JOIN order_statuses os
+  ON o.status = os.order_status_id;
+
+
+SELECT 
+    o.order_id,
+    o.order_date,
+    c.first_name,
+    c.last_name,
+    os.name AS status
+FROM orders o
+JOIN customers c 
+  ON o.customer_id = c.customer_id
+JOIN order_statuses os
+  ON o.status = os.order_status_id 
+  
+  
+  
+  
+  
+-- Compound Join Condition, combine two primary key as composite key
+SELECT *
+FROM order_items oi 
+JOIN order_item_notes oin 
+   ON oi.order_id = oin.order_id
+   AND oi.product_id = oin.product_id;
+
+
+SELECT *  
+FROM orders o
+JOIN customers c 
+ON o.customer_id = c.customer_id;
+-- Above code can be written using IMPLICIT JOIN(Here basically query perform without JOIN keyword)
+SELECT * 
+FROM orders o, customers c
+WHERE o.customer_id = c.customer_id;
+
+
+
+
+
+
+-- OUTER JOIN
+-- INNER and OUTER JOIN are vice versa
+-- Basically difference in FROM table , JOIN table
+
+SELECT *  
+FROM customers c  
+JOIN orders o
+ON o.customer_id = c.customer_id;
+
+
+SELECT 
+    c.customer_id, 
+    c.first_name,
+     o.order_id
+FROM customers c  
+JOIN orders o
+ON o.customer_id = c.customer_id
+ORDER BY c.customer_id;
+-- the above code only return the matched customers but if you want to show the all customers who have any order or not
+-- then we have to use OUTER JOIN
+
+-- Outer joins are joins that return matched values and unmatched values from either or both tables. There are a few types of outer joins:
+-- LEFT JOIN returns only unmatched rows from the left table, as well as matched rows in both tables.
+-- RIGHT JOIN returns only unmatched rows from the right table , as well as matched rows in both tables.
+-- FULL OUTER JOIN returns unmatched rows from both tables,as well as matched rows in both tables.
+
+-- LEFT JOIN
+SELECT 
+    c.customer_id, 
+    c.first_name,
+    o.order_id
+-- customers is a LEFT table
+-- All the record from the left table are returned whether the condition is true or not
+FROM customers c  
+LEFT JOIN orders o
+-- LEFT OUTER JOIN orders o
+-- Condition
+ON o.customer_id = c.customer_id
+ORDER BY c.customer_id
+
+
+
+
+
+-- RIGHT JOIN
+SELECT 
+    o.order_id,
+    c.customer_id, 
+    c.first_name
+-- orders is a RIGHT table
+-- All the record from the right table are returned whether the condition is true or not
+-- Here basically all the customer_id in orders table will exist in the customers table
+FROM orders o 
+RIGHT JOIN customers c
+-- RIGHT OUTER JOIN customers c
+-- Condition
+ON o.customer_id = c.customer_id
+ORDER BY c.customer_id
+
+
+
+
+-- RIGHT JOIN
+-- Also RIGHT JOIN can be written as follows
+SELECT 
+    c.customer_id, 
+    c.first_name,
+    o.order_id
+-- Here basically all the customer_id in orders table will exist in the customers table
+FROM customers c 
+RIGHT JOIN orders o 
+-- Condition
+ON o.customer_id = c.customer_id
+ORDER BY c.customer_id
+
+
+
+
+
+-- https://stackoverflow.com/questions/57095115/why-we-use-left-join-right-join-differently-we-can-get-same-output-from-left
+
+-- There really is no difference between a LEFT JOIN and a LEFT OUTER JOIN. 
+-- Both versions of the syntax will produce the exact same result in PL/SQL. 
+-- Some people do recommend including outer in a LEFT JOIN clause so it's clear that you're creating an outer join, but that's entirely optional. 
+-- The same is true of a RIGHT JOIN and a RIGHT OUTER JOIN. In the end, then, it isn't a question of a LEFT JOIN vs. LEFT OUTER JOIN. 
+-- They're one and the same thing.
+
+-- LEFT JOIN -> It is also known as LEFT OUTER JOIN. 	RIGHT JOIN -> It is also called as RIGHT OUTER JOIN.
+
+
+
+
+
+
+
+-- OUTER JOIN BETWEEN MULTIPLE TABLE
+SELECT 
+    c.customer_id, 
+    c.first_name,
+    o.order_id
+
+FROM customers c 
+LEFT JOIN orders o 
+   ON o.customer_id = c.customer_id
+JOIN shippers sh 
+   ON o.shipper_id = sh.shipper_id
+ORDER BY c.customer_id;
+
+-- Above code only show the matched shipper_id with the orders table. But some of the orders have no shipper_id.
+-- Have to show both matvh and unmatched.
+
+SELECT 
+    c.customer_id, 
+    c.first_name,
+    o.order_id,
+    sh.shipper_id,
+    sh.name AS shipper
+FROM customers c 
+LEFT JOIN orders o 
+   ON o.customer_id = c.customer_id
+LEFT JOIN shippers sh 
+   ON o.shipper_id = sh.shipper_id
+ORDER BY c.customer_id;
+
+
+
+ SELECT 
+    o.order_id,
+    o.order_date,
+    c.first_name AS customer,
+    sh.name AS shipper,
+    os.name AS status
+FROM orders o 
+JOIN customers c  
+  ON o.customer_id = c.customer_id
+  -- Here LEFT basically indicating the orders table  
+LEFT JOIN shippers sh 
+  ON o.shipper_id = sh.shipper_id
+JOIN order_statuses os 
+  ON o.status = os.order_status_id;
+  
+  
+
+
+-- SELF OUTER JOIN
+SELECT 
+  e.employee_id, 
+  e.first_name AS employee_name, 
+  m.first_name AS manger
+FROM employees e 
+LEFT JOIN employees m
+ON e.reports_to = m.employee_id
+
+
+
+
+
+-- THE USING CLAUSE
+SELECT 
+    o.order_id,
+    c.first_name,
+    sh.name AS shipper
+FROM orders o 
+JOIN customers c  
+  -- ON o.customer_id = c.customer_id
+  -- To simply the above query, the code can be written as follows
+  -- USING keyword only works if the column name is eaxctly same accross the different table  
+  USING(customer_id) 
+  -- Obiously some of our order are not shipped
+LEFT JOIN shippers sh 
+  -- ON o.shipper_id = sh.shipper_id
+  USING(shipper_id)
+  
+  
+
+
+
+SELECT ProductName 
+FROM Products
+WHERE ProductID = ALL (SELECT ProductId
+                       FROM OrderDetails
+                       WHERE Quantity = 6 OR Quantity = 2);
