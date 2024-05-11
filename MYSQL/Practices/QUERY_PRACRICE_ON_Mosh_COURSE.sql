@@ -548,8 +548,128 @@ LEFT JOIN shippers sh
 
 
 
-SELECT ProductName 
-FROM Products
-WHERE ProductID = ALL (SELECT ProductId
-                       FROM OrderDetails
-                       WHERE Quantity = 6 OR Quantity = 2);
+-- ANY, ALL
+-- ALL & ANY are logical operators in SQL. They return boolean value as a result.
+-- ALL operator is used to select all tuples of SELECT STATEMENT. It is also used to compare a value to every value in another value set or result from a subquery.
+-- The ALL operator returns TRUE if all of the subqueries values meet the condition. The ALL must be preceded by comparison operators and evaluates true if all of the subqueries values meet the condition.
+-- ALL is used with SELECT, WHERE, HAVING statement.
+USE sql_hr;
+
+-- ALL
+SELECT COUNT(*) FROM employees
+                WHERE salary <
+                ALL(SELECT salary from employees);  
+
+SELECT salary from employees WHERE office_id = 1;
+
+SELECT * FROM employees
+                WHERE salary <
+                ALL(SELECT salary from employees WHERE office_id = 1);  
+
+SELECT * FROM employees
+                WHERE salary >
+                ALL(SELECT salary from employees WHERE office_id = 1);   
+ 
+SELECT count(*) FROM employees
+                WHERE salary =
+                ALL(SELECT salary from employees WHERE office_id = 1); 
+  
+SELECT count(*) FROM employees
+                WHERE salary =
+                ALL(SELECT salary from employees GROUP BY first_name); 
+                
+                
+
+
+-- ANY
+-- returns a boolean value as a result
+-- returns TRUE if ANY of the subquery values meet the condition
+
+SELECT count(*) FROM employees
+                WHERE salary >
+                ANY(SELECT salary from employees);  
+
+SELECT count(*) FROM employees
+                WHERE salary <
+                ANY(SELECT salary from employees); 
+
+SELECT COUNT(*) FROM employees 
+         WHERE salary =
+         ANY(SELECT salary from employees); 
+
+SELECT * FROM employees 
+         WHERE salary =
+         ANY(SELECT salary from employees GROUP BY first_name); 
+
+
+
+
+
+
+USE sql_store;
+
+SELECT product_id 
+FROM order_items
+WHERE quantity = 4
+GROUP BY product_id;
+
+SELECT name AS ProductName 
+FROM products
+WHERE product_id = ALL (SELECT product_id 
+                       FROM order_items
+                       WHERE quantity = 4 or quantity = 10);
+
+SELECT avg(quantity) 
+FROM order_items
+GROUP BY order_id;
+
+-- Every Aggregate Function must have GROUP BY statement
+SELECT order_id AS OrderID 
+FROM order_items 
+GROUP BY order_id 
+HAVING max(quantity) > ALL (SELECT avg(quantity) 
+                            FROM order_items 
+                            GROUP BY order_id);
+
+
+
+
+-- EXISTS
+-- The EXISTS operator is used to test for the existence of any record in a subquery.
+-- The EXISTS operator returns TRUE if the subquery returns one or more records.
+-- EXISTS operator generally used with Correlated Subqueries
+
+-- Here exists basically return those matched product_id
+-- If the same product_id matches multiple time, then it consider once. 
+SELECT name
+FROM products
+WHERE EXISTS (SELECT * FROM order_items 
+                       WHERE order_items.product_id = products.product_id 
+                       AND quantity > 5);
+SELECT name
+FROM products
+WHERE EXISTS (SELECT 1 FROM order_items 
+                       WHERE order_items.product_id = products.product_id 
+                       AND quantity > 5);
+
+-- To get same output, query can be written using 'IN' keyword
+-- Both have some key differences
+
+SELECT name
+FROM products
+WHERE product_id IN (SELECT product_id FROM order_items 
+                       WHERE order_items.product_id = products.product_id 
+                       AND quantity > 5);
+
+
+
+
+-- SQL Aggregate Functions
+-- Aggregate functions are often used with the GROUP BY clause of the SELECT statement. The GROUP BY clause splits the result-set into groups of values and the aggregate function can be used to return a single value for each group.
+-- The most commonly used SQL aggregate functions are:
+
+-- MIN() - returns the smallest value within the selected column
+-- MAX() - returns the largest value within the selected column
+-- COUNT() - returns the number of rows in a set
+-- SUM() - returns the total sum of a numerical column
+-- AVG() - returns the average value of a numerical column
