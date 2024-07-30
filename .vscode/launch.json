@@ -1,80 +1,106 @@
 {
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "type": "java",
-      "name": "FacadePatternDemo",
-      "request": "launch",
-      "mainClass": "Books.CompacIt.Page_20_Q8.src.FacadePatternDemo",
-      "projectName": "govt-it-job-preparation_a1222c87"
-    },
-    {
-      "type": "java",
-      "name": "MultipleInheritance",
-      "request": "launch",
-      "mainClass": "InterfaceFunda.MultipleInheritance",
-      "projectName": "govt-it-job-preparation_a1222c87"
-    },
-    {
-      "type": "java",
-      "name": "LeveragingDefaultMethods",
-      "request": "launch",
-      "mainClass": "InterfaceFunda.LeveragingDefaultMethods",
-      "projectName": "govt-it-job-preparation_a1222c87"
-    },
-    {
-      "type": "java",
-      "name": "LeveragingDefaultMethods",
-      "request": "launch",
-      "mainClass": "basics.OOP.src.InterfaceFunda.LeveragingDefaultMethods",
-      "projectName": "govt-it-job-preparation_a1222c87"
-    },
-    {
-      "type": "java",
-      "name": "MultipleInheritance",
-      "request": "launch",
-      "mainClass": "basics.OOP.src.InterfaceFunda.MultipleInheritance",
-      "projectName": "govt-it-job-preparation_a1222c87"
-    },
-    {
-      "type": "java",
-      "name": "Child",
-      "request": "launch",
-      "mainClass": "basics.Child",
-      "projectName": "govt-it-job-preparation_a1222c87"
-    },
-    {
-      "type": "java",
-      "name": "MultipleInheritance",
-      "request": "launch",
-      "mainClass": "basics.MultipleInheritance",
-      "projectName": "govt-it-job-preparation_a1222c87"
-    },
-    {
-      "type": "java",
-      "name": "HelloWorld",
-      "request": "launch",
-      "mainClass": "HelloWorld",
-      "projectName": "govt-it-job-preparation_a1222c87"
-    },
-    {
-      "name": "C/C++ Runner: Debug Session",
-      "type": "cppdbg",
-      "request": "launch",
-      "args": [],
-      "stopAtEntry": false,
-      "externalConsole": false,
-      "cwd": ".",
-      "program": "build/Debug/outDebug",
-      "MIMode": "gdb",
-      "miDebuggerPath": "gdb",
-      "setupCommands": [
+    "version": "0.2.0",
+    "configurations": [
         {
-          "description": "Enable pretty-printing for gdb",
-          "text": "-enable-pretty-printing",
-          "ignoreFailures": true
+            "type": "java",
+            "name": "FacadePatternDemo",
+            "request": "launch",
+            "mainClass": "Books.CompacIt.Page_20_Q8.src.FacadePatternDemo",
+            "projectName": "govt-it-job-preparation_a1222c87"
+        },
+        {
+            "type": "java",
+            "name": "MultipleInheritance",
+            "request": "launch",
+            "mainClass": "InterfaceFunda.MultipleInheritance",
+            "projectName": "govt-it-job-preparation_a1222c87"
+        },
+        {
+            "type": "java",
+            "name": "LeveragingDefaultMethods",
+            "request": "launch",
+            "mainClass": "InterfaceFunda.LeveragingDefaultMethods",
+            "projectName": "govt-it-job-preparation_a1222c87"
+        },
+        {
+            "type": "java",
+            "name": "LeveragingDefaultMethods",
+            "request": "launch",
+            "mainClass": "basics.OOP.src.InterfaceFunda.LeveragingDefaultMethods",
+            "projectName": "govt-it-job-preparation_a1222c87"
+        },
+        {
+            "type": "java",
+            "name": "MultipleInheritance",
+            "request": "launch",
+            "mainClass": "basics.OOP.src.InterfaceFunda.MultipleInheritance",
+            "projectName": "govt-it-job-preparation_a1222c87"
+        },
+        {
+            "type": "java",
+            "name": "Child",
+            "request": "launch",
+            "mainClass": "basics.Child",
+            "projectName": "govt-it-job-preparation_a1222c87"
+        },
+        {
+            "type": "java",
+            "name": "MultipleInheritance",
+            "request": "launch",
+            "mainClass": "basics.MultipleInheritance",
+            "projectName": "govt-it-job-preparation_a1222c87"
+        },
+        {
+            "type": "java",
+            "name": "HelloWorld",
+            "request": "launch",
+            "mainClass": "HelloWorld",
+            "projectName": "govt-it-job-preparation_a1222c87"
+        },
+        {
+            "name": "C/C++ Runner: Debug Session",
+            "type": "cppdbg",
+            "request": "launch",
+            "args": [],
+            "stopAtEntry": false,
+            "externalConsole": false,
+            "cwd": ".",
+            "program": "build/Debug/outDebug",
+            "MIMode": "gdb",
+            "miDebuggerPath": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "C/C++: gcc-9 build and debug active file",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "C/C++: gcc-9 build active file",
+            "miDebuggerPath": "/usr/bin/gdb"
         }
-      ]
-    }
-  ]
+    ]
 }
