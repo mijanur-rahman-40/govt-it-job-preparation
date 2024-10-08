@@ -1,4 +1,4 @@
-class HelloWorld {
+public class HelloWorld {
     static int sum(int a, int b) {
         return a + b;
     }

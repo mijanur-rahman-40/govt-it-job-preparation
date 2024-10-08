@@ -3,6 +3,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Test",
+            "request": "launch",
+            "mainClass": "JAVA.basics.OOP_PRACTICE.ENCAPSULATION.Test",
+            "projectName": "govt-it-job-preparation_a1222c87"
+        },
+        {
+            "type": "java",
+            "name": "DATA_HIDING_SECURITY_WITH_BANK_EXAMPLE",
+            "request": "launch",
+            "mainClass": "JAVA.basics.OOP_PRACTICE.POLYMORPHISM.DATA_HIDING_SECURITY_WITH_BANK_EXAMPLE",
+            "projectName": "govt-it-job-preparation_a1222c87"
+        },
+        {
+            "type": "java",
             "name": "BankExample",
             "request": "launch",
             "mainClass": "JAVA.basics.OOP_PRACTICE.POLYMORPHISM.BankExample",

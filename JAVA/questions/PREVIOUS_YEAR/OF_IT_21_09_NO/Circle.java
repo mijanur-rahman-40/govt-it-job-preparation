@@ -1,4 +1,4 @@
-package JAVA.questions.PREVIOUS_YEAR.OF_IT_21_09_NO;
+// package JAVA.questions.PREVIOUS_YEAR.OF_IT_21_09_NO;
 
 public class Circle {
     double x, y, radious;

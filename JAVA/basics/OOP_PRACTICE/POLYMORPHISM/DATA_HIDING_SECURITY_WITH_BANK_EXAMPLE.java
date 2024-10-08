@@ -1,4 +1,4 @@
-package JAVA.basics.OOP_PRACTICE.POLYMORPHISM;
+
 /*
  * How Polymorphism Handles Data Hiding & Security
  */
@@ -12,6 +12,7 @@ interface AccountInterface {
 }
 
 abstract class Account implements AccountInterface {
+    // It can not be declare as private, couse this abstract class is abstracted by others child class 
     protected double balance;
 
     public Account(double initialBalance) {
