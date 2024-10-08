@@ -55,6 +55,7 @@
                     ]
                 },
                 "currentHeight": 28,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -86,6 +87,7 @@
                     ]
                 },
                 "currentHeight": 28,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -117,10 +119,11 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "463a0835-3edd-41c2-99f2-0dde0efc1b3f"
+                        "164dec82-3582-468a-e018-fc3796ab21e1"
                     ]
                 },
                 "currentHeight": 36,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -144,8 +147,8 @@
             },
             "data": [
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "463a0835-3edd-41c2-99f2-0dde0efc1b3f",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "164dec82-3582-468a-e018-fc3796ab21e1",
                     "rows": [
                         {
                             "0": 1,
@@ -342,10 +345,11 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "783da24f-84b6-48e4-a746-fdfd7b47ce82"
+                        "e63c36b9-0668-4ad8-9a31-620e3b9c140e"
                     ]
                 },
                 "currentHeight": 36,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -369,8 +373,8 @@
             },
             "data": [
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "783da24f-84b6-48e4-a746-fdfd7b47ce82",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "e63c36b9-0668-4ad8-9a31-620e3b9c140e",
                     "rows": [
                         {
                             "0": 2273,
@@ -465,10 +469,11 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "6adaedce-d613-453c-97f6-5b591c157d77"
+                        "bd98fa38-9370-40d1-dbc5-358ec10b907f"
                     ]
                 },
                 "currentHeight": 36,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -501,8 +506,8 @@
             },
             "data": [
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "6adaedce-d613-453c-97f6-5b591c157d77",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "bd98fa38-9370-40d1-dbc5-358ec10b907f",
                     "rows": [
                         {
                             "0": 3,
@@ -600,10 +605,11 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "6b5568d7-db2f-4463-c49a-2074d88cd1b7"
+                        "c387236b-2cd5-4286-b35c-932ddb165d9b"
                     ]
                 },
                 "currentHeight": 36,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -627,8 +633,8 @@
             },
             "data": [
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "6b5568d7-db2f-4463-c49a-2074d88cd1b7",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "c387236b-2cd5-4286-b35c-932ddb165d9b",
                     "rows": [
                         {
                             "0": 1,
@@ -670,10 +676,11 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "4cee1831-9887-4da2-98af-61cd7f662c52"
+                        "61ee8196-a71a-476d-b24b-d4e76bb00c8a"
                     ]
                 },
                 "currentHeight": 198,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -688,8 +695,8 @@
             },
             "data": [
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "4cee1831-9887-4da2-98af-61cd7f662c52",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "61ee8196-a71a-476d-b24b-d4e76bb00c8a",
                     "rows": [
                         {
                             "0": "MacCaffrey",
@@ -801,10 +808,11 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "dd4cf9f5-19b3-4754-991c-75d528c9d19d"
+                        "110d677e-4bf8-4117-aa6b-5fc40314950b"
                     ]
                 },
                 "currentHeight": 36,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -819,8 +827,8 @@
             },
             "data": [
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "dd4cf9f5-19b3-4754-991c-75d528c9d19d",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "110d677e-4bf8-4117-aa6b-5fc40314950b",
                     "rows": [
                         {
                             "0": "MacCaffrey",
@@ -1009,6 +1017,7 @@
                     ]
                 },
                 "currentHeight": 28,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -1040,10 +1049,11 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "c30d4787-ea8f-49bc-cc5e-f0ab4b413506"
+                        "c6c6a892-f18d-4738-9aa7-721376000e8f"
                     ]
                 },
                 "currentHeight": 103,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -1085,8 +1095,8 @@
             },
             "data": [
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "c30d4787-ea8f-49bc-cc5e-f0ab4b413506",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "c6c6a892-f18d-4738-9aa7-721376000e8f",
                     "rows": [
                         {
                             "0": 7
@@ -1120,10 +1130,11 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "90af8a5d-db32-4226-9d8b-6bf4d04f2541"
+                        "1895e771-8b55-4d6a-8556-ab85be9f3a49"
                     ]
                 },
                 "currentHeight": 36,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -1147,8 +1158,8 @@
             },
             "data": [
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "90af8a5d-db32-4226-9d8b-6bf4d04f2541",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "1895e771-8b55-4d6a-8556-ab85be9f3a49",
                     "rows": [
                         {
                             "0": 3,
@@ -1268,10 +1279,11 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "1013efc4-53db-44c7-cca2-74333843d11f"
+                        "107a23b0-47de-45c7-9411-93f1292320db"
                     ]
                 },
                 "currentHeight": 36,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -1286,8 +1298,8 @@
             },
             "data": [
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "1013efc4-53db-44c7-cca2-74333843d11f",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "107a23b0-47de-45c7-9411-93f1292320db",
                     "rows": [
                         {
                             "0": 1,
@@ -1470,7 +1482,7 @@
                 "start": 153,
                 "end": 153,
                 "language": "mysql",
-                "currentHeight": 180,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -1493,10 +1505,11 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "73f7c0ed-3d94-4321-a89e-2545a5aea4c5"
+                        "9afd7010-7f37-4527-dc5f-b4afba338a7a"
                     ]
                 },
                 "currentHeight": 180,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -1547,8 +1560,8 @@
             },
             "data": [
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "73f7c0ed-3d94-4321-a89e-2545a5aea4c5",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "9afd7010-7f37-4527-dc5f-b4afba338a7a",
                     "rows": [
                         {
                             "0": "Ambur",
@@ -1643,10 +1656,11 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "a97e0908-80bf-4999-998f-7b55b123b714"
+                        "9fe70b37-53d2-4dad-98db-2596b274580a"
                     ]
                 },
                 "currentHeight": 36,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -1661,8 +1675,8 @@
             },
             "data": [
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "a97e0908-80bf-4999-998f-7b55b123b714",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "9fe70b37-53d2-4dad-98db-2596b274580a",
                     "rows": [
                         {
                             "0": 7,
@@ -1782,10 +1796,11 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "6b6e04c2-efa2-40cf-8243-85230abab9b7"
+                        "6912f392-3152-4373-e30e-ba7e8fdb2c01"
                     ]
                 },
                 "currentHeight": 322,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -1845,8 +1860,8 @@
             },
             "data": [
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "6b6e04c2-efa2-40cf-8243-85230abab9b7",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "6912f392-3152-4373-e30e-ba7e8fdb2c01",
                     "rows": [
                         {
                             "0": 1,
@@ -2162,11 +2177,12 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "53a38a86-9a9b-43ab-af2f-82d6d8bea4c6",
-                        "0888b837-7f8a-4a5d-b8ce-7f077f7b7523"
+                        "46393033-2cee-46c8-9f1c-bb81c677b60d",
+                        "e6ae7529-82dc-4303-e47a-561aee3180b3"
                     ]
                 },
                 "currentHeight": 36,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -2199,8 +2215,8 @@
             },
             "data": [
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "53a38a86-9a9b-43ab-af2f-82d6d8bea4c6",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "46393033-2cee-46c8-9f1c-bb81c677b60d",
                     "rows": [
                         {
                             "0": 2,
@@ -2451,8 +2467,8 @@
                     "sql": "\n\nSELECT *\nFROM sql_store.order_items oi \nJOIN products prd\nON oi.product_id = prd.product_id\n"
                 },
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "0888b837-7f8a-4a5d-b8ce-7f077f7b7523",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "e6ae7529-82dc-4303-e47a-561aee3180b3",
                     "rows": [],
                     "executionInfo": {
                         "text": "OK, 0 records retrieved in 0.4ms",
@@ -2474,10 +2490,11 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "48b81d6b-64b7-4823-a835-beece945563e"
+                        "37f4cb75-6321-4929-dc13-f07829011773"
                     ]
                 },
                 "currentHeight": 36,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -2510,8 +2527,8 @@
             },
             "data": [
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "48b81d6b-64b7-4823-a835-beece945563e",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "37f4cb75-6321-4929-dc13-f07829011773",
                     "rows": [
                         {
                             "0": 33391,
@@ -2651,10 +2668,11 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "128bd3b1-a2b2-4cfc-8e17-2f10e590b844"
+                        "a995a50c-cf42-4248-ade9-086736210500"
                     ]
                 },
                 "currentHeight": 295,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -2687,8 +2705,8 @@
             },
             "data": [
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "128bd3b1-a2b2-4cfc-8e17-2f10e590b844",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "a995a50c-cf42-4248-ade9-086736210500",
                     "rows": [
                         {
                             "0": 8,
@@ -3038,9 +3056,9 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "4b19acfb-f308-4c88-c72c-c6f31dd9fda8",
-                        "e7dc3127-5363-482a-8d24-39d7fd83e6b4",
-                        "a69aa197-56dc-4f56-b7c3-363ec3bd57f4"
+                        "44905d28-8daf-40ea-9cf3-3dfcd6bbd87f",
+                        "36676148-9904-49be-ea63-4b87b8c61cff",
+                        "856abfe2-3781-46f5-aa08-c7af22a43c6e"
                     ]
                 },
                 "currentHeight": 36,
@@ -3086,8 +3104,8 @@
             },
             "data": [
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "4b19acfb-f308-4c88-c72c-c6f31dd9fda8",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "44905d28-8daf-40ea-9cf3-3dfcd6bbd87f",
                     "rows": [
                         {
                             "0": 1,
@@ -3394,8 +3412,8 @@
                     "sql": "\n\n\nSELECT *  \nFROM orders o\nJOIN customers c \nON o.customer_id = c.customer_id"
                 },
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "e7dc3127-5363-482a-8d24-39d7fd83e6b4",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "36676148-9904-49be-ea63-4b87b8c61cff",
                     "rows": [
                         {
                             "0": 1,
@@ -3702,8 +3720,8 @@
                     "sql": "\n-- Above code can be written using IMPLICIT JOIN(Here basically query perform without JOIN keyword)\nSELECT * \nFROM orders o, customers c\nWHERE o.customer_id = c.customer_id"
                 },
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "a69aa197-56dc-4f56-b7c3-363ec3bd57f4",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "856abfe2-3781-46f5-aa08-c7af22a43c6e",
                     "rows": [],
                     "executionInfo": {
                         "text": "OK, 0 records retrieved in 1.871ms",
@@ -3725,10 +3743,11 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "9c06070d-5e87-453f-ab8e-8dd45140329e"
+                        "fe48a78b-dae7-4344-d757-841899b18021"
                     ]
                 },
                 "currentHeight": 36,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -3761,8 +3780,8 @@
             },
             "data": [
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "9c06070d-5e87-453f-ab8e-8dd45140329e",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "fe48a78b-dae7-4344-d757-841899b18021",
                     "rows": [
                         {
                             "0": 1,
@@ -3877,10 +3896,11 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "20f9b23a-63e7-4fc7-8aed-d352fe9d8411"
+                        "53086609-2cf2-4c70-92ec-7e5ed3bddc33"
                     ]
                 },
                 "currentHeight": 36,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -3895,8 +3915,8 @@
             },
             "data": [
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "20f9b23a-63e7-4fc7-8aed-d352fe9d8411",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "53086609-2cf2-4c70-92ec-7e5ed3bddc33",
                     "rows": [
                         {
                             "0": null,
@@ -4011,10 +4031,11 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "00c9f4b9-811c-4b25-c3c2-64edae21a5a7"
+                        "f20c90e2-5318-4337-b148-3166041a6313"
                     ]
                 },
                 "currentHeight": 36,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -4029,8 +4050,8 @@
             },
             "data": [
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "00c9f4b9-811c-4b25-c3c2-64edae21a5a7",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "f20c90e2-5318-4337-b148-3166041a6313",
                     "rows": [
                         {
                             "0": 2,
@@ -4134,6 +4155,7 @@
                     ]
                 },
                 "currentHeight": 28,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -4156,11 +4178,12 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "42de50a6-d28c-4165-9f93-6cc28696296f",
-                        "80945693-42be-49ff-9c52-340d6941e804"
+                        "271b294f-0358-4cc7-ce25-5abe6128c616",
+                        "645866f6-d974-4c6f-954b-0d18497c7747"
                     ]
                 },
                 "currentHeight": 36,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -4184,8 +4207,8 @@
             },
             "data": [
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "42de50a6-d28c-4165-9f93-6cc28696296f",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "271b294f-0358-4cc7-ce25-5abe6128c616",
                     "rows": [
                         {
                             "0": 2,
@@ -4246,8 +4269,8 @@
                     "sql": "-- OUTER JOIN BETWEEN MULTIPLE TABLE\nSELECT \n    c.customer_id, \n    c.first_name,\n    o.order_id\n\nFROM customers c \nLEFT JOIN orders o \n   ON o.customer_id = c.customer_id\nJOIN shippers sh \n   ON o.shipper_id = sh.shipper_id\nORDER BY c.customer_id"
                 },
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "80945693-42be-49ff-9c52-340d6941e804",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "645866f6-d974-4c6f-954b-0d18497c7747",
                     "rows": [
                         {
                             "0": 1,
@@ -4404,10 +4427,11 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "e84ffb06-ba95-4f97-86d2-842721f04a15"
+                        "f790be2d-3f5f-495a-a1d9-5229f4006716"
                     ]
                 },
                 "currentHeight": 36,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -4422,8 +4446,8 @@
             },
             "data": [
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "e84ffb06-ba95-4f97-86d2-842721f04a15",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "f790be2d-3f5f-495a-a1d9-5229f4006716",
                     "rows": [
                         {
                             "0": 8,
@@ -4552,10 +4576,11 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "2d85904a-19c9-4c7f-a638-c86880067312"
+                        "41b7513b-dd5a-4eaf-8841-e8ee31d9d216"
                     ]
                 },
                 "currentHeight": 133,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -4570,8 +4595,8 @@
             },
             "data": [
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "2d85904a-19c9-4c7f-a638-c86880067312",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "41b7513b-dd5a-4eaf-8841-e8ee31d9d216",
                     "rows": [
                         {
                             "0": 33391,
@@ -4716,10 +4741,11 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "bb378eb9-00a3-4a9d-c271-5f88319c4bb5"
+                        "ddd38a57-1b8f-419b-b716-3e319ebc67f0"
                     ]
                 },
                 "currentHeight": 307.9375,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -4734,8 +4760,8 @@
             },
             "data": [
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "bb378eb9-00a3-4a9d-c271-5f88319c4bb5",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "ddd38a57-1b8f-419b-b716-3e319ebc67f0",
                     "rows": [
                         {
                             "0": 1,
@@ -4830,10 +4856,11 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "1b29b1fb-83ba-49ff-c198-c20b985ffffd"
+                        "49441692-faef-4bc1-dca9-cd8bc8266271"
                     ]
                 },
                 "currentHeight": 36,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -4920,8 +4947,8 @@
             },
             "data": [
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "1b29b1fb-83ba-49ff-c198-c20b985ffffd",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "49441692-faef-4bc1-dca9-cd8bc8266271",
                     "rows": [
                         {
                             "0": 63196,
@@ -5030,10 +5057,11 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "2a5dda5b-c066-4bea-e935-a665ea1764ec"
+                        "bffc21e1-34a2-42e2-e4a6-64dd26be93d6"
                     ]
                 },
                 "currentHeight": 313,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -5084,8 +5112,8 @@
             },
             "data": [
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "2a5dda5b-c066-4bea-e935-a665ea1764ec",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "bffc21e1-34a2-42e2-e4a6-64dd26be93d6",
                     "rows": [
                         {
                             "0": 33391,
@@ -5347,6 +5375,7 @@
                     ]
                 },
                 "currentHeight": 28,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -5405,10 +5434,11 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "8d6babc1-be25-401e-f3e6-b787f166dc91"
+                        "b46e10c6-d10b-4de6-b6e9-e97812ab8b35"
                     ]
                 },
                 "currentHeight": 36,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -5450,8 +5480,8 @@
             },
             "data": [
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "8d6babc1-be25-401e-f3e6-b787f166dc91",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "b46e10c6-d10b-4de6-b6e9-e97812ab8b35",
                     "rows": [
                         {
                             "0": "Foam Dinner Plate"
@@ -5503,6 +5533,7 @@
                     ]
                 },
                 "currentHeight": 28,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -5534,6 +5565,7 @@
                     ]
                 },
                 "currentHeight": 28,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -5556,12 +5588,12 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "24d758f9-a2a4-4ae7-c72c-2506017aab63",
-                        "325324d7-e2bc-413a-9b52-a99f0e200539",
-                        "1a03600f-a901-4a61-b77d-c35d20298892",
-                        "2f314c20-bd16-49b5-ddc8-d092df9ecd0b",
-                        "a5cebb5e-40c4-409f-9d4b-e3b7701665b2",
-                        "8f0e9be0-bcca-45fc-b543-c5a109156b05"
+                        "542469a4-0342-4dce-c04b-328a923f9dc8",
+                        "16a4ffc6-00c5-405e-ea74-f2bddcf5a9c8",
+                        "40eaa709-9745-4805-cd85-2042f791d883",
+                        "26d9c76a-87ee-4e41-92e8-e07cdaba350c",
+                        "736922a3-7e2f-4525-f27f-18706258f0b7",
+                        "81ea5867-4ec3-46a9-ca2d-b496137eea1a"
                     ]
                 },
                 "currentHeight": 36,
@@ -5634,8 +5666,8 @@
             },
             "data": [
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "24d758f9-a2a4-4ae7-c72c-2506017aab63",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "542469a4-0342-4dce-c04b-328a923f9dc8",
                     "rows": [
                         {
                             "0": 2,
@@ -5672,8 +5704,8 @@
                     "sql": "-- HAVING : \n-- The HAVING clause was added to SQL because the WHERE keyword cannot be used with aggregate functions.\n-- The following SQL statement lists the number of customers in each country. Only include countries with more than 5 customers:\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nHAVING COUNT(customer_id) > 1"
                 },
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "325324d7-e2bc-413a-9b52-a99f0e200539",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "16a4ffc6-00c5-405e-ea74-f2bddcf5a9c8",
                     "rows": [
                         {
                             "0": 3,
@@ -5706,8 +5738,8 @@
                     "sql": "\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nWHERE city ='Dhaka'\nGROUP BY city"
                 },
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "1a03600f-a901-4a61-b77d-c35d20298892",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "40eaa709-9745-4805-cd85-2042f791d883",
                     "rows": [
                         {
                             "0": 3,
@@ -5764,8 +5796,8 @@
                     "sql": "\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nORDER BY total_customers DESC"
                 },
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "2f314c20-bd16-49b5-ddc8-d092df9ecd0b",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "26d9c76a-87ee-4e41-92e8-e07cdaba350c",
                     "rows": [
                         {
                             "0": 3,
@@ -5822,8 +5854,8 @@
                     "sql": "\n\n-- Same output\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nHAVING total_customers\nORDER BY total_customers DESC"
                 },
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "a5cebb5e-40c4-409f-9d4b-e3b7701665b2",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "736922a3-7e2f-4525-f27f-18706258f0b7",
                     "rows": [
                         {
                             "0": 3,
@@ -5856,8 +5888,8 @@
                     "sql": "\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nHAVING total_customers = 3\nORDER BY total_customers DESC"
                 },
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "8f0e9be0-bcca-45fc-b543-c5a109156b05",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "81ea5867-4ec3-46a9-ca2d-b496137eea1a",
                     "rows": [
                         {
                             "0": 3,
@@ -5903,10 +5935,11 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "6183188e-5709-43bc-fb34-49b3d0af6d63"
+                        "b7d77a1c-0e4f-489b-e498-b49c59a5c1b3"
                     ]
                 },
                 "currentHeight": 36,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -5939,8 +5972,8 @@
             },
             "data": [
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "6183188e-5709-43bc-fb34-49b3d0af6d63",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "b7d77a1c-0e4f-489b-e498-b49c59a5c1b3",
                     "rows": [
                         {
                             "0": 3,
@@ -6006,10 +6039,11 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "d7f8c866-2493-40ae-9675-3f093945155b"
+                        "472cf47a-69a7-46b7-db35-9157213fcf6e"
                     ]
                 },
                 "currentHeight": 36,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -6024,8 +6058,8 @@
             },
             "data": [
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "d7f8c866-2493-40ae-9675-3f093945155b",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "472cf47a-69a7-46b7-db35-9157213fcf6e",
                     "rows": [
                         {
                             "0": "Brocolinni - Gaylan, Chinese"
@@ -6101,10 +6135,11 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "fb8f2603-80a2-4b77-b02a-b81d4351bc33"
+                        "76636aa5-f2bc-4d0e-cd12-ef8894cf8ea0"
                     ]
                 },
                 "currentHeight": 352,
+                "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
@@ -6119,8 +6154,8 @@
             },
             "data": [
                 {
-                    "tabId": "d78c6064-a9ce-4bee-a329-9acc4ceb8b72",
-                    "resultId": "fb8f2603-80a2-4b77-b02a-b81d4351bc33",
+                    "tabId": "e279450a-5f32-437b-f2b0-08a24b812737",
+                    "resultId": "76636aa5-f2bc-4d0e-cd12-ef8894cf8ea0",
                     "rows": [
                         {
                             "0": 1,
