@@ -3,6 +3,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "BankExample",
+            "request": "launch",
+            "mainClass": "JAVA.basics.OOP_PRACTICE.POLYMORPHISM.BankExample",
+            "projectName": "govt-it-job-preparation_a1222c87"
+        },
+        {
+            "type": "java",
+            "name": "BankExample",
+            "request": "launch",
+            "mainClass": "JAVA.basics.OOP_PRACTICE.BankExample",
+            "projectName": "govt-it-job-preparation_a1222c87"
+        },
+        {
+            "type": "java",
             "name": "Circle",
             "request": "launch",
             "mainClass": "JAVA.questions.PREVIOUS_YEAR.OF_IT_21_09_NO.Circle",
