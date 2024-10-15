@@ -16,3 +16,10 @@ CREATE TABLE `pet_society`.`Adopter` (
   `Name` VARCHAR(45) NULL,
   `Address` VARCHAR(45) NULL,
   `Others_Animals` VARCHAR(45) NULL);
+  
+  CREATE TABLE `pet_society`.`Adopter` (
+  `PSIN` INT NULL,
+  `Name` VARCHAR(45) NULL,
+  `Address` VARCHAR(45) NULL,
+  `Others_Animals` VARCHAR(45) NULL);
+
