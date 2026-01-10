@@ -3,6 +3,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "prac1",
+            "request": "launch",
+            "mainClass": "prac1",
+            "projectName": "govt-it-job-preparation_a1222c87"
+        },
+        {
+            "type": "java",
+            "name": "TestInheritance",
+            "request": "launch",
+            "mainClass": "TestInheritance",
+            "projectName": "govt-it-job-preparation_a1222c87"
+        },
+        {
+            "type": "java",
             "name": "Test",
             "request": "launch",
             "mainClass": "JAVA.basics.OOP_PRACTICE.ENCAPSULATION.Test",

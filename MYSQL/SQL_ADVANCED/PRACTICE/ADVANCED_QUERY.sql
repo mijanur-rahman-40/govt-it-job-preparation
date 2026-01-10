@@ -37,9 +37,56 @@ ON e.dept_id = d.dept_id
 ORDER BY e.salary DESC
 LIMIT 1;
 
+-- ALTERNATE WAY
+SELECT e.first_name, e.salary, d.dept_name
+FROM Employees e, Departments d
+WHERE e.dept_id = d.dept_id
+ORDER BY e.salary DESC
+LIMIT 1;
+
 
 -- (4) QUERY : To find those departments where the average salary is less than the averages for all departments
+-- To get only the dept_id
+SELECT dept_id
+FROM Employees 
+GROUP BY dept_id
+HAVING AVG(salary) < (SELECT AVG(salary) FROM Employees);
 
+-- Getting both name & id
+SELECT  d.dept_id,d.dept_name
+FROM Employees e
+JOIN Departments d
+ON e.dept_id = d.dept_id
+GROUP BY d.dept_id
+HAVING AVG(e.salary) < (SELECT AVG(salary) FROM Employees);
+
+-- (16) QUERY : Retrieve the names of employee who have a salary higher than the average
+-- salary of employees in their department
+SELECT concat(e1.first_name,e1.last_name) as emp_name
+FROM Employees e1
+WHERE e1.salary > (
+SELECT AVG(e2.salary) 
+FROM Employees e2 
+WHERE e1.dept_id = e2.dept_id);
+
+-- WRONG QUERY
+SELECT concat(e.first_name,e.last_name) as emp_name
+FROM Employees e
+GROUP BY e.dept_id
+HAVING AVG(e.salary) < e.salary
+
+
+ 
+-- () QUERY : 
+-- () QUERY : 
+-- () QUERY :
+-- () QUERY : 
+-- () QUERY : 
+-- () QUERY : 
+-- () QUERY : 
+-- () QUERY : 
+-- () QUERY : 
+-- () QUERY :  
 
 
 
