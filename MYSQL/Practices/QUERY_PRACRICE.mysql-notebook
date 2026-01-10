@@ -2,7 +2,7 @@
     "type": "MySQLNotebook",
     "version": "1.0",
     "caption": "DB Notebook",
-    "content": "-- Query performing on Mosh Course database : sql_hr, sql_inventory, sql_invooicing, sql_store\nUSE sql_store;\n-- Retrieving all data of customers  \n-- WHERE -> to filter the result\nSELECT * FROM customers; \n-- Another way \n-- SELECT * FROM `sql_store`.`customers` \n-- Retrieving specific colums of customers    \nSELECT points, customer_id, first_name FROM customers; \n-- Filtering cutomers:   \n-- KEYWORD order is important\nSELECT *  \nFROM customers\n-- WHERE customer_id = 1\n\n-- WHERE points > 3000\n\n-- Both uppercase and lowercase work perfectly\n-- WHERE state = 'VA'\n-- WHERE state = 'va'\n\n-- Search with date\n-- WHERE birth_date >= '1990-01-01'\n\n-- IN -> To specify multiple possible values for a column\n-- BETWEEN -> WHERE city IN ('Chicago','London')\n-- WHERE state NOT IN ('VA', 'FL', 'GA')\n\n-- NOT EQUAL -> <> or != \n-- WHERE points <> 796\n-- Or : Same Effect -> WHERE points != 1899\n\n-- LIKE -> Search for a pattern for both uppercase and lowercase\n-- % -> any number of characters, _ -> single character\n-- WHERE state LIKE 'f%'\n-- WHERE last_name LIKE 'b%'\n-- WHERE last_name LIKE 'brush%' \n\n-- matching 'b' at the beginning, middle or end \n-- WHERE last_name LIKE '%b%'\n\n-- all the customers last_name end by y\n-- WHERE last_name LIKE '%y'\n\n-- Match only two character end with y\n-- WHERE last_name LIKE '_y'\n\n-- Matchig the 6 character string last_name end with y\n-- WHERE last_name LIKE '_____y'\n\n-- Five character starting with b and ending with y\nWHERE last_name LIKE 'b____y'\n\n-- BETWEEN -> Between a certain range\n-- WHERE points >= 1000 AND points <= 3000\n-- same query can be wriiten in a clener way\n-- WHERE points BETWEEN 1000 AND 3000  \n-- WHERE birth_date BETWEEN '1990-01-01' AND '2000-01-01'  \n\n-- Multiple search condition in filtreing data\n-- WHERE birth_date >= '1990-01-01' AND points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 500 AND state = 'VA'\n\n-- AND operator execute first than OR\n-- Higer to Lower order : / -> * -> + -> - \n-- WHERE birth_date >= '1990-01-01' OR (points > 2500 AND state = 'VA')\n\n-- WHERE NOT (birth_date > '1990-01-01' OR points > 1000) \n-- Same query can be written as : \n-- WHERE birth_date <= '1990-01-01' AND points <= 1000\n\n-- The WHERE clause is not only used in SELECT statements, it is also used in UPDATE, DELETE, etc.\nORDER BY first_name;\n-- two columns and values\nSELECT 1, 2;   \n-- SELECT clause in details  \n-- SELECT last_name, first_name, points, points + 10\nSELECT   \n  last_name, \n  first_name,  \n  points,  \n  points * 10 + 100\nfrom customers;\nSELECT \n  last_name,  \n  first_name, \n  points p, \n  (points + 10) * 100,\n  -- adding specific alias. to use alias, use 'AS' keyword before the given new name \n  -- You can create Alias with AS keyword, Jus an alias name is enough \n  -- Aliases are used to give a table, or a column in a table, a temporary name.\n  (points + 10) * 100 AS discount_factor,  \n    (points + 10) * 100 discount_factor,  \n  (points + 10) * 100 AS 'discount factor',  \n  (points + 10) * 100 AS \"discount factor\"   \nfrom customers;\n-- Update column  \n-- SELECT state FROM customers;   \nUPDATE customers SET city = 'Sylhet' WHERE (customer_id = 2); \n-- Retrieving all distinct state data of customers \nSELECT DISTINCT city FROM customers;  \nSELECT COUNT(DISTINCT city) FROM customers;  \nSELECT COUNT(city) FROM customers;  \n-- REGEXP OPERATOR\nSELECT * \nFROM customers\n-- using normal form\n-- WHERE last_name LIKE '%field%';\n\n-- can be used by REGEXP keywoed\n-- WHERE last_name REGEXP 'field';\n \n-- ^ -> beginning, $ -> end, | -> logical or, [abcd] -> match any single character listed in the brackets, [a-z] -> any characters from a to z \n\n\n-- ^ -> beginning with 'field' string\n-- WHERE last_name REGEXP '^field'; \n\n-- $ -> ending with 'field' string\n-- WHERE last_name REGEXP 'field$';\n\n-- Match the string 'field' or 'mac' in strart or end\n-- | -> vertical bar or Pipe or Multiple search Pattern\n-- WHERE last_name REGEXP 'field|mac';\n \n-- WHERE last_name REGEXP 'field|mac|rose';\n\n-- WHERE last_name REGEXP '^field|mac|rose';\n\n-- WHERE last_name REGEXP 'field$|mac|rose';\n\n-- WHERE last_name REGEXP 'field$|mac|^rose';\n\n-- WHERE last_name REGEXP 'field$|mac$|^rose';\n \n-- matching customer name : ge or ie or me\n-- Any of the character from 'gim' before 'e'\n-- WHERE last_name REGEXP '[gim]e';\n\n-- Any of the character from 'gim' after 'e'\n-- WHERE last_name REGEXP 'e[gim]';\n\n-- range of characters\nWHERE last_name REGEXP '[a-h]e'; \n\n-- NULL VALUES  \n-- all the customer who do not have phone\nSELECT *\nFROM customers \n-- WHERE phone IS NULL; \nWHERE phone IS NOT NULL;\n-- THE ORDER BY CLASUE\nSELECT * \nFROM customers \n-- ORDER BY first_name;\n-- ORDER BY first_name DESC;\n\n-- Sort data by multiple columns\n-- ORDER BY state, first_name; \n-- ORDER BY first_name, state;\n-- ORDER BY first_name DESC;\nORDER BY state DESC, first_name ASC; \n\n-- Another way of sorting\nSELECT first_name, last_name \nFROM customers\nORDER BY birth_date; \n\n-- sort by data using column position that are selecting to show\nSELECT first_name, last_name\nFROM customers\n-- 1 -> first_name, 2 -> last_name \nORDER BY 1, 2;  \n\n-- order creating alaise\nSELECT first_name, last_name, 10 + 10 AS points\nFROM customers\nORDER BY points, first_name; \n\n-- LIMIT data, it always come into last\nSELECT *\nFROM customers \n-- LIMIT 3;\n-- LIMIT 300;   \n-- for pagination or Offseting\n-- 6 -> skip first 6, 3 -> show 3 records\nLIMIT 6, 3\n-- INNER JOIN\nSELECT * \nFROM orders \n-- INNER is optiinal \nINNER JOIN customers \nON orders.customer_id = customers.customer_id;\n\n-- specify columns \nSELECT order_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- Here customer_id is ambiguous, cause both orders and customers table have customer_id. So we have to specify which tables customer_id\nSELECT order_id, customer_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- \nSELECT order_id, orders.customer_id, first_name, last_name\nFROM orders \nINNER JOIN customers \nON orders.customer_id = customers.customer_id;\n\n-- using alias in table name for simply the code, when you define an alias, you have to use it everywhere\nSELECT order_id, ord.customer_id, first_name, last_name\nFROM orders ord\nINNER JOIN customers cus\nON ord.customer_id = cus.customer_id; \n-- Working with multiple database \n-- How to combine columns from tables accross multiple databases\n\n-- sql_inventory is out of this database\nSELECT * \nFROM order_items oi \nJOIN sql_inventory.products prd\nON oi.product_id = prd.product_id;\n\n-- This query can be written in different way. When we consider our selected table is sql_inventory\nUSE sql_inventory; \n\nSELECT *\nFROM sql_store.order_items oi \nJOIN products prd\nON oi.product_id = prd.product_id\n\n-- SELF JOIN\n-- Here Join will perform on same table or on that table\n-- One colum data(Like reports_to) refer to the main colum(primary key id) on that table\n-- In the sql_hr database employee reports to another employee(a manager)\n-- we have to use different aliases\n\nUSE sql_hr;   \n\nSELECT *\nFROM employees e \nJOIN employees m\nON e.reports_to = m.employee_id;\n\nSELECT e.employee_id, e.first_name AS employee_name, m.first_name AS manger\nFROM employees e \nJOIN employees m\nON e.reports_to = m.employee_id\n\n\n-- JOINING MULTIPLE TABLES \n-- JOINING THREE TABLES\n\nUSE sql_store;\n\nSELECT * \nFROM orders o\nJOIN customers c \n  ON o.customer_id = c.customer_id\nJOIN order_statuses os\n  ON o.status = os.order_status_id;\n\n\nSELECT \n    o.order_id,\n    o.order_date,\n    c.first_name,\n    c.last_name,\n    os.name AS status\nFROM orders o\nJOIN customers c \n  ON o.customer_id = c.customer_id\nJOIN order_statuses os\n  ON o.status = os.order_status_id \n-- Compound Join Condition, combine two primary key as composite key\nSELECT *\nFROM order_items oi  \nJOIN order_item_notes oin \n   ON oi.order_id = oin.order_id\n   AND oi.product_id = oin.product_id;\n\n\nSELECT *  \nFROM orders o\nJOIN customers c \nON o.customer_id = c.customer_id;\n-- Above code can be written using IMPLICIT JOIN(Here basically query perform without JOIN keyword)\nSELECT * \nFROM orders o, customers c\nWHERE o.customer_id = c.customer_id;\n\n-- OUTER JOIN \n-- INNER and OUTER JOIN are vice versa\n-- Basically difference in FROM table , JOIN table\n\nSELECT *  \nFROM customers c  \nJOIN orders o\nON o.customer_id = c.customer_id;\n\n\nSELECT \n    c.customer_id, \n    c.first_name,\n     o.order_id\nFROM customers c  \nJOIN orders o\nON o.customer_id = c.customer_id\nORDER BY c.customer_id;\n-- the above code only return the matched customers but if you want to show the all customers who have any order or not\n-- then we have to use OUTER JOIN\n\n-- Outer joins are joins that return matched values and unmatched values from either or both tables. There are a few types of outer joins:\n-- LEFT JOIN returns only unmatched rows from the left table, as well as matched rows in both tables.\n-- RIGHT JOIN returns only unmatched rows from the right table , as well as matched rows in both tables.\n-- FULL OUTER JOIN returns unmatched rows from both tables,as well as matched rows in both tables.\n\n-- LEFT JOIN\nSELECT \n    c.customer_id, \n    c.first_name,\n    o.order_id\n-- customers is a LEFT table\n-- All the record from the left table are returned whether the condition is true or not\nFROM customers AS c  \nLEFT JOIN orders AS o\n-- LEFT OUTER JOIN orders o\n-- Condition \nON o.customer_id = c.customer_id\nORDER BY c.customer_id\n\n\n-- RIGHT JOIN \nSELECT \n    o.order_id,\n    c.customer_id, \n    c.first_name\n-- orders is a RIGHT table\n-- All the record from the right table are returned whether the condition is true or not\n-- Here basically all the customer_id in orders table will exist in the customers table\nFROM orders o \nRIGHT JOIN customers c\n-- RIGHT OUTER JOIN customers c\n-- Condition\nON o.customer_id = c.customer_id\nORDER BY c.customer_id\n-- RIGHT JOIN\n-- Also RIGHT JOIN can be written as follows\nSELECT  \n    c.customer_id, \n    c.first_name,\n    o.order_id\n-- Here basically all the customer_id in orders table will exist in the customers table\nFROM customers c \nRIGHT JOIN orders o \n-- Condition\nON o.customer_id = c.customer_id\nORDER BY c.customer_id \n-- https://stackoverflow.com/questions/57095115/why-we-use-left-join-right-join-differently-we-can-get-same-output-from-left\n\n-- There really is no difference between a LEFT JOIN and a LEFT OUTER JOIN. \n-- Both versions of the syntax will produce the exact same result in PL/SQL. \n-- Some people do recommend including outer in a LEFT JOIN clause so it's clear that you're creating an outer join, but that's entirely optional. \n-- The same is true of a RIGHT JOIN and a RIGHT OUTER JOIN. In the end, then, it isn't a question of a LEFT JOIN vs. LEFT OUTER JOIN. \n-- They're one and the same thing.\n\n-- LEFT JOIN -> It is also known as LEFT OUTER JOIN. \tRIGHT JOIN -> It is also called as RIGHT OUTER JOIN.\n-- OUTER JOIN BETWEEN MULTIPLE TABLE \nSELECT \n    c.customer_id, \n    c.first_name,\n    o.order_id\n\nFROM customers c \nLEFT JOIN orders o \n   ON o.customer_id = c.customer_id\nJOIN shippers sh \n   ON o.shipper_id = sh.shipper_id\nORDER BY c.customer_id;\n\n-- Above code only show the matched shipper_id with the orders table. But some of the orders have no shipper_id.\n-- Have to show both matvh and unmatched.\n\nSELECT \n    c.customer_id, \n    c.first_name,\n    o.order_id,\n    sh.shipper_id,\n    sh.name AS shipper\nFROM customers c \nLEFT JOIN orders o \n   ON o.customer_id = c.customer_id\nLEFT JOIN shippers sh \n   ON o.shipper_id = sh.shipper_id\nORDER BY c.customer_id;\n SELECT \n    o.order_id,\n    o.order_date,\n    c.first_name AS customer,\n    sh.name AS shipper,\n    os.name AS status\nFROM orders o \nJOIN customers c  \n  ON o.customer_id = c.customer_id\n  -- Here LEFT basically indicating the orders table  \nLEFT JOIN shippers sh \n  ON o.shipper_id = sh.shipper_id\nJOIN order_statuses os \n  ON o.status = os.order_status_id;\n-- SELF OUTER JOIN\nSELECT \n  e.employee_id, \n  e.first_name AS employee_name, \n  m.first_name AS manger\nFROM employees e \nLEFT JOIN employees m\nON e.reports_to = m.employee_id\n-- THE USING CLAUSE\nSELECT \n    o.order_id,\n    c.first_name,\n    sh.name AS shipper\nFROM orders o \nJOIN customers c  \n  -- ON o.customer_id = c.customer_id\n  -- To simply the above query, the code can be written as follows\n  -- USING keyword only works if the column name is eaxctly same accross the different table  \n  USING(customer_id) \n  -- Obiously some of our order are not shipped\nLEFT JOIN shippers sh \n  -- ON o.shipper_id = sh.shipper_id\n  USING(shipper_id) \n-- ANY, ALL\n-- ALL & ANY are logical operators in SQL. They return boolean value as a result.\n-- ALL operator is used to select all tuples of SELECT STATEMENT. It is also used to compare a value to every value in another value set or result from a subquery.\n-- The ALL operator returns TRUE if all of the subqueries values meet the condition. The ALL must be preceded by comparison operators and evaluates true if all of the subqueries values meet the condition.\n-- ALL is used with SELECT, WHERE, HAVING statement.\nUSE sql_hr;\n\n-- ALL\nSELECT COUNT(*) FROM employees\n                WHERE salary <\n                ALL(SELECT salary from employees);  \n\nSELECT salary from employees WHERE office_id = 1;\n\nSELECT * FROM employees\n                WHERE salary <\n                ALL(SELECT salary from employees WHERE office_id = 1);  \n\nSELECT * FROM employees\n                WHERE salary >\n                ALL(SELECT salary from employees WHERE office_id = 1);   \n \nSELECT count(*) FROM employees\n                WHERE salary =\n                ALL(SELECT salary from employees WHERE office_id = 1); \n  \nSELECT count(*) FROM employees\n                WHERE salary =\n                ALL(SELECT salary from employees GROUP BY first_name); \n-- ANY\n-- returns a boolean value as a result\n-- returns TRUE if ANY of the subquery values meet the condition\n\nSELECT count(*) FROM employees\n                WHERE salary >\n                ANY(SELECT salary from employees);  \n\nSELECT count(*) FROM employees\n                WHERE salary <\n                ANY(SELECT salary from employees); \n\nSELECT COUNT(*) FROM employees \n         WHERE salary =\n         ANY(SELECT salary from employees); \n\nSELECT * FROM employees \n         WHERE salary =\n         ANY(SELECT salary from employees GROUP BY first_name); \nUSE sql_store;\n\nSELECT product_id \nFROM order_items\nWHERE quantity = 4\nGROUP BY product_id;\n\nSELECT name AS ProductName \nFROM products\nWHERE product_id = ALL (SELECT product_id \n                       FROM order_items\n                       WHERE quantity = 4 or quantity = 10);\n\nSELECT avg(quantity) \nFROM order_items\nGROUP BY order_id;\n\n-- Every Aggregate Function must have GROUP BY statement\nSELECT order_id AS OrderID \nFROM order_items \nGROUP BY order_id \nHAVING max(quantity) > ALL (SELECT avg(quantity) \n                            FROM order_items \n                            GROUP BY order_id);\n-- EXISTS\n-- The EXISTS operator is used to test for the existence of any record in a subquery.\n-- The EXISTS operator returns TRUE if the subquery returns one or more records.\n-- EXISTS operator generally used with Correlated Subqueries\n\n-- Here exists basically return those matched product_id\n-- If the same product_id matches multiple time, then it consider once. \nSELECT name\nFROM products\nWHERE EXISTS (SELECT * FROM order_items \n                       WHERE order_items.product_id = products.product_id \n                       AND quantity > 5);\nSELECT name\nFROM products\nWHERE EXISTS (SELECT 1 FROM order_items \n                       WHERE order_items.product_id = products.product_id \n                       AND quantity > 5);\n\n-- Same query can be written using 'IN' keyword\n-- Both have some key differences\n\nSELECT name\nFROM products\nWHERE product_id IN (SELECT product_id FROM order_items \n                       WHERE order_items.product_id = products.product_id \n                       AND quantity > 5);\n\n\n-- SQL Aggregate Functions\n-- Aggregate functions are often used with the GROUP BY clause of the SELECT statement. The GROUP BY clause splits the result-set into groups of values and the aggregate function can be used to return a single value for each group.\n-- The most commonly used SQL aggregate functions are:\n\n-- MIN() - returns the smallest value within the selected column\n-- MAX() - returns the largest value within the selected column\n-- COUNT() - returns the number of rows in a set\n-- SUM() - returns the total sum of a numerical column\n-- AVG() - returns the average value of a numerical column\n-- UPDATE \nUPDATE customers\nSET first_name = 'Alfred Schmidt', city = 'Frankfurt'\nWHERE customer_id = 1;\n-- HAVING : \n-- The HAVING clause was added to SQL because the WHERE keyword cannot be used with aggregate functions.\n-- The following SQL statement lists the number of customers in each country. Only include countries with more than 5 customers:\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nHAVING COUNT(customer_id) > 1;\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nWHERE city = 'Dhaka'\nGROUP BY city;\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nORDER BY total_customers DESC;\n\n-- Same output\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nHAVING total_customers\nORDER BY total_customers DESC;\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nHAVING total_customers = 3\nORDER BY total_customers DESC;\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nHAVING total_customers > 1\nORDER BY total_customers DESC;\n\n-- GROUP BY -----\n-- It is followed by aggregate function\nSELECT\n  product_id,\n  SUM(quantity) as quantity\nFROM order_items\nGROUP BY product_id;\n\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nORDER BY total_customers DESC;\n\n/*\n---- UNION ----- \n-> The UNION operator is used to combine the result-set of two or more SELECT statements.\n-> Every SELECT statement within UNION must have the same number of columns\n-> The columns must also have similar data types\n-> The columns in every SELECT statement must also be in the same order\n*/\n\nSELECT name FROM products\nUNION\nSELECT name FROM shippers\nORDER BY name;\n /*\n ---- CASE ----- \n > The CASE statement goes through conditions and returns a value when the first condition is met (like an if-then-else statement). So, once a condition is true, it will stop reading and return the result. If no conditions are true, it returns the value in the ELSE clause.\n > If there is no ELSE part and no conditions are true, it returns NULL.\n*/\nSELECT order_id, quantity,\nCASE \n     WHEN quantity > 10 THEN 'The quantity is greater than 10'\n     WHEN quantity = 10 THEN 'The quantity is 10'\n     ELSE 'The quantity is under 10' \nEND AS QuantityText\nFROM order_items;\n",
+    "content": "-- Query performing on Mosh Course database : sql_hr, sql_inventory, sql_invooicing, sql_store\nUSE sql_store;\n-- Retrieving all data of customers  \n-- WHERE -> to filter the result\nSELECT * FROM customers; \n-- Another way \n-- SELECT * FROM `sql_store`.`customers` \n-- Retrieving specific colums of customers    \nSELECT points, customer_id, first_name FROM customers; \n-- Filtering cutomers:   \n-- KEYWORD order is important\nSELECT *  \nFROM customers\n-- WHERE customer_id = 1\n\n-- WHERE points > 3000\n\n-- Both uppercase and lowercase work perfectly\n-- WHERE state = 'VA'\n-- WHERE state = 'va'\n\n-- Search with date\n-- WHERE birth_date >= '1990-01-01'\n\n-- IN -> To specify multiple possible values for a column\n-- BETWEEN -> WHERE city IN ('Chicago','London')\n-- WHERE state NOT IN ('VA', 'FL', 'GA')\n\n-- NOT EQUAL -> <> or != \n-- WHERE points <> 796\n-- Or : Same Effect -> WHERE points != 1899\n\n-- LIKE -> Search for a pattern for both uppercase and lowercase\n-- % -> any number of characters, _ -> single character\n-- WHERE state LIKE 'f%'\n-- WHERE last_name LIKE 'b%'\n-- WHERE last_name LIKE 'brush%' \n\n-- matching 'b' at the beginning, middle or end \n-- WHERE last_name LIKE '%b%'\n\n-- all the customers last_name end by y\n-- WHERE last_name LIKE '%y'\n\n-- Match only two character end with y\n-- WHERE last_name LIKE '_y'\n\n-- Matchig the 6 character string last_name end with y\n-- WHERE last_name LIKE '_____y'\n\n-- Five character starting with b and ending with y\nWHERE last_name LIKE 'b____y'\n\n-- BETWEEN -> Between a certain range\n-- WHERE points >= 1000 AND points <= 3000\n-- same query can be wriiten in a clener way\n-- WHERE points BETWEEN 1000 AND 3000  \n-- WHERE birth_date BETWEEN '1990-01-01' AND '2000-01-01'  \n\n-- Multiple search condition in filtreing data\n-- WHERE birth_date >= '1990-01-01' AND points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 500 AND state = 'VA'\n\n-- AND operator execute first than OR\n-- Higer to Lower order : / -> * -> + -> - \n-- WHERE birth_date >= '1990-01-01' OR (points > 2500 AND state = 'VA')\n\n-- WHERE NOT (birth_date > '1990-01-01' OR points > 1000) \n-- Same query can be written as : \n-- WHERE birth_date <= '1990-01-01' AND points <= 1000\n\n-- The WHERE clause is not only used in SELECT statements, it is also used in UPDATE, DELETE, etc.\nORDER BY first_name;\n-- two columns and values\nSELECT 1, 2;   \n-- SELECT clause in details  \n-- SELECT last_name, first_name, points, points + 10\nSELECT   \n  last_name, \n  first_name,  \n  points,  \n  points * 10 + 100\nfrom customers;\nSELECT \n  last_name,  \n  first_name, \n  points p, \n  (points + 10) * 100,\n  -- adding specific alias. to use alias, use 'AS' keyword before the given new name \n  -- You can create Alias with AS keyword, Jus an alias name is enough \n  -- Aliases are used to give a table, or a column in a table, a temporary name.\n  (points + 10) * 100 AS discount_factor,  \n    (points + 10) * 100 discount_factor,  \n  (points + 10) * 100 AS 'discount factor',  \n  (points + 10) * 100 AS \"discount factor\"   \nfrom customers;\n-- Update column  \n-- SELECT state FROM customers;   \nUPDATE customers SET city = 'Sylhet' WHERE (customer_id = 2); \n-- Retrieving all distinct state data of customers \nSELECT DISTINCT city FROM customers;  \nSELECT COUNT(DISTINCT city) FROM customers;  \nSELECT COUNT(city) FROM customers;  \n-- REGEXP OPERATOR\nSELECT * \nFROM customers\n-- using normal form\nWHERE last_name LIKE '%field%';\n\n-- can be used by REGEXP keywoed\n-- WHERE last_name REGEXP 'field';\n \n-- ^ -> beginning, $ -> end, | -> logical or, [abcd] -> match any single character listed in the brackets, [a-z] -> any characters from a to z \n\n\n-- ^ -> beginning with 'field' string\n-- WHERE last_name REGEXP '^field'; \n\n-- $ -> ending with 'field' string\n-- WHERE last_name REGEXP 'field$';\n\n-- Match the string 'field' or 'mac' in strart or end\n-- | -> vertical bar or Pipe or Multiple search Pattern\n-- WHERE last_name REGEXP 'field|mac';\n \n-- WHERE last_name REGEXP 'field|mac|rose';\n\n-- WHERE last_name REGEXP '^field|mac|rose';\n\n-- WHERE last_name REGEXP 'field$|mac|rose';\n\n-- WHERE last_name REGEXP 'field$|mac|^rose';\n\n-- WHERE last_name REGEXP 'field$|mac$|^rose';\n \n-- matching customer name : ge or ie or me\n-- Any of the character from 'gim' before 'e'\n-- WHERE last_name REGEXP '[gim]e';\n\n-- Any of the character from 'gim' after 'e'\n-- WHERE last_name REGEXP 'e[gim]';\n\n-- range of characters\n-- WHERE last_name REGEXP '[a-h]e'; \n\n-- NULL VALUES  \n-- all the customer who do not have phone\nSELECT *\nFROM customers \n-- WHERE phone IS NULL; \nWHERE phone IS NOT NULL;\n-- THE ORDER BY CLASUE\nSELECT * \nFROM customers \n-- ORDER BY first_name;\n-- ORDER BY first_name DESC;\n\n-- Sort data by multiple columns\n-- ORDER BY state, first_name; \n-- ORDER BY first_name, state;\n-- ORDER BY first_name DESC;\nORDER BY state DESC, first_name ASC; \n\n-- Another way of sorting\nSELECT first_name, last_name \nFROM customers\nORDER BY birth_date; \n\n-- sort by data using column position that are selecting to show\nSELECT first_name, last_name\nFROM customers\n-- 1 -> first_name, 2 -> last_name \nORDER BY 1, 2;  \n\n-- order creating alaise\nSELECT first_name, last_name, 10 + 10 AS points\nFROM customers\nORDER BY points, first_name; \n\n-- LIMIT data, it always come into last\nSELECT *\nFROM customers \n-- LIMIT 3;\n-- LIMIT 300;   \n-- for pagination or Offseting\n-- 6 -> skip first 6, 3 -> show 3 records\nLIMIT 6, 3\n-- INNER JOIN\nSELECT * \nFROM orders \n-- INNER is optiinal \nINNER JOIN customers \nON orders.customer_id = customers.customer_id;\n\n-- specify columns \nSELECT order_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- Here customer_id is ambiguous, cause both orders and customers table have customer_id. So we have to specify which tables customer_id\nSELECT order_id, customer_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- \nSELECT order_id, orders.customer_id, first_name, last_name\nFROM orders \nINNER JOIN customers \nON orders.customer_id = customers.customer_id;\n\n-- using alias in table name for simply the code, when you define an alias, you have to use it everywhere\nSELECT order_id, ord.customer_id, first_name, last_name\nFROM orders ord\nINNER JOIN customers cus\nON ord.customer_id = cus.customer_id; \n-- Working with multiple database \n-- How to combine columns from tables accross multiple databases\n\n-- sql_inventory is out of this database\nSELECT * \nFROM order_items oi \nJOIN sql_inventory.products prd\nON oi.product_id = prd.product_id;\n\n-- This query can be written in different way. When we consider our selected table is sql_inventory\nUSE sql_inventory; \n\nSELECT *\nFROM sql_store.order_items oi \nJOIN products prd\nON oi.product_id = prd.product_id\n\n/*\n -----SELF JOIN-------\n-> Here Join will perform on same table or on that table\n-> One colum data(Like reports_to) refer to the main colum(primary key id) on that table\n-> In the sql_hr database employee reports to another employee(a manager)\n-> we have to use different aliases\n*/\nUSE sql_hr;   \n\nSELECT *\nFROM employees e \nJOIN employees m\nON e.reports_to = m.employee_id;\n\nSELECT e.employee_id, e.first_name AS employee_name, m.first_name AS manger\nFROM employees e \nJOIN employees m\nON e.reports_to = m.employee_id\n\n\n-- JOINING MULTIPLE TABLES \n-- JOINING THREE TABLES\n\nUSE sql_store;\n\nSELECT * \nFROM orders o\nJOIN customers c \n  ON o.customer_id = c.customer_id\nJOIN order_statuses os\n  ON o.status = os.order_status_id;\n\n\nSELECT \n    o.order_id,\n    o.order_date,\n    c.first_name,\n    c.last_name,\n    os.name AS status\nFROM orders o\nJOIN customers c \n  ON o.customer_id = c.customer_id\nJOIN order_statuses os\n  ON o.status = os.order_status_id \n-- Compound Join Condition, combine two primary key as composite key\nSELECT *\nFROM order_items oi  \nJOIN order_item_notes oin \n   ON oi.order_id = oin.order_id\n   AND oi.product_id = oin.product_id;\n\n\nSELECT *  \nFROM orders o\nJOIN customers c \nON o.customer_id = c.customer_id;\n-- Above code can be written using IMPLICIT JOIN(Here basically query perform without JOIN keyword)\nSELECT * \nFROM orders o, customers c\nWHERE o.customer_id = c.customer_id;\n\n-- OUTER JOIN \n-- INNER and OUTER JOIN are vice versa\n-- Basically difference in FROM table , JOIN table\n\nSELECT *  \nFROM customers c  \nJOIN orders o\nON o.customer_id = c.customer_id;\n\n\nSELECT \n    c.customer_id, \n    c.first_name,\n     o.order_id\nFROM customers c  \nJOIN orders o\nON o.customer_id = c.customer_id\nORDER BY c.customer_id;\n-- the above code only return the matched customers but if you want to show the all customers who have any order or not\n-- then we have to use OUTER JOIN\n\n-- Outer joins are joins that return matched values and unmatched values from either or both tables. There are a few types of outer joins:\n-- LEFT JOIN returns only unmatched rows from the left table, as well as matched rows in both tables.\n-- RIGHT JOIN returns only unmatched rows from the right table , as well as matched rows in both tables.\n-- FULL OUTER JOIN returns unmatched rows from both tables,as well as matched rows in both tables.\n\n-- LEFT JOIN\nSELECT \n    c.customer_id, \n    c.first_name,\n    o.order_id\n-- customers is a LEFT table\n-- All the record from the left table are returned whether the condition is true or not\nFROM customers AS c  \nLEFT JOIN orders AS o\n-- LEFT OUTER JOIN orders o\n-- Condition \nON o.customer_id = c.customer_id\nORDER BY c.customer_id\n\n\n-- RIGHT JOIN \nSELECT \n    o.order_id,\n    c.customer_id, \n    c.first_name\n-- orders is a RIGHT table\n-- All the record from the right table are returned whether the condition is true or not\n-- Here basically all the customer_id in orders table will exist in the customers table\nFROM orders o \nRIGHT JOIN customers c\n-- RIGHT OUTER JOIN customers c\n-- Condition\nON o.customer_id = c.customer_id\nORDER BY c.customer_id\n-- RIGHT JOIN\n-- Also RIGHT JOIN can be written as follows\nSELECT  \n    c.customer_id, \n    c.first_name,\n    o.order_id\n-- Here basically all the customer_id in orders table will exist in the customers table\nFROM customers c \nRIGHT JOIN orders o \n-- Condition\nON o.customer_id = c.customer_id\nORDER BY c.customer_id \n-- https://stackoverflow.com/questions/57095115/why-we-use-left-join-right-join-differently-we-can-get-same-output-from-left\n\n-- There really is no difference between a LEFT JOIN and a LEFT OUTER JOIN. \n-- Both versions of the syntax will produce the exact same result in PL/SQL. \n-- Some people do recommend including outer in a LEFT JOIN clause so it's clear that you're creating an outer join, but that's entirely optional. \n-- The same is true of a RIGHT JOIN and a RIGHT OUTER JOIN. In the end, then, it isn't a question of a LEFT JOIN vs. LEFT OUTER JOIN. \n-- They're one and the same thing.\n\n-- LEFT JOIN -> It is also known as LEFT OUTER JOIN. \tRIGHT JOIN -> It is also called as RIGHT OUTER JOIN.\n-- OUTER JOIN BETWEEN MULTIPLE TABLE \nSELECT \n    c.customer_id, \n    c.first_name,\n    o.order_id\n\nFROM customers c \nLEFT JOIN orders o \n   ON o.customer_id = c.customer_id\nJOIN shippers sh \n   ON o.shipper_id = sh.shipper_id\nORDER BY c.customer_id;\n\n-- Above code only show the matched shipper_id with the orders table. But some of the orders have no shipper_id.\n-- Have to show both matvh and unmatched.\n\nSELECT \n    c.customer_id, \n    c.first_name,\n    o.order_id,\n    sh.shipper_id,\n    sh.name AS shipper\nFROM customers c \nLEFT JOIN orders o \n   ON o.customer_id = c.customer_id\nLEFT JOIN shippers sh \n   ON o.shipper_id = sh.shipper_id\nORDER BY c.customer_id;\n SELECT \n    o.order_id,\n    o.order_date,\n    c.first_name AS customer,\n    sh.name AS shipper,\n    os.name AS status\nFROM orders o \nJOIN customers c  \n  ON o.customer_id = c.customer_id\n  -- Here LEFT basically indicating the orders table  \nLEFT JOIN shippers sh \n  ON o.shipper_id = sh.shipper_id\nJOIN order_statuses os \n  ON o.status = os.order_status_id;\n-- SELF OUTER JOIN\nSELECT \n  e.employee_id, \n  e.first_name AS employee_name, \n  m.first_name AS manger\nFROM employees e \nLEFT JOIN employees m\nON e.reports_to = m.employee_id\n-- THE USING CLAUSE\nSELECT \n    o.order_id,\n    c.first_name,\n    sh.name AS shipper\nFROM orders o \nJOIN customers c  \n  -- ON o.customer_id = c.customer_id\n  -- To simply the above query, the code can be written as follows\n  -- USING keyword only works if the column name is eaxctly same accross the different table  \n  USING(customer_id) \n  -- Obiously some of our order are not shipped\nLEFT JOIN shippers sh \n  -- ON o.shipper_id = sh.shipper_id\n  USING(shipper_id) \n-- ANY, ALL\n-- ALL & ANY are logical operators in SQL. They return boolean value as a result.\n-- ALL operator is used to select all tuples of SELECT STATEMENT. It is also used to compare a value to every value in another value set or result from a subquery.\n-- The ALL operator returns TRUE if all of the subqueries values meet the condition. The ALL must be preceded by comparison operators and evaluates true if all of the subqueries values meet the condition.\n-- ALL is used with SELECT, WHERE, HAVING statement.\nUSE sql_hr;\n\n-- ALL\nSELECT COUNT(*) FROM employees\n                WHERE salary <\n                ALL(SELECT salary from employees);  \n\nSELECT salary from employees WHERE office_id = 1;\n\nSELECT * FROM employees\n                WHERE salary <\n                ALL(SELECT salary from employees WHERE office_id = 1);  \n\nSELECT * FROM employees\n                WHERE salary >\n                ALL(SELECT salary from employees WHERE office_id = 1);   \n \nSELECT count(*) FROM employees\n                WHERE salary =\n                ALL(SELECT salary from employees WHERE office_id = 1); \n  \nSELECT count(*) FROM employees\n                WHERE salary =\n                ALL(SELECT salary from employees GROUP BY first_name); \n-- ANY\n-- returns a boolean value as a result\n-- returns TRUE if ANY of the subquery values meet the condition\n\nSELECT count(*) FROM employees\n                WHERE salary >\n                ANY(SELECT salary from employees);  \n\nSELECT count(*) FROM employees\n                WHERE salary <\n                ANY(SELECT salary from employees); \n\nSELECT COUNT(*) FROM employees \n         WHERE salary =\n         ANY(SELECT salary from employees); \n\nSELECT * FROM employees \n         WHERE salary =\n         ANY(SELECT salary from employees GROUP BY first_name); \nUSE sql_store;\n\nSELECT product_id \nFROM order_items\nWHERE quantity = 4\nGROUP BY product_id;\n\nSELECT name AS ProductName \nFROM products\nWHERE product_id = ALL (SELECT product_id \n                       FROM order_items\n                       WHERE quantity = 4 or quantity = 10);\n\nSELECT avg(quantity) \nFROM order_items\nGROUP BY order_id;\n\n-- Every Aggregate Function must have GROUP BY statement\nSELECT order_id AS OrderID \nFROM order_items \nGROUP BY order_id \nHAVING max(quantity) > ALL (SELECT avg(quantity) \n                            FROM order_items \n                            GROUP BY order_id);\n-- EXISTS\n-- The EXISTS operator is used to test for the existence of any record in a subquery.\n-- The EXISTS operator returns TRUE if the subquery returns one or more records.\n-- EXISTS operator generally used with Correlated Subqueries\n\n-- Here exists basically return those matched product_id\n-- If the same product_id matches multiple time, then it consider once. \nSELECT name\nFROM products\nWHERE EXISTS (SELECT * FROM order_items \n                       WHERE order_items.product_id = products.product_id \n                       AND quantity > 5);\nSELECT name\nFROM products\nWHERE EXISTS (SELECT 1 FROM order_items \n                       WHERE order_items.product_id = products.product_id \n                       AND quantity > 5);\n\n-- Same query can be written using 'IN' keyword\n-- Both have some key differences\n\nSELECT name\nFROM products\nWHERE product_id IN (SELECT product_id FROM order_items \n                       WHERE order_items.product_id = products.product_id \n                       AND quantity > 5);\n\n\n-- SQL Aggregate Functions\n-- Aggregate functions are often used with the GROUP BY clause of the SELECT statement. The GROUP BY clause splits the result-set into groups of values and the aggregate function can be used to return a single value for each group.\n-- The most commonly used SQL aggregate functions are:\n\n-- MIN() - returns the smallest value within the selected column\n-- MAX() - returns the largest value within the selected column\n-- COUNT() - returns the number of rows in a set\n-- SUM() - returns the total sum of a numerical column\n-- AVG() - returns the average value of a numerical column\n-- UPDATE \nUPDATE customers\nSET first_name = 'Alfred Schmidt', city = 'Frankfurt'\nWHERE customer_id = 1;\n-- HAVING : \n-- The HAVING clause was added to SQL because the WHERE keyword cannot be used with aggregate functions.\n-- The following SQL statement lists the number of customers in each country. Only include countries with more than 5 customers:\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nHAVING COUNT(customer_id) > 1;\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nWHERE city = 'Dhaka'\nGROUP BY city;\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nORDER BY total_customers DESC;\n\n-- Same output\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nHAVING total_customers\nORDER BY total_customers DESC;\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nHAVING total_customers = 3\nORDER BY total_customers DESC;\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nHAVING total_customers > 1\nORDER BY total_customers DESC;\n\n-- GROUP BY -----\n-- It is followed by aggregate function\nSELECT\n  product_id,\n  SUM(quantity) as quantity\nFROM order_items\nGROUP BY product_id;\n\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nORDER BY total_customers DESC;\n\n/*\n---- UNION ----- \n-> The UNION operator is used to combine the result-set of two or more SELECT statements.\n-> Every SELECT statement within UNION must have the same number of columns\n-> The columns must also have similar data types\n-> The columns in every SELECT statement must also be in the same order\n*/\n\nSELECT name FROM products\nUNION\nSELECT name FROM shippers\nORDER BY name;\n /*\n ---- CASE ----- \n > The CASE statement goes through conditions and returns a value when the first condition is met (like an if-then-else statement). So, once a condition is true, it will stop reading and return the result. If no conditions are true, it returns the value in the ELSE clause.\n > If there is no ELSE part and no conditions are true, it returns NULL.\n*/\nSELECT order_id, quantity,\nCASE \n     WHEN quantity > 10 THEN 'The quantity is greater than 10'\n     WHEN quantity = 10 THEN 'The quantity is 10'\n     ELSE 'The quantity is under 10' \nEND AS QuantityText\nFROM order_items;\n",
     "options": {
         "tabSize": 4,
         "insertSpaces": true,
@@ -15,22 +15,22 @@
             {
                 "inSelectionMode": false,
                 "selectionStart": {
-                    "lineNumber": 587,
-                    "column": 1
+                    "lineNumber": 241,
+                    "column": 3
                 },
                 "position": {
-                    "lineNumber": 587,
-                    "column": 1
+                    "lineNumber": 241,
+                    "column": 3
                 }
             }
         ],
         "viewState": {
             "scrollLeft": 0,
             "firstPosition": {
-                "lineNumber": 584,
+                "lineNumber": 230,
                 "column": 1
             },
-            "firstPositionDeltaTop": -4
+            "firstPositionDeltaTop": -1
         },
         "contributionsState": {
             "editor.contrib.folding": {},
@@ -79,10 +79,10 @@
                     "type": "text",
                     "text": [
                         {
-                            "type": 4,
+                            "type": 2,
                             "index": 0,
-                            "resultId": "922eeffa-fa27-46c1-a6b5-ebd130f7225e",
-                            "content": "OK, 0 records retrieved in 0.416ms"
+                            "resultId": "b154faed-17f3-4ebe-92dc-2cc6dc6104ab",
+                            "content": "OK, 0 records retrieved in 0.397ms"
                         }
                     ]
                 },
@@ -676,10 +676,10 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "ee006ea9-ab68-41b1-9a1b-494908505be2"
+                        "09b9c9d4-3f3b-40ca-bf01-e2cd2682c587"
                     ]
                 },
-                "currentHeight": 198,
+                "currentHeight": 36,
                 "currentSet": 1,
                 "statements": [
                     {
@@ -696,7 +696,7 @@
             "data": [
                 {
                     "tabId": "a24f06f0-c11d-4257-a474-289906604c66",
-                    "resultId": "ee006ea9-ab68-41b1-9a1b-494908505be2",
+                    "resultId": "09b9c9d4-3f3b-40ca-bf01-e2cd2682c587",
                     "rows": [
                         {
                             "0": "MacCaffrey",
@@ -761,42 +761,92 @@
                     ],
                     "columns": [
                         {
-                            "title": "d",
+                            "title": "last_name",
                             "field": "0",
                             "dataType": {
-                                "type": 17
-                            }
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
                         },
                         {
                             "title": "first_name",
                             "field": "1",
                             "dataType": {
-                                "type": 17
-                            }
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
                         },
                         {
                             "title": "points",
                             "field": "2",
                             "dataType": {
-                                "type": 4
-                            }
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
                         },
                         {
                             "title": "points * 10 + 100",
                             "field": "3",
                             "dataType": {
-                                "type": 4
-                            }
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
                         }
                     ],
                     "executionInfo": {
-                        "text": "OK, 10 records retrieved in 0.762ms"
+                        "text": "OK, 10 records retrieved in 22.255ms"
                     },
                     "totalRowCount": 10,
                     "hasMoreRows": false,
                     "currentPage": 0,
                     "index": 0,
-                    "sql": "-- SELECT clause in details  \n-- SELECT last_name, first_name, points, points + 10\nSELECT   \n  last_name d, \n  first_name,  \n  points,  \n  points * 10 + 100\nfrom customers;"
+                    "sql": "-- SELECT clause in details  \n-- SELECT last_name, first_name, points, points + 10\nSELECT   \n  last_name, \n  first_name,  \n  points,  \n  points * 10 + 100\nfrom customers",
+                    "updatable": false,
+                    "fullTableName": ""
                 }
             ]
         },
@@ -1140,7 +1190,7 @@
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 1112
+                            "length": 96
                         },
                         "contentStart": 19,
                         "state": 0
@@ -1148,10 +1198,10 @@
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 1112,
-                            "length": 3
+                            "start": 96,
+                            "length": 1019
                         },
-                        "contentStart": 1111,
+                        "contentStart": 95,
                         "state": 3
                     }
                 ]
@@ -2470,7 +2520,7 @@
         {
             "state": {
                 "start": 236,
-                "end": 254,
+                "end": 255,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
@@ -2485,27 +2535,27 @@
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 281
+                            "length": 296
                         },
-                        "contentStart": 270,
+                        "contentStart": 285,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 281,
+                            "start": 296,
                             "length": 81
                         },
-                        "contentStart": 286,
+                        "contentStart": 301,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 362,
+                            "start": 377,
                             "length": 146
                         },
-                        "contentStart": 364,
+                        "contentStart": 379,
                         "state": 3
                     }
                 ]
@@ -2647,8 +2697,8 @@
         },
         {
             "state": {
-                "start": 255,
-                "end": 278,
+                "start": 256,
+                "end": 279,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
@@ -3035,8 +3085,8 @@
         },
         {
             "state": {
-                "start": 279,
-                "end": 295,
+                "start": 280,
+                "end": 296,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
@@ -3707,8 +3757,8 @@
         },
         {
             "state": {
-                "start": 296,
-                "end": 336,
+                "start": 297,
+                "end": 337,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
@@ -3860,8 +3910,8 @@
         },
         {
             "state": {
-                "start": 337,
-                "end": 350,
+                "start": 338,
+                "end": 351,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
@@ -3995,8 +4045,8 @@
         },
         {
             "state": {
-                "start": 351,
-                "end": 362,
+                "start": 352,
+                "end": 363,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
@@ -4110,8 +4160,8 @@
         },
         {
             "state": {
-                "start": 363,
-                "end": 371,
+                "start": 364,
+                "end": 372,
                 "language": "mysql",
                 "result": {
                     "type": "text",
@@ -4142,8 +4192,8 @@
         },
         {
             "state": {
-                "start": 372,
-                "end": 399,
+                "start": 373,
+                "end": 400,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
@@ -4391,8 +4441,8 @@
         },
         {
             "state": {
-                "start": 400,
-                "end": 413,
+                "start": 401,
+                "end": 414,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
@@ -4540,8 +4590,8 @@
         },
         {
             "state": {
-                "start": 414,
-                "end": 421,
+                "start": 415,
+                "end": 422,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
@@ -4705,8 +4755,8 @@
         },
         {
             "state": {
-                "start": 422,
-                "end": 436,
+                "start": 423,
+                "end": 437,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
@@ -4820,8 +4870,8 @@
         },
         {
             "state": {
-                "start": 437,
-                "end": 465,
+                "start": 438,
+                "end": 466,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
@@ -5021,8 +5071,8 @@
         },
         {
             "state": {
-                "start": 466,
-                "end": 484,
+                "start": 467,
+                "end": 485,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
@@ -5330,8 +5380,8 @@
         },
         {
             "state": {
-                "start": 485,
-                "end": 508,
+                "start": 486,
+                "end": 509,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
@@ -5557,8 +5607,8 @@
         },
         {
             "state": {
-                "start": 509,
-                "end": 536,
+                "start": 510,
+                "end": 537,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
@@ -5647,8 +5697,8 @@
         },
         {
             "state": {
-                "start": 537,
-                "end": 545,
+                "start": 538,
+                "end": 546,
                 "language": "mysql",
                 "result": {
                     "type": "text",
@@ -5679,8 +5729,8 @@
         },
         {
             "state": {
-                "start": 546,
-                "end": 549,
+                "start": 547,
+                "end": 550,
                 "language": "mysql",
                 "result": {
                     "type": "text",
@@ -5711,8 +5761,8 @@
         },
         {
             "state": {
-                "start": 550,
-                "end": 585,
+                "start": 551,
+                "end": 586,
                 "language": "mysql",
                 "result": {
                     "type": "text",
@@ -5800,8 +5850,8 @@
         },
         {
             "state": {
-                "start": 586,
-                "end": 600,
+                "start": 587,
+                "end": 601,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
@@ -6027,8 +6077,8 @@
         },
         {
             "state": {
-                "start": 601,
-                "end": 612,
+                "start": 602,
+                "end": 613,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
@@ -6136,16 +6186,24 @@
         },
         {
             "state": {
-                "start": 613,
-                "end": 624,
+                "start": 614,
+                "end": 625,
                 "language": "mysql",
                 "result": {
-                    "type": "resultIds",
-                    "list": [
-                        "a5a595d2-d4a6-4022-ad58-417f506a832c"
-                    ]
+                    "type": "text",
+                    "text": [
+                        {
+                            "type": 0,
+                            "index": 0,
+                            "content": "MySQL Error (1046): No database selected",
+                            "language": "ansi"
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": ""
+                    }
                 },
-                "currentHeight": 36,
+                "currentHeight": 28,
                 "currentSet": 1,
                 "statements": [
                     {
@@ -6159,179 +6217,12 @@
                     }
                 ]
             },
-            "data": [
-                {
-                    "tabId": "a24f06f0-c11d-4257-a474-289906604c66",
-                    "resultId": "a5a595d2-d4a6-4022-ad58-417f506a832c",
-                    "rows": [
-                        {
-                            "0": 1,
-                            "1": 4,
-                            "2": "The quantity is under 10"
-                        },
-                        {
-                            "0": 2,
-                            "1": 2,
-                            "2": "The quantity is under 10"
-                        },
-                        {
-                            "0": 2,
-                            "1": 4,
-                            "2": "The quantity is under 10"
-                        },
-                        {
-                            "0": 2,
-                            "1": 2,
-                            "2": "The quantity is under 10"
-                        },
-                        {
-                            "0": 3,
-                            "1": 10,
-                            "2": "The quantity is 10"
-                        },
-                        {
-                            "0": 4,
-                            "1": 7,
-                            "2": "The quantity is under 10"
-                        },
-                        {
-                            "0": 4,
-                            "1": 7,
-                            "2": "The quantity is under 10"
-                        },
-                        {
-                            "0": 5,
-                            "1": 3,
-                            "2": "The quantity is under 10"
-                        },
-                        {
-                            "0": 6,
-                            "1": 4,
-                            "2": "The quantity is under 10"
-                        },
-                        {
-                            "0": 6,
-                            "1": 4,
-                            "2": "The quantity is under 10"
-                        },
-                        {
-                            "0": 6,
-                            "1": 4,
-                            "2": "The quantity is under 10"
-                        },
-                        {
-                            "0": 6,
-                            "1": 1,
-                            "2": "The quantity is under 10"
-                        },
-                        {
-                            "0": 7,
-                            "1": 7,
-                            "2": "The quantity is under 10"
-                        },
-                        {
-                            "0": 8,
-                            "1": 2,
-                            "2": "The quantity is under 10"
-                        },
-                        {
-                            "0": 8,
-                            "1": 2,
-                            "2": "The quantity is under 10"
-                        },
-                        {
-                            "0": 9,
-                            "1": 5,
-                            "2": "The quantity is under 10"
-                        },
-                        {
-                            "0": 10,
-                            "1": 10,
-                            "2": "The quantity is 10"
-                        },
-                        {
-                            "0": 10,
-                            "1": 20,
-                            "2": "The quantity is greater than 10"
-                        }
-                    ],
-                    "columns": [
-                        {
-                            "title": "order_id",
-                            "field": "0",
-                            "dataType": {
-                                "type": 4,
-                                "flags": [
-                                    "SIGNED",
-                                    "ZEROFILL"
-                                ],
-                                "numericPrecision": 10,
-                                "parameterFormatType": "OneOrZero",
-                                "synonyms": [
-                                    "INTEGER",
-                                    "INT4"
-                                ]
-                            },
-                            "inPK": false,
-                            "nullable": false,
-                            "autoIncrement": false
-                        },
-                        {
-                            "title": "quantity",
-                            "field": "1",
-                            "dataType": {
-                                "type": 4,
-                                "flags": [
-                                    "SIGNED",
-                                    "ZEROFILL"
-                                ],
-                                "numericPrecision": 10,
-                                "parameterFormatType": "OneOrZero",
-                                "synonyms": [
-                                    "INTEGER",
-                                    "INT4"
-                                ]
-                            },
-                            "inPK": false,
-                            "nullable": false,
-                            "autoIncrement": false
-                        },
-                        {
-                            "title": "QuantityText",
-                            "field": "2",
-                            "dataType": {
-                                "type": 17,
-                                "characterMaximumLength": 65535,
-                                "flags": [
-                                    "BINARY",
-                                    "ASCII",
-                                    "UNICODE"
-                                ],
-                                "needsQuotes": true,
-                                "parameterFormatType": "OneOrZero"
-                            },
-                            "inPK": false,
-                            "nullable": false,
-                            "autoIncrement": false
-                        }
-                    ],
-                    "executionInfo": {
-                        "text": "OK, 18 records retrieved in 0.756ms"
-                    },
-                    "totalRowCount": 18,
-                    "hasMoreRows": false,
-                    "currentPage": 0,
-                    "index": 0,
-                    "sql": " /*\n ---- CASE ----- \n > The CASE statement goes through conditions and returns a value when the first condition is met (like an if-then-else statement). So, once a condition is true, it will stop reading and return the result. If no conditions are true, it returns the value in the ELSE clause.\n > If there is no ELSE part and no conditions are true, it returns NULL.\n*/\nSELECT order_id, quantity,\nCASE \n     WHEN quantity > 10 THEN 'The quantity is greater than 10'\n     WHEN quantity = 10 THEN 'The quantity is 10'\n     ELSE 'The quantity is under 10' \nEND AS QuantityText\nFROM order_items",
-                    "updatable": false,
-                    "fullTableName": ""
-                }
-            ]
+            "data": []
         },
         {
             "state": {
-                "start": 625,
-                "end": 625,
+                "start": 626,
+                "end": 626,
                 "language": "mysql",
                 "currentSet": 1,
                 "statements": [
