@@ -1,6 +1,6 @@
 /*
  * How Polymorphism Handles Data Hiding & Security
- */
+*/
 
 interface AccountInterface {
     void deposit(double amount);
@@ -54,6 +54,7 @@ class SavingsAccount extends Account {
     @Override
     public void deposit(double amount) {
         super.deposit(amount);
+
         // Add interest based on the interest rate
         balance += balance * interestRate;
     }
