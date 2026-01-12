@@ -2,7 +2,7 @@
     "type": "MySQLNotebook",
     "version": "1.0",
     "caption": "DB Notebook",
-    "content": "\nDROP DATABASE IF EXISTS `sql_basic`;\nCREATE DATABASE `sql_basic`; \nUSE `sql_basic`; \n\nCREATE TABLE `user`(\n  `user_id` TINYINT(4) NOT NULL AUTO_INCREMENT,\n  `name` VARCHAR(100) NOT NULL,\n  `address` VARCHAR(10000),\n  PRIMARY KEY(`user_id`)\n) ENGINE=INNODB AUTO_INCREMENT=5 DEFAULT CHARSET=UTF8MB4 COLLATE=UTF8MB4_0900_AI_CI;\n\n-- Insering new data to user table -- \nINSERT INTO `user` VALUES(1, 'Mijanur Rahman', '');\nINSERT INTO `user` VALUES(2, 'HASAN Rahman', 'Sylhet');\n\n\nSELECT * FROM `sql_basic`.`user`\n",
+    "content": "\nDROP DATABASE IF EXISTS `sql_basic`;\nCREATE DATABASE `sql_basic`; \nUSE `sql_basic`; \n\n\n\nCREATE TABLE `user`(\n  `user_id` TINYINT(4) NOT NULL AUTO_INCREMENT,\n  `name` VARCHAR(100) NOT NULL,\n  `address` VARCHAR(10000),\n  PRIMARY KEY(`user_id`)\n) ENGINE=INNODB AUTO_INCREMENT=5 DEFAULT CHARSET=UTF8MB4 COLLATE=UTF8MB4_0900_AI_CI;\n\n-- Insering new data to user table -- \nINSERT INTO `user` VALUES(1, 'Mijanur Rahman', '');\nINSERT INTO `user` VALUES(2, 'HASAN Rahman', 'Sylhet');\n\nSELECT * FROM `sql_basic`.`user`\n",
     "options": {
         "tabSize": 4,
         "insertSpaces": true,
@@ -16,11 +16,11 @@
                 "inSelectionMode": false,
                 "selectionStart": {
                     "lineNumber": 18,
-                    "column": 33
+                    "column": 1
                 },
                 "position": {
                     "lineNumber": 18,
-                    "column": 33
+                    "column": 1
                 }
             }
         ],
@@ -30,7 +30,7 @@
                 "lineNumber": 2,
                 "column": 1
             },
-            "firstPositionDeltaTop": -3
+            "firstPositionDeltaTop": -11
         },
         "contributionsState": {
             "editor.contrib.folding": {},
@@ -72,7 +72,7 @@
         {
             "state": {
                 "start": 2,
-                "end": 16,
+                "end": 7,
                 "language": "mysql",
                 "result": {
                     "type": "text",
@@ -149,36 +149,9 @@
                         "delimiter": ";",
                         "span": {
                             "start": 83,
-                            "length": 241
+                            "length": 4
                         },
-                        "contentStart": 86,
-                        "state": 0
-                    },
-                    {
-                        "delimiter": ";",
-                        "span": {
-                            "start": 324,
-                            "length": 92
-                        },
-                        "contentStart": 365,
-                        "state": 0
-                    },
-                    {
-                        "delimiter": ";",
-                        "span": {
-                            "start": 416,
-                            "length": 56
-                        },
-                        "contentStart": 417,
-                        "state": 0
-                    },
-                    {
-                        "delimiter": ";",
-                        "span": {
-                            "start": 472,
-                            "length": 1
-                        },
-                        "contentStart": 471,
+                        "contentStart": 82,
                         "state": 3
                     }
                 ]
@@ -187,8 +160,8 @@
         },
         {
             "state": {
-                "start": 17,
-                "end": 17,
+                "start": 8,
+                "end": 18,
                 "language": "mysql",
                 "currentSet": 1,
                 "statements": [
@@ -196,9 +169,36 @@
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 0
+                            "length": 238
                         },
-                        "contentStart": -1,
+                        "contentStart": 0,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 238,
+                            "length": 92
+                        },
+                        "contentStart": 279,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 330,
+                            "length": 56
+                        },
+                        "contentStart": 331,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 386,
+                            "length": 1
+                        },
+                        "contentStart": 385,
                         "state": 3
                     }
                 ]
@@ -207,8 +207,8 @@
         },
         {
             "state": {
-                "start": 18,
-                "end": 18,
+                "start": 19,
+                "end": 19,
                 "language": "mysql",
                 "currentSet": 1,
                 "statements": [
@@ -227,8 +227,8 @@
         },
         {
             "state": {
-                "start": 19,
-                "end": 19,
+                "start": 20,
+                "end": 20,
                 "language": "mysql",
                 "currentSet": 1,
                 "statements": [
