@@ -1,10 +1,12 @@
 #include <stdio.h>
+#include <string.h>
 
 int main()
 {
     char aa[100], bb[100];
 
     printf("\nEnter the first string: ");
+    // scanf("%[^\n]", aa);
     gets(aa);
 
     printf("\nEnter the second string to be concatenated: ");
@@ -26,5 +28,7 @@ int main()
     }
     *a = '\0'; // string must end with '\0'
     printf("\n\n\nThe string after concatenation is: %s ", aa);
+    printf("\n\n\nThe string after concatenation is: %s ", a);
+    printf("\n");
     return 0;
 }
