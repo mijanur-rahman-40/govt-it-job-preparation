@@ -1,0 +1,4 @@
+SHOW DATABASES;
+SHOW TABLES;
+DROP TABLE table_name;
+

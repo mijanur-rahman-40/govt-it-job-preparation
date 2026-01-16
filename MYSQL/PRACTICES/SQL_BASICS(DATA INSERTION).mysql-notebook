@@ -27,10 +27,10 @@
         "viewState": {
             "scrollLeft": 0,
             "firstPosition": {
-                "lineNumber": 2,
+                "lineNumber": 3,
                 "column": 1
             },
-            "firstPositionDeltaTop": -11
+            "firstPositionDeltaTop": -3
         },
         "contributionsState": {
             "editor.contrib.folding": {},

@@ -2,7 +2,7 @@
     "type": "MySQLNotebook",
     "version": "1.0",
     "caption": "DB Notebook",
-    "content": "-- Query performing on Mosh Course database : sql_hr, sql_inventory, sql_invooicing, sql_store\nUSE sql_store;\n-- Retrieving all data of customers  \n-- WHERE -> to filter the result\nSELECT * FROM customers; \n-- Another way \n-- SELECT * FROM `sql_store`.`customers` \n-- Retrieving specific colums of customers    \nSELECT points, customer_id, first_name FROM customers; \n-- Filtering cutomers:   \n-- KEYWORD order is important\nSELECT *  \nFROM customers\n-- WHERE customer_id = 1\n\n-- WHERE points > 3000\n\n-- Both uppercase and lowercase work perfectly\n-- WHERE state = 'VA'\n-- WHERE state = 'va'\n\n-- Search with date\n-- WHERE birth_date >= '1990-01-01'\n\n-- IN -> To specify multiple possible values for a column\n-- BETWEEN -> WHERE city IN ('Chicago','London')\n-- WHERE state NOT IN ('VA', 'FL', 'GA')\n\n-- NOT EQUAL -> <> or != \n-- WHERE points <> 796\n-- Or : Same Effect -> WHERE points != 1899\n\n-- LIKE -> Search for a pattern for both uppercase and lowercase\n-- % -> any number of characters, _ -> single character\n-- WHERE state LIKE 'f%'\n-- WHERE last_name LIKE 'b%'\n-- WHERE last_name LIKE 'brush%' \n\n-- matching 'b' at the beginning, middle or end \n-- WHERE last_name LIKE '%b%'\n\n-- all the customers last_name end by y\n-- WHERE last_name LIKE '%y'\n\n-- Match only two character end with y\n-- WHERE last_name LIKE '_y'\n\n-- Matchig the 6 character string last_name end with y\n-- WHERE last_name LIKE '_____y'\n\n-- Five character starting with b and ending with y\nWHERE last_name LIKE 'b____y'\n\n-- BETWEEN -> Between a certain range\n-- WHERE points >= 1000 AND points <= 3000\n-- same query can be wriiten in a clener way\n-- WHERE points BETWEEN 1000 AND 3000  \n-- WHERE birth_date BETWEEN '1990-01-01' AND '2000-01-01'  \n\n-- Multiple search condition in filtreing data\n-- WHERE birth_date >= '1990-01-01' AND points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 500 AND state = 'VA'\n\n-- AND operator execute first than OR\n-- Higer to Lower order : / -> * -> + -> - \n-- WHERE birth_date >= '1990-01-01' OR (points > 2500 AND state = 'VA')\n\n-- WHERE NOT (birth_date > '1990-01-01' OR points > 1000) \n-- Same query can be written as : \n-- WHERE birth_date <= '1990-01-01' AND points <= 1000\n\n-- The WHERE clause is not only used in SELECT statements, it is also used in UPDATE, DELETE, etc.\nORDER BY first_name;\n-- two columns and values\nSELECT 1, 2;   \n-- SELECT clause in details  \n-- SELECT last_name, first_name, points, points + 10\nSELECT   \n  last_name, \n  first_name,  \n  points,  \n  points * 10 + 100\nfrom customers;\nSELECT \n  last_name,  \n  first_name, \n  points p, \n  (points + 10) * 100,\n  -- adding specific alias. to use alias, use 'AS' keyword before the given new name \n  -- You can create Alias with AS keyword, Jus an alias name is enough \n  -- Aliases are used to give a table, or a column in a table, a temporary name.\n  (points + 10) * 100 AS discount_factor,  \n    (points + 10) * 100 discount_factor,  \n  (points + 10) * 100 AS 'discount factor',  \n  (points + 10) * 100 AS \"discount factor\"   \nfrom customers;\n-- Update column  \n-- SELECT state FROM customers;   \nUPDATE customers SET city = 'Sylhet' WHERE (customer_id = 2); \n-- Retrieving all distinct state data of customers \nSELECT DISTINCT city FROM customers;  \nSELECT COUNT(DISTINCT city) FROM customers;  \nSELECT COUNT(city) FROM customers;  \n-- REGEXP OPERATOR\nSELECT * \nFROM customers\n-- using normal form\nWHERE last_name LIKE '%field%';\n\n-- can be used by REGEXP keywoed\n-- WHERE last_name REGEXP 'field';\n \n-- ^ -> beginning, $ -> end, | -> logical or, [abcd] -> match any single character listed in the brackets, [a-z] -> any characters from a to z \n\n\n-- ^ -> beginning with 'field' string\n-- WHERE last_name REGEXP '^field'; \n\n-- $ -> ending with 'field' string\n-- WHERE last_name REGEXP 'field$';\n\n-- Match the string 'field' or 'mac' in strart or end\n-- | -> vertical bar or Pipe or Multiple search Pattern\n-- WHERE last_name REGEXP 'field|mac';\n \n-- WHERE last_name REGEXP 'field|mac|rose';\n\n-- WHERE last_name REGEXP '^field|mac|rose';\n\n-- WHERE last_name REGEXP 'field$|mac|rose';\n\n-- WHERE last_name REGEXP 'field$|mac|^rose';\n\n-- WHERE last_name REGEXP 'field$|mac$|^rose';\n \n-- matching customer name : ge or ie or me\n-- Any of the character from 'gim' before 'e'\n-- WHERE last_name REGEXP '[gim]e';\n\n-- Any of the character from 'gim' after 'e'\n-- WHERE last_name REGEXP 'e[gim]';\n\n-- range of characters\n-- WHERE last_name REGEXP '[a-h]e'; \n\n-- NULL VALUES  \n-- all the customer who do not have phone\nSELECT *\nFROM customers \n-- WHERE phone IS NULL; \nWHERE phone IS NOT NULL;\n-- THE ORDER BY CLASUE\nSELECT * \nFROM customers \n-- ORDER BY first_name;\n-- ORDER BY first_name DESC;\n\n-- Sort data by multiple columns\n-- ORDER BY state, first_name; \n-- ORDER BY first_name, state;\n-- ORDER BY first_name DESC;\nORDER BY state DESC, first_name ASC; \n\n-- Another way of sorting\nSELECT first_name, last_name \nFROM customers\nORDER BY birth_date; \n\n-- sort by data using column position that are selecting to show\nSELECT first_name, last_name\nFROM customers\n-- 1 -> first_name, 2 -> last_name \nORDER BY 1, 2;  \n\n-- order creating alaise\nSELECT first_name, last_name, 10 + 10 AS points\nFROM customers\nORDER BY points, first_name; \n\n-- LIMIT data, it always come into last\nSELECT *\nFROM customers \n-- LIMIT 3;\n-- LIMIT 300;   \n-- for pagination or Offseting\n-- 6 -> skip first 6, 3 -> show 3 records\nLIMIT 6, 3\n-- INNER JOIN\nSELECT * \nFROM orders \n-- INNER is optiinal \nINNER JOIN customers \nON orders.customer_id = customers.customer_id;\n\n-- specify columns \nSELECT order_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- Here customer_id is ambiguous, cause both orders and customers table have customer_id. So we have to specify which tables customer_id\nSELECT order_id, customer_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- \nSELECT order_id, orders.customer_id, first_name, last_name\nFROM orders \nINNER JOIN customers \nON orders.customer_id = customers.customer_id;\n\n-- using alias in table name for simply the code, when you define an alias, you have to use it everywhere\nSELECT order_id, ord.customer_id, first_name, last_name\nFROM orders ord\nINNER JOIN customers cus\nON ord.customer_id = cus.customer_id; \n-- Working with multiple database \n-- How to combine columns from tables accross multiple databases\n\n-- sql_inventory is out of this database\nSELECT * \nFROM order_items oi \nJOIN sql_inventory.products prd\nON oi.product_id = prd.product_id;\n\n-- This query can be written in different way. When we consider our selected table is sql_inventory\nUSE sql_inventory; \n\nSELECT *\nFROM sql_store.order_items oi \nJOIN products prd\nON oi.product_id = prd.product_id\n\n/*\n -----SELF JOIN-------\n-> Here Join will perform on same table or on that table\n-> One colum data(Like reports_to) refer to the main colum(primary key id) on that table\n-> In the sql_hr database employee reports to another employee(a manager)\n-> we have to use different aliases\n*/\nUSE sql_hr;   \n\nSELECT *\nFROM employees e \nJOIN employees m\nON e.reports_to = m.employee_id;\n\nSELECT e.employee_id, e.first_name AS employee_name, m.first_name AS manger\nFROM employees e \nJOIN employees m\nON e.reports_to = m.employee_id\n\n\n-- JOINING MULTIPLE TABLES \n-- JOINING THREE TABLES\n\nUSE sql_store;\n\nSELECT * \nFROM orders o\nJOIN customers c \n  ON o.customer_id = c.customer_id\nJOIN order_statuses os\n  ON o.status = os.order_status_id;\n\n\nSELECT \n    o.order_id,\n    o.order_date,\n    c.first_name,\n    c.last_name,\n    os.name AS status\nFROM orders o\nJOIN customers c \n  ON o.customer_id = c.customer_id\nJOIN order_statuses os\n  ON o.status = os.order_status_id \n-- Compound Join Condition, combine two primary key as composite key\nSELECT *\nFROM order_items oi  \nJOIN order_item_notes oin \n   ON oi.order_id = oin.order_id\n   AND oi.product_id = oin.product_id;\n\n\nSELECT *  \nFROM orders o\nJOIN customers c \nON o.customer_id = c.customer_id;\n-- Above code can be written using IMPLICIT JOIN(Here basically query perform without JOIN keyword)\nSELECT * \nFROM orders o, customers c\nWHERE o.customer_id = c.customer_id;\n\n-- OUTER JOIN \n-- INNER and OUTER JOIN are vice versa\n-- Basically difference in FROM table , JOIN table\n\nSELECT *  \nFROM customers c  \nJOIN orders o\nON o.customer_id = c.customer_id;\n\n\nSELECT \n    c.customer_id, \n    c.first_name,\n     o.order_id\nFROM customers c  \nJOIN orders o\nON o.customer_id = c.customer_id\nORDER BY c.customer_id;\n-- the above code only return the matched customers but if you want to show the all customers who have any order or not\n-- then we have to use OUTER JOIN\n\n-- Outer joins are joins that return matched values and unmatched values from either or both tables. There are a few types of outer joins:\n-- LEFT JOIN returns only unmatched rows from the left table, as well as matched rows in both tables.\n-- RIGHT JOIN returns only unmatched rows from the right table , as well as matched rows in both tables.\n-- FULL OUTER JOIN returns unmatched rows from both tables,as well as matched rows in both tables.\n\n-- LEFT JOIN\nSELECT \n    c.customer_id, \n    c.first_name,\n    o.order_id\n-- customers is a LEFT table\n-- All the record from the left table are returned whether the condition is true or not\nFROM customers AS c  \nLEFT JOIN orders AS o\n-- LEFT OUTER JOIN orders o\n-- Condition \nON o.customer_id = c.customer_id\nORDER BY c.customer_id\n\n\n-- RIGHT JOIN \nSELECT \n    o.order_id,\n    c.customer_id, \n    c.first_name\n-- orders is a RIGHT table\n-- All the record from the right table are returned whether the condition is true or not\n-- Here basically all the customer_id in orders table will exist in the customers table\nFROM orders o \nRIGHT JOIN customers c\n-- RIGHT OUTER JOIN customers c\n-- Condition\nON o.customer_id = c.customer_id\nORDER BY c.customer_id\n-- RIGHT JOIN\n-- Also RIGHT JOIN can be written as follows\nSELECT  \n    c.customer_id, \n    c.first_name,\n    o.order_id\n-- Here basically all the customer_id in orders table will exist in the customers table\nFROM customers c \nRIGHT JOIN orders o \n-- Condition\nON o.customer_id = c.customer_id\nORDER BY c.customer_id \n-- https://stackoverflow.com/questions/57095115/why-we-use-left-join-right-join-differently-we-can-get-same-output-from-left\n\n-- There really is no difference between a LEFT JOIN and a LEFT OUTER JOIN. \n-- Both versions of the syntax will produce the exact same result in PL/SQL. \n-- Some people do recommend including outer in a LEFT JOIN clause so it's clear that you're creating an outer join, but that's entirely optional. \n-- The same is true of a RIGHT JOIN and a RIGHT OUTER JOIN. In the end, then, it isn't a question of a LEFT JOIN vs. LEFT OUTER JOIN. \n-- They're one and the same thing.\n\n-- LEFT JOIN -> It is also known as LEFT OUTER JOIN. \tRIGHT JOIN -> It is also called as RIGHT OUTER JOIN.\n-- OUTER JOIN BETWEEN MULTIPLE TABLE \nSELECT \n    c.customer_id, \n    c.first_name,\n    o.order_id\n\nFROM customers c \nLEFT JOIN orders o \n   ON o.customer_id = c.customer_id\nJOIN shippers sh \n   ON o.shipper_id = sh.shipper_id\nORDER BY c.customer_id;\n\n-- Above code only show the matched shipper_id with the orders table. But some of the orders have no shipper_id.\n-- Have to show both matvh and unmatched.\n\nSELECT \n    c.customer_id, \n    c.first_name,\n    o.order_id,\n    sh.shipper_id,\n    sh.name AS shipper\nFROM customers c \nLEFT JOIN orders o \n   ON o.customer_id = c.customer_id\nLEFT JOIN shippers sh \n   ON o.shipper_id = sh.shipper_id\nORDER BY c.customer_id;\n SELECT \n    o.order_id,\n    o.order_date,\n    c.first_name AS customer,\n    sh.name AS shipper,\n    os.name AS status\nFROM orders o \nJOIN customers c  \n  ON o.customer_id = c.customer_id\n  -- Here LEFT basically indicating the orders table  \nLEFT JOIN shippers sh \n  ON o.shipper_id = sh.shipper_id\nJOIN order_statuses os \n  ON o.status = os.order_status_id;\n-- SELF OUTER JOIN\nSELECT \n  e.employee_id, \n  e.first_name AS employee_name, \n  m.first_name AS manger\nFROM employees e \nLEFT JOIN employees m\nON e.reports_to = m.employee_id\n-- THE USING CLAUSE\nSELECT \n    o.order_id,\n    c.first_name,\n    sh.name AS shipper\nFROM orders o \nJOIN customers c  \n  -- ON o.customer_id = c.customer_id\n  -- To simply the above query, the code can be written as follows\n  -- USING keyword only works if the column name is eaxctly same accross the different table  \n  USING(customer_id) \n  -- Obiously some of our order are not shipped\nLEFT JOIN shippers sh \n  -- ON o.shipper_id = sh.shipper_id\n  USING(shipper_id) \n-- ANY, ALL\n-- ALL & ANY are logical operators in SQL. They return boolean value as a result.\n-- ALL operator is used to select all tuples of SELECT STATEMENT. It is also used to compare a value to every value in another value set or result from a subquery.\n-- The ALL operator returns TRUE if all of the subqueries values meet the condition. The ALL must be preceded by comparison operators and evaluates true if all of the subqueries values meet the condition.\n-- ALL is used with SELECT, WHERE, HAVING statement.\nUSE sql_hr;\n\n-- ALL\nSELECT COUNT(*) FROM employees\n                WHERE salary <\n                ALL(SELECT salary from employees);  \n\nSELECT salary from employees WHERE office_id = 1;\n\nSELECT * FROM employees\n                WHERE salary <\n                ALL(SELECT salary from employees WHERE office_id = 1);  \n\nSELECT * FROM employees\n                WHERE salary >\n                ALL(SELECT salary from employees WHERE office_id = 1);   \n \nSELECT count(*) FROM employees\n                WHERE salary =\n                ALL(SELECT salary from employees WHERE office_id = 1); \n  \nSELECT count(*) FROM employees\n                WHERE salary =\n                ALL(SELECT salary from employees GROUP BY first_name); \n-- ANY\n-- returns a boolean value as a result\n-- returns TRUE if ANY of the subquery values meet the condition\n\nSELECT count(*) FROM employees\n                WHERE salary >\n                ANY(SELECT salary from employees);  \n\nSELECT count(*) FROM employees\n                WHERE salary <\n                ANY(SELECT salary from employees); \n\nSELECT COUNT(*) FROM employees \n         WHERE salary =\n         ANY(SELECT salary from employees); \n\nSELECT * FROM employees \n         WHERE salary =\n         ANY(SELECT salary from employees GROUP BY first_name); \nUSE sql_store;\n\nSELECT product_id \nFROM order_items\nWHERE quantity = 4\nGROUP BY product_id;\n\nSELECT name AS ProductName \nFROM products\nWHERE product_id = ALL (SELECT product_id \n                       FROM order_items\n                       WHERE quantity = 4 or quantity = 10);\n\nSELECT avg(quantity) \nFROM order_items\nGROUP BY order_id;\n\n-- Every Aggregate Function must have GROUP BY statement\nSELECT order_id AS OrderID \nFROM order_items \nGROUP BY order_id \nHAVING max(quantity) > ALL (SELECT avg(quantity) \n                            FROM order_items \n                            GROUP BY order_id);\n-- EXISTS\n-- The EXISTS operator is used to test for the existence of any record in a subquery.\n-- The EXISTS operator returns TRUE if the subquery returns one or more records.\n-- EXISTS operator generally used with Correlated Subqueries\n\n-- Here exists basically return those matched product_id\n-- If the same product_id matches multiple time, then it consider once. \nSELECT name\nFROM products\nWHERE EXISTS (SELECT * FROM order_items \n                       WHERE order_items.product_id = products.product_id \n                       AND quantity > 5);\nSELECT name\nFROM products\nWHERE EXISTS (SELECT 1 FROM order_items \n                       WHERE order_items.product_id = products.product_id \n                       AND quantity > 5);\n\n-- Same query can be written using 'IN' keyword\n-- Both have some key differences\n\nSELECT name\nFROM products\nWHERE product_id IN (SELECT product_id FROM order_items \n                       WHERE order_items.product_id = products.product_id \n                       AND quantity > 5);\n\n\n-- SQL Aggregate Functions\n-- Aggregate functions are often used with the GROUP BY clause of the SELECT statement. The GROUP BY clause splits the result-set into groups of values and the aggregate function can be used to return a single value for each group.\n-- The most commonly used SQL aggregate functions are:\n\n-- MIN() - returns the smallest value within the selected column\n-- MAX() - returns the largest value within the selected column\n-- COUNT() - returns the number of rows in a set\n-- SUM() - returns the total sum of a numerical column\n-- AVG() - returns the average value of a numerical column\n-- UPDATE \nUPDATE customers\nSET first_name = 'Alfred Schmidt', city = 'Frankfurt'\nWHERE customer_id = 1;\n-- HAVING : \n-- The HAVING clause was added to SQL because the WHERE keyword cannot be used with aggregate functions.\n-- The following SQL statement lists the number of customers in each country. Only include countries with more than 5 customers:\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nHAVING COUNT(customer_id) > 1;\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nWHERE city = 'Dhaka'\nGROUP BY city;\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nORDER BY total_customers DESC;\n\n-- Same output\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nHAVING total_customers\nORDER BY total_customers DESC;\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nHAVING total_customers = 3\nORDER BY total_customers DESC;\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nHAVING total_customers > 1\nORDER BY total_customers DESC;\n\n-- GROUP BY -----\n-- It is followed by aggregate function\nSELECT\n  product_id,\n  SUM(quantity) as quantity\nFROM order_items\nGROUP BY product_id;\n\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nORDER BY total_customers DESC;\n\n/*\n---- UNION ----- \n-> The UNION operator is used to combine the result-set of two or more SELECT statements.\n-> Every SELECT statement within UNION must have the same number of columns\n-> The columns must also have similar data types\n-> The columns in every SELECT statement must also be in the same order\n*/\n\nSELECT name FROM products\nUNION\nSELECT name FROM shippers\nORDER BY name;\n /*\n ---- CASE ----- \n > The CASE statement goes through conditions and returns a value when the first condition is met (like an if-then-else statement). So, once a condition is true, it will stop reading and return the result. If no conditions are true, it returns the value in the ELSE clause.\n > If there is no ELSE part and no conditions are true, it returns NULL.\n*/\nSELECT order_id, quantity,\nCASE \n     WHEN quantity > 10 THEN 'The quantity is greater than 10'\n     WHEN quantity = 10 THEN 'The quantity is 10'\n     ELSE 'The quantity is under 10' \nEND AS QuantityText\nFROM order_items;\n",
+    "content": "-- Query performing on Mosh Course database : sql_hr, sql_inventory, sql_invooicing, sql_store\nUSE sql_store;\n-- Retrieving all data of customers  \n-- WHERE -> to filter the result\nSELECT * FROM customers; \n-- Another way \n-- SELECT * FROM `sql_store`.`customers` \n-- Retrieving specific colums of customers    \nSELECT points, customer_id, first_name FROM customers; \n-- Filtering cutomers:   \n-- KEYWORD order is important\nSELECT *  \nFROM customers\n-- WHERE customer_id = 1\n\n-- WHERE points > 3000\n\n-- Both uppercase and lowercase work perfectly\n-- WHERE state = 'VA'\n-- WHERE state = 'va'\n\n-- Search with date\n-- WHERE birth_date >= '1990-01-01'\n\n-- IN -> To specify multiple possible values for a column\n-- BETWEEN -> WHERE city IN ('Chicago','London')\n-- WHERE state NOT IN ('VA', 'FL', 'GA')\n\n-- NOT EQUAL -> <> or != \n-- WHERE points <> 796\n-- Or : Same Effect -> WHERE points != 1899\n\n-- LIKE -> Search for a pattern for both uppercase and lowercase\n-- % -> any number of characters or zero character, _ -> single character\n-- WHERE state LIKE 'f%'\n-- WHERE last_name LIKE 'b%'\n-- WHERE last_name LIKE 'brush%' \n\n-- matching 'b' at the beginning, middle or end \n-- WHERE last_name LIKE '%b%'\n\n-- all the customers last_name end by y\n-- WHERE last_name LIKE '%y'\n\n-- Match only two character end with y\nWHERE last_name LIKE '_y'\n\n-- Matchig the 6 character string last_name end with y\n-- WHERE last_name LIKE '_____y'\n\n-- Five character starting with b and ending with y\n-- WHERE last_name LIKE 'b____y'\n\n-- BETWEEN -> Between a certain range\n-- WHERE points >= 1000 AND points <= 3000\n-- same query can be wriiten in a clener way\n-- WHERE points BETWEEN 1000 AND 3000  \n-- WHERE birth_date BETWEEN '1990-01-01' AND '2000-01-01'  \n\n-- Multiple search condition in filtreing data\n-- WHERE birth_date >= '1990-01-01' AND points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 500 AND state = 'VA'\n\n-- AND operator execute first than OR\n-- Higer to Lower order : / -> * -> + -> - \n-- WHERE birth_date >= '1990-01-01' OR (points > 2500 AND state = 'VA')\n\n-- WHERE NOT (birth_date > '1990-01-01' OR points > 1000) \n-- Same query can be written as : \n-- WHERE birth_date <= '1990-01-01' AND points <= 1000\n\n-- The WHERE clause is not only used in SELECT statements, it is also used in UPDATE, DELETE, etc.\nORDER BY first_name;\n-- two columns and values\nSELECT 1, 2;   \n-- SELECT clause in details  \n-- SELECT last_name, first_name, points, points + 10\nSELECT   \n  last_name, \n  first_name,  \n  points,  \n  points * 10 + 100\nfrom customers;\nSELECT \n  last_name,  \n  first_name, \n  points p, \n  (points + 10) * 100,\n  -- adding specific alias. to use alias, use 'AS' keyword before the given new name \n  -- You can create Alias with AS keyword, Jus an alias name is enough \n  -- Aliases are used to give a table, or a column in a table, a temporary name.\n  (points + 10) * 100 AS discount_factor,  \n    (points + 10) * 100 discount_factor,  \n  (points + 10) * 100 AS 'discount factor',  \n  (points + 10) * 100 AS \"discount factor\"   \nfrom customers;\n-- Update column  \n-- SELECT state FROM customers;   \nUPDATE customers SET city = 'Sylhet' WHERE (customer_id = 2); \n-- Retrieving all distinct state data of customers \nSELECT DISTINCT city FROM customers;  \nSELECT COUNT(DISTINCT city) FROM customers;  \nSELECT COUNT(city) FROM customers;  \n-- REGEXP OPERATOR\nSELECT * \nFROM customers\n-- using normal form\n-- WHERE last_name LIKE '%field%';\n\n-- can be used by REGEXP keywoed\n-- WHERE last_name REGEXP 'field';\n \n-- ^ -> beginning, $ -> end, | -> logical or, [abcd] -> match any single character listed in the brackets, [a-z] -> any characters from a to z \n\n-- ^ -> beginning with 'field' string\nWHERE last_name REGEXP '^field'; \n\n-- $ -> ending with 'field' string\n-- WHERE last_name REGEXP 'field$';\n\n-- Match the string 'field' or 'mac' in strart or end\n-- | -> vertical bar or Pipe or Multiple search Pattern\n-- WHERE last_name REGEXP 'field|mac';\n \n-- WHERE last_name REGEXP 'field|mac|rose';\n\n-- WHERE last_name REGEXP '^field|mac|rose';\n\n-- WHERE last_name REGEXP 'field$|mac|rose';\n\n-- WHERE last_name REGEXP 'field$|mac|^rose';\n\n-- WHERE last_name REGEXP 'field$|mac$|^rose';\n \n-- matching customer name : ge or ie or me\n-- Any of the character from 'gim' before 'e'\n-- WHERE last_name REGEXP '[gim]e';\n\n-- Any of the character from 'gim' after 'e'\n-- WHERE last_name REGEXP 'e[gim]';\n\n-- range of characters\n-- WHERE last_name REGEXP '[a-h]e'; \n\n-- NULL VALUES  \n-- all the customer who do not have phone\nSELECT *\nFROM customers \n-- WHERE phone IS NULL; \nWHERE phone IS NOT NULL;\n-- THE ORDER BY CLASUE\nSELECT * \nFROM customers \n-- ORDER BY first_name;\n-- ORDER BY first_name DESC;\n\n-- Sort data by multiple columns\n-- ORDER BY state, first_name; \n-- ORDER BY first_name, state;\n-- ORDER BY first_name DESC;\nORDER BY state DESC, first_name ASC; \n\n-- Another way of sorting\nSELECT first_name, last_name \nFROM customers\nORDER BY birth_date; \n\n-- sort by data using column position that are selecting to show\nSELECT first_name, last_name\nFROM customers\n-- 1 -> first_name, 2 -> last_name \nORDER BY 1, 2;  \n\n-- order creating alaise\nSELECT first_name, last_name, 10 + 10 AS points\nFROM customers\nORDER BY points, first_name; \n\n-- LIMIT data, it always come into last\nSELECT *\nFROM customers \n-- LIMIT 3;\n-- LIMIT 300;   \n-- for pagination or Offseting\n-- 6 -> skip first 6, 3 -> show 3 records\nLIMIT 6, 3;\n-- INNER JOIN --\nSELECT * \nFROM orders \n-- INNER is optiinal \nINNER JOIN customers \nON orders.customer_id = customers.customer_id;\n\n-- specify columns \nSELECT order_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- Here customer_id is ambiguous, cause both orders and customers table have customer_id. So we have to specify which tables customer_id\nSELECT order_id, customer_id, first_name, last_name\nFROM orders \nINNER JOIN customers\nON orders.customer_id = customers.customer_id;\n\n-- \nSELECT order_id, orders.customer_id, first_name, last_name\nFROM orders \nINNER JOIN customers \nON orders.customer_id = customers.customer_id;\n\n-- using alias in table name for simply the code, when you define an alias, you have to use it everywhere\nSELECT order_id, ord.customer_id, first_name, last_name\nFROM orders ord\nINNER JOIN customers cus\nON ord.customer_id = cus.customer_id; \n-- Working with multiple database \n-- How to combine columns from tables accross multiple databases\n\n-- sql_inventory is out of this database\nSELECT * \nFROM order_items oi \nJOIN sql_inventory.products prd\nON oi.product_id = prd.product_id;\n\n-- This query can be written in different way. When we consider our selected table is sql_inventory\nUSE sql_inventory; \n\nSELECT *\nFROM sql_store.order_items oi \nJOIN products prd\nON oi.product_id = prd.product_id\n\n/*\n -----SELF JOIN-------\n-> Here Join will perform on same table or on that table\n-> One colum data(Like reports_to) refer to the main colum(primary key id) on that table\n-> In the sql_hr database employee reports to another employee(a manager)\n-> we have to use different aliases\n*/\n\nUSE sql_hr;   \n\nSELECT *\nFROM employees e \nJOIN employees m\nON e.reports_to = m.employee_id;\n\nSELECT e.employee_id, e.first_name AS employee_name, m.first_name AS manger\nFROM employees e \nJOIN employees m\nON e.reports_to = m.employee_id\n\n\n-- JOINING MULTIPLE TABLES \n-- JOINING THREE TABLES\n\nUSE sql_store;\n\nSELECT * \nFROM orders o\nJOIN customers c \n  ON o.customer_id = c.customer_id\nJOIN order_statuses os\n  ON o.status = os.order_status_id;\n\n\nSELECT \n    o.order_id,\n    o.order_date,\n    c.first_name,\n    c.last_name,\n    os.name AS status\nFROM orders o\nJOIN customers c \n  ON o.customer_id = c.customer_id\nJOIN order_statuses os\n  ON o.status = os.order_status_id \n-- Compound Join Condition, combine two primary key as composite key\nSELECT *\nFROM order_items oi  \nJOIN order_item_notes oin \n   ON oi.order_id = oin.order_id\n   AND oi.product_id = oin.product_id;\n\n\nSELECT *  \nFROM orders o\nJOIN customers c \nON o.customer_id = c.customer_id;\n-- Above code can be written using IMPLICIT JOIN(Here basically query perform without JOIN keyword)\nSELECT * \nFROM orders o, customers c\nWHERE o.customer_id = c.customer_id;\n\n-- OUTER JOIN \n-- INNER and OUTER JOIN are vice versa\n-- Basically difference in FROM table , JOIN table\n\nSELECT *  \nFROM customers c  \nJOIN orders o\nON o.customer_id = c.customer_id;\n\n\nSELECT \n    c.customer_id, \n    c.first_name,\n     o.order_id\nFROM customers c  \nJOIN orders o\nON o.customer_id = c.customer_id\nORDER BY c.customer_id;\n-- the above code only return the matched customers but if you want to show the all customers who have any order or not\n-- then we have to use OUTER JOIN\n\n-- Outer joins are joins that return matched values and unmatched values from either or both tables. There are a few types of outer joins:\n-- LEFT JOIN returns only unmatched rows from the left table, as well as matched rows in both tables.\n-- RIGHT JOIN returns only unmatched rows from the right table , as well as matched rows in both tables.\n-- FULL OUTER JOIN returns unmatched rows from both tables,as well as matched rows in both tables.\n\n-- LEFT JOIN\nSELECT \n    c.customer_id, \n    c.first_name,\n    o.order_id\n-- customers is a LEFT table\n-- All the record from the left table are returned whether the condition is true or not\nFROM customers AS c  \nLEFT JOIN orders AS o\n-- LEFT OUTER JOIN orders o\n-- Condition \nON o.customer_id = c.customer_id\nORDER BY c.customer_id\n\n\n-- RIGHT JOIN \nSELECT \n    o.order_id,\n    c.customer_id, \n    c.first_name\n-- orders is a RIGHT table\n-- All the record from the right table are returned whether the condition is true or not\n-- Here basically all the customer_id in orders table will exist in the customers table\nFROM orders o \nRIGHT JOIN customers c\n-- RIGHT OUTER JOIN customers c\n-- Condition\nON o.customer_id = c.customer_id\nORDER BY c.customer_id\n-- RIGHT JOIN\n-- Also RIGHT JOIN can be written as follows\nSELECT  \n    c.customer_id, \n    c.first_name,\n    o.order_id\n-- Here basically all the customer_id in orders table will exist in the customers table\nFROM customers c \nRIGHT JOIN orders o \n-- Condition\nON o.customer_id = c.customer_id\nORDER BY c.customer_id \n-- https://stackoverflow.com/questions/57095115/why-we-use-left-join-right-join-differently-we-can-get-same-output-from-left\n\n-- There really is no difference between a LEFT JOIN and a LEFT OUTER JOIN. \n-- Both versions of the syntax will produce the exact same result in PL/SQL. \n-- Some people do recommend including outer in a LEFT JOIN clause so it's clear that you're creating an outer join, but that's entirely optional. \n-- The same is true of a RIGHT JOIN and a RIGHT OUTER JOIN. In the end, then, it isn't a question of a LEFT JOIN vs. LEFT OUTER JOIN. \n-- They're one and the same thing.\n\n-- LEFT JOIN -> It is also known as LEFT OUTER JOIN. \tRIGHT JOIN -> It is also called as RIGHT OUTER JOIN.\n-- OUTER JOIN BETWEEN MULTIPLE TABLE \nSELECT \n    c.customer_id, \n    c.first_name,\n    o.order_id\n\nFROM customers c \nLEFT JOIN orders o \n   ON o.customer_id = c.customer_id\nJOIN shippers sh \n   ON o.shipper_id = sh.shipper_id\nORDER BY c.customer_id;\n\n-- Above code only show the matched shipper_id with the orders table. But some of the orders have no shipper_id.\n-- Have to show both matvh and unmatched.\n\nSELECT \n    c.customer_id, \n    c.first_name,\n    o.order_id,\n    sh.shipper_id,\n    sh.name AS shipper\nFROM customers c \nLEFT JOIN orders o \n   ON o.customer_id = c.customer_id\nLEFT JOIN shippers sh \n   ON o.shipper_id = sh.shipper_id\nORDER BY c.customer_id;\n SELECT \n    o.order_id,\n    o.order_date,\n    c.first_name AS customer,\n    sh.name AS shipper,\n    os.name AS status\nFROM orders o \nJOIN customers c  \n  ON o.customer_id = c.customer_id\n  -- Here LEFT basically indicating the orders table  \nLEFT JOIN shippers sh \n  ON o.shipper_id = sh.shipper_id\nJOIN order_statuses os \n  ON o.status = os.order_status_id;\n-- SELF OUTER JOIN\nSELECT \n  e.employee_id, \n  e.first_name AS employee_name, \n  m.first_name AS manger\nFROM employees e \nLEFT JOIN employees m\nON e.reports_to = m.employee_id\n-- THE USING CLAUSE\nSELECT \n    o.order_id,\n    c.first_name,\n    sh.name AS shipper\nFROM orders o \nJOIN customers c  \n  -- ON o.customer_id = c.customer_id\n  -- To simply the above query, the code can be written as follows\n  -- USING keyword only works if the column name is eaxctly same accross the different table  \n  USING(customer_id) \n  -- Obiously some of our order are not shipped\nLEFT JOIN shippers sh \n  -- ON o.shipper_id = sh.shipper_id\n  USING(shipper_id) \n-- ANY, ALL\n-- ALL & ANY are logical operators in SQL. They return boolean value as a result.\n-- ALL operator is used to select all tuples of SELECT STATEMENT. It is also used to compare a value to every value in another value set or result from a subquery.\n-- The ALL operator returns TRUE if all of the subqueries values meet the condition. The ALL must be preceded by comparison operators and evaluates true if all of the subqueries values meet the condition.\n-- ALL is used with SELECT, WHERE, HAVING statement.\nUSE sql_hr;\n\n-- ALL\nSELECT COUNT(*) FROM employees\n                WHERE salary <\n                ALL(SELECT salary from employees);  \n\nSELECT salary from employees WHERE office_id = 1;\n\nSELECT * FROM employees\n                WHERE salary <\n                ALL(SELECT salary from employees WHERE office_id = 1);  \n\nSELECT * FROM employees\n                WHERE salary >\n                ALL(SELECT salary from employees WHERE office_id = 1);   \n \nSELECT count(*) FROM employees\n                WHERE salary =\n                ALL(SELECT salary from employees WHERE office_id = 1); \n  \nSELECT count(*) FROM employees\n                WHERE salary =\n                ALL(SELECT salary from employees GROUP BY first_name); \n-- ANY\n-- returns a boolean value as a result\n-- returns TRUE if ANY of the subquery values meet the condition\n\nSELECT count(*) FROM employees\n                WHERE salary >\n                ANY(SELECT salary from employees);  \n\nSELECT count(*) FROM employees\n                WHERE salary <\n                ANY(SELECT salary from employees); \n\nSELECT COUNT(*) FROM employees \n         WHERE salary =\n         ANY(SELECT salary from employees); \n\nSELECT * FROM employees \n         WHERE salary =\n         ANY(SELECT salary from employees GROUP BY first_name); \nUSE sql_store;\n\nSELECT product_id \nFROM order_items\nWHERE quantity = 4\nGROUP BY product_id;\n\nSELECT name AS ProductName \nFROM products\nWHERE product_id = ALL (SELECT product_id \n                       FROM order_items\n                       WHERE quantity = 4 or quantity = 10);\n\nSELECT avg(quantity) \nFROM order_items\nGROUP BY order_id;\n\n-- Every Aggregate Function must have GROUP BY statement\nSELECT order_id AS OrderID \nFROM order_items \nGROUP BY order_id \nHAVING max(quantity) > ALL (SELECT avg(quantity) \n                            FROM order_items \n                            GROUP BY order_id);\n-- EXISTS\n-- The EXISTS operator is used to test for the existence of any record in a subquery.\n-- The EXISTS operator returns TRUE if the subquery returns one or more records.\n-- EXISTS operator generally used with Correlated Subqueries\n\n-- Here exists basically return those matched product_id\n-- If the same product_id matches multiple time, then it consider once. \nSELECT name\nFROM products\nWHERE EXISTS (SELECT * FROM order_items \n                       WHERE order_items.product_id = products.product_id \n                       AND quantity > 5);\nSELECT name\nFROM products\nWHERE EXISTS (SELECT 1 FROM order_items \n                       WHERE order_items.product_id = products.product_id \n                       AND quantity > 5);\n\n-- Same query can be written using 'IN' keyword\n-- Both have some key differences\n\nSELECT name\nFROM products\nWHERE product_id IN (SELECT product_id FROM order_items \n                       WHERE order_items.product_id = products.product_id \n                       AND quantity > 5);\n\n\n-- SQL Aggregate Functions\n-- Aggregate functions are often used with the GROUP BY clause of the SELECT statement. The GROUP BY clause splits the result-set into groups of values and the aggregate function can be used to return a single value for each group.\n-- The most commonly used SQL aggregate functions are:\n\n-- MIN() - returns the smallest value within the selected column\n-- MAX() - returns the largest value within the selected column\n-- COUNT() - returns the number of rows in a set\n-- SUM() - returns the total sum of a numerical column\n-- AVG() - returns the average value of a numerical column\n-- UPDATE \nUPDATE customers\nSET first_name = 'Alfred Schmidt', city = 'Frankfurt'\nWHERE customer_id = 1;\n-- HAVING : \n-- The HAVING clause was added to SQL because the WHERE keyword cannot be used with aggregate functions.\n-- The following SQL statement lists the number of customers in each country. Only include countries with more than 5 customers:\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nHAVING COUNT(customer_id) > 1;\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nWHERE city = 'Dhaka'\nGROUP BY city;\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nORDER BY total_customers DESC;\n\n-- Same output\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nHAVING total_customers\nORDER BY total_customers DESC;\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nHAVING total_customers = 3\nORDER BY total_customers DESC;\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nHAVING total_customers > 1\nORDER BY total_customers DESC;\n\n-- GROUP BY -----\n-- It is followed by aggregate function\nSELECT\n  product_id,\n  SUM(quantity) as quantity\nFROM order_items\nGROUP BY product_id;\n\n\nSELECT COUNT(customer_id) AS total_customers, city\nFROM customers\nGROUP BY city\nORDER BY total_customers DESC;\n\n/*\n---- UNION ----- \n-> The UNION operator is used to combine the result-set of two or more SELECT statements.\n-> Every SELECT statement within UNION must have the same number of columns\n-> The columns must also have similar data types\n-> The columns in every SELECT statement must also be in the same order\n*/\n\nSELECT name FROM products\nUNION\nSELECT name FROM shippers\nORDER BY name;\n /*\n ---- CASE ----- \n > The CASE statement goes through conditions and returns a value when the first condition is met (like an if-then-else statement). So, once a condition is true, it will stop reading and return the result. If no conditions are true, it returns the value in the ELSE clause.\n > If there is no ELSE part and no conditions are true, it returns NULL.\n*/\nSELECT order_id, quantity,\nCASE \n     WHEN quantity > 10 THEN 'The quantity is greater than 10'\n     WHEN quantity = 10 THEN 'The quantity is 10'\n     ELSE 'The quantity is under 10' \nEND AS QuantityText\nFROM order_items;\n",
     "options": {
         "tabSize": 4,
         "insertSpaces": true,
@@ -13,24 +13,24 @@
     "viewState": {
         "cursorState": [
             {
-                "inSelectionMode": false,
+                "inSelectionMode": true,
                 "selectionStart": {
-                    "lineNumber": 241,
-                    "column": 3
+                    "lineNumber": 190,
+                    "column": 13
                 },
                 "position": {
-                    "lineNumber": 241,
-                    "column": 3
+                    "lineNumber": 189,
+                    "column": 1
                 }
             }
         ],
         "viewState": {
             "scrollLeft": 0,
             "firstPosition": {
-                "lineNumber": 230,
+                "lineNumber": 181,
                 "column": 1
             },
-            "firstPositionDeltaTop": -1
+            "firstPositionDeltaTop": -5
         },
         "contributionsState": {
             "editor.contrib.folding": {},
@@ -81,8 +81,8 @@
                         {
                             "type": 2,
                             "index": 0,
-                            "resultId": "b154faed-17f3-4ebe-92dc-2cc6dc6104ab",
-                            "content": "OK, 0 records retrieved in 0.397ms"
+                            "resultId": "e152ecbb-d55a-486a-a035-ad95ec2b0083",
+                            "content": "OK, 0 records retrieved in 211.209ms"
                         }
                     ]
                 },
@@ -119,7 +119,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "4a0d2cfa-0592-435b-acce-98bbb195d1af"
+                        "6847d7ab-553f-43ba-f537-0fbb399ea16a"
                     ]
                 },
                 "currentHeight": 36,
@@ -147,17 +147,17 @@
             },
             "data": [
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "4a0d2cfa-0592-435b-acce-98bbb195d1af",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "6847d7ab-553f-43ba-f537-0fbb399ea16a",
                     "rows": [
                         {
                             "0": 1,
-                            "1": "Babara",
+                            "1": "Alfred Schmidt",
                             "2": "MacCaffrey",
                             "3": "1986-03-28",
                             "4": "781-932-9754",
                             "5": "0 Sage Terrace",
-                            "6": "Orlando",
+                            "6": "Sylhet",
                             "7": "MA",
                             "8": 2273
                         },
@@ -223,14 +223,14 @@
                             "3": "1964-08-30",
                             "4": "615-641-4759",
                             "5": "50 Lillian Crossing",
-                            "6": "Nashville",
+                            "6": "Dhaka",
                             "7": "TN",
                             "8": 1672
                         },
                         {
                             "0": 8,
                             "1": "Thacher",
-                            "2": "Naseby",
+                            "2": "By",
                             "3": "1993-07-17",
                             "4": "941-527-3977",
                             "5": "538 Mosinee Center",
@@ -241,7 +241,7 @@
                         {
                             "0": 9,
                             "1": "Romola",
-                            "2": "Rumgay",
+                            "2": "YY",
                             "3": "1992-05-23",
                             "4": "559-181-3744",
                             "5": "3520 Ohio Trail",
@@ -256,7 +256,7 @@
                             "3": "1969-10-13",
                             "4": "404-246-3370",
                             "5": "68 Lawn Avenue",
-                            "6": "Atlanta",
+                            "6": "Dhaka",
                             "7": "GA",
                             "8": 796
                         }
@@ -266,74 +266,175 @@
                             "title": "customer_id",
                             "field": "0",
                             "dataType": {
-                                "type": 4
-                            }
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": true,
+                            "nullable": false,
+                            "autoIncrement": true
                         },
                         {
                             "title": "first_name",
                             "field": "1",
                             "dataType": {
-                                "type": 17
-                            }
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
                         },
                         {
                             "title": "last_name",
                             "field": "2",
                             "dataType": {
-                                "type": 17
-                            }
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
                         },
                         {
                             "title": "birth_date",
                             "field": "3",
                             "dataType": {
-                                "type": 28
-                            }
+                                "type": 27,
+                                "needsQuotes": true
+                            },
+                            "inPK": false,
+                            "nullable": true,
+                            "autoIncrement": false,
+                            "default": null
                         },
                         {
                             "title": "phone",
                             "field": "4",
                             "dataType": {
-                                "type": 17
-                            }
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": true,
+                            "autoIncrement": false,
+                            "default": null
                         },
                         {
                             "title": "address",
                             "field": "5",
                             "dataType": {
-                                "type": 17
-                            }
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
                         },
                         {
                             "title": "city",
                             "field": "6",
                             "dataType": {
-                                "type": 17
-                            }
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
                         },
                         {
                             "title": "state",
                             "field": "7",
                             "dataType": {
-                                "type": 17
-                            }
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
                         },
                         {
                             "title": "points",
                             "field": "8",
                             "dataType": {
-                                "type": 4
-                            }
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false,
+                            "default": "0"
                         }
                     ],
                     "executionInfo": {
-                        "text": "OK, 10 records retrieved in 0.887ms"
+                        "text": "OK, 10 records retrieved in 122.666ms"
                     },
                     "totalRowCount": 10,
                     "hasMoreRows": false,
                     "currentPage": 0,
                     "index": 0,
-                    "sql": "-- Retrieving all data of customers\n-- WHERE -> to filter the result\nSELECT * FROM customers;"
+                    "sql": "-- Retrieving all data of customers  \n-- WHERE -> to filter the result\nSELECT * FROM customers;",
+                    "updatable": true,
+                    "fullTableName": "customers"
                 }
             ]
         },
@@ -345,7 +446,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "4b6359d1-eb9f-404d-827b-9e2ada08abdd"
+                        "8353a261-bb14-4b6b-b3de-ab46c3f33785"
                     ]
                 },
                 "currentHeight": 36,
@@ -373,13 +474,13 @@
             },
             "data": [
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "4b6359d1-eb9f-404d-827b-9e2ada08abdd",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "8353a261-bb14-4b6b-b3de-ab46c3f33785",
                     "rows": [
                         {
                             "0": 2273,
                             "1": 1,
-                            "2": "Babara"
+                            "2": "Alfred Schmidt"
                         },
                         {
                             "0": 947,
@@ -432,32 +533,72 @@
                             "title": "points",
                             "field": "0",
                             "dataType": {
-                                "type": 4
-                            }
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": true,
+                            "nullable": false,
+                            "autoIncrement": true
                         },
                         {
                             "title": "customer_id",
                             "field": "1",
                             "dataType": {
-                                "type": 4
-                            }
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
                         },
                         {
                             "title": "first_name",
                             "field": "2",
                             "dataType": {
-                                "type": 17
-                            }
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false,
+                            "default": "0"
                         }
                     ],
                     "executionInfo": {
-                        "text": "OK, 10 records retrieved in 0.588ms"
+                        "text": "OK, 10 records retrieved in 0.554ms"
                     },
                     "totalRowCount": 10,
                     "hasMoreRows": false,
                     "currentPage": 0,
                     "index": 0,
-                    "sql": "-- Retrieving specific colums of customers\nSELECT points, customer_id, first_name FROM customers"
+                    "sql": "-- Retrieving specific colums of customers    \nSELECT points, customer_id, first_name FROM customers;",
+                    "updatable": true,
+                    "fullTableName": "customers"
                 }
             ]
         },
@@ -469,7 +610,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "1fd70dbb-9f30-443a-d030-c6bf300f79a4"
+                        "f0575dfb-794d-4131-81af-eef1ebcb88e9"
                     ]
                 },
                 "currentHeight": 36,
@@ -479,7 +620,7 @@
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 2000
+                            "length": 2018
                         },
                         "contentStart": 56,
                         "state": 0
@@ -487,38 +628,49 @@
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 2000,
+                            "start": 2018,
                             "length": 39
                         },
-                        "contentStart": 2027,
+                        "contentStart": 2045,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 2039,
+                            "start": 2057,
                             "length": 71
                         },
-                        "contentStart": 2039,
+                        "contentStart": 2057,
                         "state": 1
                     }
                 ]
             },
             "data": [
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "1fd70dbb-9f30-443a-d030-c6bf300f79a4",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "f0575dfb-794d-4131-81af-eef1ebcb88e9",
                     "rows": [
                         {
-                            "0": 3,
-                            "1": "Freddi",
-                            "2": "Boagey",
-                            "3": "1985-02-07",
-                            "4": "719-724-7869",
-                            "5": "251 Springs Junction",
-                            "6": "Colorado Springs",
-                            "7": "CO",
-                            "8": 2967
+                            "0": 9,
+                            "1": "Romola",
+                            "2": "YY",
+                            "3": "1992-05-23",
+                            "4": "559-181-3744",
+                            "5": "3520 Ohio Trail",
+                            "6": "Visalia",
+                            "7": "CA",
+                            "8": 1486
+                        },
+                        {
+                            "0": 8,
+                            "1": "Thacher",
+                            "2": "By",
+                            "3": "1993-07-17",
+                            "4": "941-527-3977",
+                            "5": "538 Mosinee Center",
+                            "6": "Sarasota",
+                            "7": "FL",
+                            "8": 205
                         }
                     ],
                     "columns": [
@@ -526,74 +678,175 @@
                             "title": "customer_id",
                             "field": "0",
                             "dataType": {
-                                "type": 4
-                            }
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": true,
+                            "nullable": false,
+                            "autoIncrement": true
                         },
                         {
                             "title": "first_name",
                             "field": "1",
                             "dataType": {
-                                "type": 17
-                            }
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
                         },
                         {
                             "title": "last_name",
                             "field": "2",
                             "dataType": {
-                                "type": 17
-                            }
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
                         },
                         {
                             "title": "birth_date",
                             "field": "3",
                             "dataType": {
-                                "type": 28
-                            }
+                                "type": 27,
+                                "needsQuotes": true
+                            },
+                            "inPK": false,
+                            "nullable": true,
+                            "autoIncrement": false,
+                            "default": null
                         },
                         {
                             "title": "phone",
                             "field": "4",
                             "dataType": {
-                                "type": 17
-                            }
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": true,
+                            "autoIncrement": false,
+                            "default": null
                         },
                         {
                             "title": "address",
                             "field": "5",
                             "dataType": {
-                                "type": 17
-                            }
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
                         },
                         {
                             "title": "city",
                             "field": "6",
                             "dataType": {
-                                "type": 17
-                            }
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
                         },
                         {
                             "title": "state",
                             "field": "7",
                             "dataType": {
-                                "type": 17
-                            }
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
                         },
                         {
                             "title": "points",
                             "field": "8",
                             "dataType": {
-                                "type": 4
-                            }
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false,
+                            "default": "0"
                         }
                     ],
                     "executionInfo": {
-                        "text": "OK, 1 record retrieved in 0.88ms"
+                        "text": "OK, 2 records retrieved in 0.669ms"
                     },
-                    "totalRowCount": 1,
+                    "totalRowCount": 2,
                     "hasMoreRows": false,
                     "currentPage": 0,
                     "index": 0,
-                    "sql": "-- Filtering cutomers: \n-- KEYWORD order is important\nSELECT *  \nFROM customers\n-- WHERE customer_id = 1\n\n-- WHERE points > 3000\n\n-- Both uppercase and lowercase work perfectly\n-- WHERE state = 'VA'\n-- WHERE state = 'va'\n\n-- Search with date\n-- WHERE birth_date >= '1990-01-01'\n\n-- IN -> To specify multiple possible values for a column\n-- BETWEEN -> WHERE city IN ('Chicago','London')\n-- WHERE state NOT IN ('VA', 'FL', 'GA')\n\n-- NOT EQUAL -> <> or != \n-- WHERE points <> 796\n-- Or : Same Effect -> WHERE points != 1899\n\n-- LIKE -> Search for a pattern for both uppercase and lowercase\n-- WHERE state LIKE 'f%'\n-- WHERE last_name LIKE 'b%'\n-- WHERE last_name LIKE 'brush%'\n\n-- matching 'b' at the begining, middle or end \n-- WHERE last_name LIKE '%b%'\n\n-- all the customers last_name end by y\n-- WHERE last_name LIKE '%y'\n\n-- Match only two character end with y\n-- WHERE last_name LIKE '_y'\n\n-- Matchig the 6 character string last_name end with y\n-- WHERE last_name LIKE '_____y'\n\n-- Five character starting with b and ending with y\nWHERE last_name LIKE 'b____y'\n\n-- BETWEEN -> Between a certain range\n-- WHERE points >= 1000 AND points <= 3000\n-- same query can be wriiten in a clener way\n-- WHERE points BETWEEN 1000 AND 3000  \n-- WHERE birth_date BETWEEN '1990-01-01' AND '2000-01-01'  \n\n-- Multiple search condition in filtreing data\n-- WHERE birth_date >= '1990-01-01' AND points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 500 AND state = 'VA'\n\n-- AND operator execute first than OR\n-- Higer to Lower order : / -> * -> + -> - \n-- WHERE birth_date >= '1990-01-01' OR (points > 2500 AND state = 'VA')\n\n-- WHERE NOT (birth_date > '1990-01-01' OR points > 1000)\n-- Same query can be written as : \n-- WHERE birth_date <= '1990-01-01' AND points <= 1000\n\n-- The WHERE clause is not only used in SELECT statements, it is also used in UPDATE, DELETE, etc.\nORDER BY first_name;"
+                    "sql": "-- Filtering cutomers:   \n-- KEYWORD order is important\nSELECT *  \nFROM customers\n-- WHERE customer_id = 1\n\n-- WHERE points > 3000\n\n-- Both uppercase and lowercase work perfectly\n-- WHERE state = 'VA'\n-- WHERE state = 'va'\n\n-- Search with date\n-- WHERE birth_date >= '1990-01-01'\n\n-- IN -> To specify multiple possible values for a column\n-- BETWEEN -> WHERE city IN ('Chicago','London')\n-- WHERE state NOT IN ('VA', 'FL', 'GA')\n\n-- NOT EQUAL -> <> or != \n-- WHERE points <> 796\n-- Or : Same Effect -> WHERE points != 1899\n\n-- LIKE -> Search for a pattern for both uppercase and lowercase\n-- % -> any number of characters or zero character, _ -> single character\n-- WHERE state LIKE 'f%'\n-- WHERE last_name LIKE 'b%'\n-- WHERE last_name LIKE 'brush%' \n\n-- matching 'b' at the beginning, middle or end \n-- WHERE last_name LIKE '%b%'\n\n-- all the customers last_name end by y\n-- WHERE last_name LIKE '%y'\n\n-- Match only two character end with y\nWHERE last_name LIKE '_y'\n\n-- Matchig the 6 character string last_name end with y\n-- WHERE last_name LIKE '_____y'\n\n-- Five character starting with b and ending with y\n-- WHERE last_name LIKE 'b____y'\n\n-- BETWEEN -> Between a certain range\n-- WHERE points >= 1000 AND points <= 3000\n-- same query can be wriiten in a clener way\n-- WHERE points BETWEEN 1000 AND 3000  \n-- WHERE birth_date BETWEEN '1990-01-01' AND '2000-01-01'  \n\n-- Multiple search condition in filtreing data\n-- WHERE birth_date >= '1990-01-01' AND points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 1000\n-- WHERE birth_date >= '1990-01-01' OR points > 500 AND state = 'VA'\n\n-- AND operator execute first than OR\n-- Higer to Lower order : / -> * -> + -> - \n-- WHERE birth_date >= '1990-01-01' OR (points > 2500 AND state = 'VA')\n\n-- WHERE NOT (birth_date > '1990-01-01' OR points > 1000) \n-- Same query can be written as : \n-- WHERE birth_date <= '1990-01-01' AND points <= 1000\n\n-- The WHERE clause is not only used in SELECT statements, it is also used in UPDATE, DELETE, etc.\nORDER BY first_name;",
+                    "updatable": true,
+                    "fullTableName": "customers"
                 }
             ]
         },
@@ -605,7 +858,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "f78135c9-84a9-43d3-87df-4e4bcdd06764"
+                        "4553d722-3e47-4852-bf83-b4f455f8905b"
                     ]
                 },
                 "currentHeight": 36,
@@ -633,8 +886,8 @@
             },
             "data": [
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "f78135c9-84a9-43d3-87df-4e4bcdd06764",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "4553d722-3e47-4852-bf83-b4f455f8905b",
                     "rows": [
                         {
                             "0": 1,
@@ -646,25 +899,53 @@
                             "title": "1",
                             "field": "0",
                             "dataType": {
-                                "type": 4
-                            }
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
                         },
                         {
                             "title": "2",
                             "field": "1",
                             "dataType": {
-                                "type": 4
-                            }
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
                         }
                     ],
                     "executionInfo": {
-                        "text": "OK, 1 record retrieved in 0.455ms"
+                        "text": "OK, 1 record retrieved in 0.407ms"
                     },
                     "totalRowCount": 1,
                     "hasMoreRows": false,
                     "currentPage": 0,
                     "index": 0,
-                    "sql": "-- two columns and values\nSELECT 1, 2"
+                    "sql": "-- two columns and values\nSELECT 1, 2;",
+                    "updatable": false,
+                    "fullTableName": ""
                 }
             ]
         },
@@ -676,7 +957,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "bed3cbce-d1cd-44bb-f8f9-370739ff17ce"
+                        "82dbea34-40d7-41d8-9687-9e1124487db6"
                     ]
                 },
                 "currentHeight": 36,
@@ -695,8 +976,8 @@
             },
             "data": [
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "bed3cbce-d1cd-44bb-f8f9-370739ff17ce",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "82dbea34-40d7-41d8-9687-9e1124487db6",
                     "rows": [
                         {
                             "0": "MacCaffrey",
@@ -838,13 +1119,13 @@
                         }
                     ],
                     "executionInfo": {
-                        "text": "OK, 10 records retrieved in 22.255ms"
+                        "text": "OK, 10 records retrieved in 19.109ms"
                     },
                     "totalRowCount": 10,
                     "hasMoreRows": false,
                     "currentPage": 0,
                     "index": 0,
-                    "sql": "-- SELECT clause in details  \n-- SELECT last_name, first_name, points, points + 10\nSELECT   \n  last_name, \n  first_name,  \n  points,  \n  points * 10 + 100\nfrom customers",
+                    "sql": "-- SELECT clause in details  \n-- SELECT last_name, first_name, points, points + 10\nSELECT   \n  last_name, \n  first_name,  \n  points,  \n  points * 10 + 100\nfrom customers;",
                     "updatable": false,
                     "fullTableName": ""
                 }
@@ -858,7 +1139,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "28463b87-5a09-4858-e728-bbaf9ae594fa"
+                        "437183c8-37c7-41d4-a8b0-673e63f25566"
                     ]
                 },
                 "currentHeight": 36,
@@ -877,8 +1158,8 @@
             },
             "data": [
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "28463b87-5a09-4858-e728-bbaf9ae594fa",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "437183c8-37c7-41d4-a8b0-673e63f25566",
                     "rows": [
                         {
                             "0": "MacCaffrey",
@@ -1099,7 +1380,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "9bdc5706-a81a-4338-8391-f4e9c7949b78"
+                        "066a08c9-a617-4c6a-bdfc-df5e6ab53c98"
                     ]
                 },
                 "currentHeight": 103,
@@ -1145,8 +1426,8 @@
             },
             "data": [
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "9bdc5706-a81a-4338-8391-f4e9c7949b78",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "066a08c9-a617-4c6a-bdfc-df5e6ab53c98",
                     "rows": [
                         {
                             "0": 7
@@ -1175,12 +1456,12 @@
         {
             "state": {
                 "start": 105,
-                "end": 146,
+                "end": 145,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "987b4525-5efa-4ffb-c8dc-e6817f47735e"
+                        "bba914d0-46db-462d-8156-b3d728ebb755"
                     ]
                 },
                 "currentHeight": 36,
@@ -1190,7 +1471,7 @@
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 96
+                            "length": 386
                         },
                         "contentStart": 19,
                         "state": 0
@@ -1198,138 +1479,233 @@
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 96,
-                            "length": 1019
+                            "start": 386,
+                            "length": 728
                         },
-                        "contentStart": 95,
+                        "contentStart": 385,
                         "state": 3
                     }
                 ]
             },
             "data": [
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "987b4525-5efa-4ffb-c8dc-e6817f47735e",
-                    "rows": [
-                        {
-                            "0": 3,
-                            "1": "Freddi",
-                            "2": "Boagey",
-                            "3": "1985-02-07",
-                            "4": "719-724-7869",
-                            "5": "251 Springs Junction",
-                            "6": "Colorado Springs",
-                            "7": "CO",
-                            "8": 2967
-                        },
-                        {
-                            "0": 5,
-                            "1": "Clemmie",
-                            "2": "Betchley",
-                            "3": "1973-11-07",
-                            "4": null,
-                            "5": "5 Spohn Circle",
-                            "6": "Arlington",
-                            "7": "TX",
-                            "8": 3675
-                        },
-                        {
-                            "0": 6,
-                            "1": "Elka",
-                            "2": "Twiddell",
-                            "3": "1991-09-04",
-                            "4": "312-480-8498",
-                            "5": "7 Manley Drive",
-                            "6": "Dhaka",
-                            "7": "IL",
-                            "8": 3073
-                        }
-                    ],
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "bba914d0-46db-462d-8156-b3d728ebb755",
+                    "rows": [],
                     "columns": [
                         {
                             "title": "customer_id",
                             "field": "0",
                             "dataType": {
-                                "type": 4
-                            }
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": true,
+                            "nullable": false,
+                            "autoIncrement": true
                         },
                         {
                             "title": "first_name",
                             "field": "1",
                             "dataType": {
-                                "type": 17
-                            }
+                                "type": 15,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "UNICODE",
+                                    "ASCII"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "One",
+                                "synonyms": [
+                                    "CHAR VARYING",
+                                    "CHARACTER VARYING",
+                                    "VARCHARACTER"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
                         },
                         {
                             "title": "last_name",
                             "field": "2",
                             "dataType": {
-                                "type": 17
-                            }
+                                "type": 15,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "UNICODE",
+                                    "ASCII"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "One",
+                                "synonyms": [
+                                    "CHAR VARYING",
+                                    "CHARACTER VARYING",
+                                    "VARCHARACTER"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
                         },
                         {
                             "title": "birth_date",
                             "field": "3",
                             "dataType": {
-                                "type": 28
-                            }
+                                "type": 27,
+                                "needsQuotes": true
+                            },
+                            "inPK": false,
+                            "nullable": true,
+                            "autoIncrement": false,
+                            "default": null
                         },
                         {
                             "title": "phone",
                             "field": "4",
                             "dataType": {
-                                "type": 17
-                            }
+                                "type": 15,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "UNICODE",
+                                    "ASCII"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "One",
+                                "synonyms": [
+                                    "CHAR VARYING",
+                                    "CHARACTER VARYING",
+                                    "VARCHARACTER"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": true,
+                            "autoIncrement": false,
+                            "default": null
                         },
                         {
                             "title": "address",
                             "field": "5",
                             "dataType": {
-                                "type": 17
-                            }
+                                "type": 15,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "UNICODE",
+                                    "ASCII"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "One",
+                                "synonyms": [
+                                    "CHAR VARYING",
+                                    "CHARACTER VARYING",
+                                    "VARCHARACTER"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
                         },
                         {
                             "title": "city",
                             "field": "6",
                             "dataType": {
-                                "type": 17
-                            }
+                                "type": 15,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "UNICODE",
+                                    "ASCII"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "One",
+                                "synonyms": [
+                                    "CHAR VARYING",
+                                    "CHARACTER VARYING",
+                                    "VARCHARACTER"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
                         },
                         {
                             "title": "state",
                             "field": "7",
                             "dataType": {
-                                "type": 17
-                            }
+                                "type": 13,
+                                "characterMaximumLength": 255,
+                                "flags": [
+                                    "BINARY",
+                                    "UNICODE",
+                                    "ASCII"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "CHARACTER"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
                         },
                         {
                             "title": "points",
                             "field": "8",
                             "dataType": {
-                                "type": 4
-                            }
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false,
+                            "default": "0"
                         }
                     ],
                     "executionInfo": {
-                        "text": "OK, 3 records retrieved in 1.026ms"
+                        "text": "OK, 0 records retrieved in 348.624ms"
                     },
-                    "totalRowCount": 3,
+                    "totalRowCount": 0,
                     "hasMoreRows": false,
                     "currentPage": 0,
                     "index": 0,
-                    "sql": "-- REGEXP OPERATOR\nSELECT * \nFROM customers\n-- using normal form\n-- WHERE last_name LIKE '%field%';\n\n-- can be used by REGEXP keywoed\n-- WHERE last_name REGEXP 'field';\n\n-- ^ -> begining with 'field' string\n-- WHERE last_name REGEXP '^field';\n\n-- $ -> ending with 'field' string\n-- WHERE last_name REGEXP 'field$';\n\n-- Match the string 'field' or 'mac' in strart or end\n-- | -> vertical bar or Pipe or Multiple search Pattern\n-- WHERE last_name REGEXP 'field|mac';\n\n-- WHERE last_name REGEXP 'field|mac|rose';\n\n-- WHERE last_name REGEXP '^field|mac|rose';\n\n-- WHERE last_name REGEXP 'field$|mac|rose';\n\n-- WHERE last_name REGEXP 'field$|mac|^rose';\n\n-- WHERE last_name REGEXP 'field$|mac$|^rose';\n\n-- matching customer name : ge or ie or me\n-- Any of the character from 'gim' before 'e'\n-- WHERE last_name REGEXP '[gim]e';\n\n-- Any of the character from 'gim' after 'e'\n-- WHERE last_name REGEXP 'e[gim]';\n\n-- range of characters\nWHERE last_name REGEXP '[a-h]e';"
+                    "sql": "-- REGEXP OPERATOR\nSELECT * \nFROM customers\n-- using normal form\n-- WHERE last_name LIKE '%field%';\n\n-- can be used by REGEXP keywoed\n-- WHERE last_name REGEXP 'field';\n \n-- ^ -> beginning, $ -> end, | -> logical or, [abcd] -> match any single character listed in the brackets, [a-z] -> any characters from a to z \n\n-- ^ -> beginning with 'field' string\nWHERE last_name REGEXP '^field';",
+                    "updatable": true,
+                    "fullTableName": "customers"
                 }
             ]
         },
         {
             "state": {
-                "start": 147,
-                "end": 152,
+                "start": 146,
+                "end": 151,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "9b166098-8677-4e8e-9963-8606028fcfa3"
+                        "00bfb8b7-5cd8-45c1-afe1-799d10bf013e"
                     ]
                 },
                 "currentHeight": 36,
@@ -1348,8 +1724,8 @@
             },
             "data": [
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "9b166098-8677-4e8e-9963-8606028fcfa3",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "00bfb8b7-5cd8-45c1-afe1-799d10bf013e",
                     "rows": [
                         {
                             "0": 1,
@@ -1529,8 +1905,8 @@
         },
         {
             "state": {
-                "start": 153,
-                "end": 153,
+                "start": 152,
+                "end": 152,
                 "language": "mysql",
                 "currentSet": 1,
                 "statements": [
@@ -1549,13 +1925,13 @@
         },
         {
             "state": {
-                "start": 154,
-                "end": 180,
+                "start": 153,
+                "end": 179,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "f0d685ed-e8aa-48b5-e21e-132c0c3caa2b"
+                        "0a4646fc-e5e2-49d5-d54f-7f3b430a27da"
                     ]
                 },
                 "currentHeight": 180,
@@ -1610,8 +1986,8 @@
             },
             "data": [
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "f0d685ed-e8aa-48b5-e21e-132c0c3caa2b",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "0a4646fc-e5e2-49d5-d54f-7f3b430a27da",
                     "rows": [
                         {
                             "0": "Ambur",
@@ -1700,33 +2076,33 @@
         },
         {
             "state": {
-                "start": 181,
-                "end": 188,
+                "start": 180,
+                "end": 187,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "e808d6da-abaa-41d3-e43c-8219020d2604"
+                        "4a3050ff-c215-45e4-9bcc-47fd67237dca"
                     ]
                 },
-                "currentHeight": 36,
+                "currentHeight": 142,
                 "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 177
+                            "length": 178
                         },
                         "contentStart": 40,
-                        "state": 3
+                        "state": 0
                     }
                 ]
             },
             "data": [
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "e808d6da-abaa-41d3-e43c-8219020d2604",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "4a3050ff-c215-45e4-9bcc-47fd67237dca",
                     "rows": [
                         {
                             "0": 7,
@@ -1735,7 +2111,7 @@
                             "3": "1964-08-30",
                             "4": "615-641-4759",
                             "5": "50 Lillian Crossing",
-                            "6": "Nashville",
+                            "6": "Dhaka",
                             "7": "TN",
                             "8": 1672
                         },
@@ -1767,467 +2143,252 @@
                             "title": "customer_id",
                             "field": "0",
                             "dataType": {
-                                "type": 4
-                            }
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": true,
+                            "nullable": false,
+                            "autoIncrement": true
                         },
                         {
                             "title": "first_name",
                             "field": "1",
                             "dataType": {
-                                "type": 17
-                            }
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
                         },
                         {
                             "title": "last_name",
                             "field": "2",
                             "dataType": {
-                                "type": 17
-                            }
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
                         },
                         {
                             "title": "birth_date",
                             "field": "3",
                             "dataType": {
-                                "type": 28
-                            }
+                                "type": 27,
+                                "needsQuotes": true
+                            },
+                            "inPK": false,
+                            "nullable": true,
+                            "autoIncrement": false,
+                            "default": null
                         },
                         {
                             "title": "phone",
                             "field": "4",
                             "dataType": {
-                                "type": 17
-                            }
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": true,
+                            "autoIncrement": false,
+                            "default": null
                         },
                         {
                             "title": "address",
                             "field": "5",
                             "dataType": {
-                                "type": 17
-                            }
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
                         },
                         {
                             "title": "city",
                             "field": "6",
                             "dataType": {
-                                "type": 17
-                            }
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
                         },
                         {
                             "title": "state",
                             "field": "7",
                             "dataType": {
-                                "type": 17
-                            }
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
                         },
                         {
                             "title": "points",
                             "field": "8",
                             "dataType": {
-                                "type": 4
-                            }
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false,
+                            "default": "0"
                         }
                     ],
                     "executionInfo": {
-                        "text": "OK, 3 records retrieved in 0.622ms"
+                        "text": "OK, 3 records retrieved in 0.674ms"
                     },
                     "totalRowCount": 3,
                     "hasMoreRows": false,
                     "currentPage": 0,
                     "index": 0,
-                    "sql": "-- LIMIT data, it always come into last\nSELECT *\nFROM customers\n-- LIMIT 3;\n-- LIMIT 300;\n-- for pagination or Offseting\n-- 6 -> skip first 6, 3 -> show 3 records\nLIMIT 6, 3"
+                    "sql": "-- LIMIT data, it always come into last\nSELECT *\nFROM customers \n-- LIMIT 3;\n-- LIMIT 300;   \n-- for pagination or Offseting\n-- 6 -> skip first 6, 3 -> show 3 records\nLIMIT 6, 3;",
+                    "updatable": true,
+                    "fullTableName": "customers"
                 }
             ]
         },
         {
             "state": {
-                "start": 189,
-                "end": 218,
+                "start": 188,
+                "end": 217,
                 "language": "mysql",
-                "result": {
-                    "type": "resultIds",
-                    "list": [
-                        "4975ad01-6919-4a02-f52d-6d903f379898"
-                    ]
-                },
-                "currentHeight": 322,
                 "currentSet": 1,
                 "statements": [
                     {
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 127
+                            "length": 130
                         },
-                        "contentStart": 14,
+                        "contentStart": 17,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 127,
+                            "start": 130,
                             "length": 141
                         },
-                        "contentStart": 149,
+                        "contentStart": 152,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 268,
+                            "start": 271,
                             "length": 271
                         },
-                        "contentStart": 407,
+                        "contentStart": 410,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 539,
+                            "start": 542,
                             "length": 146
                         },
-                        "contentStart": 545,
+                        "contentStart": 548,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 685,
+                            "start": 688,
                             "length": 242
                         },
-                        "contentStart": 793,
+                        "contentStart": 796,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 927,
+                            "start": 930,
                             "length": 1
                         },
-                        "contentStart": 926,
+                        "contentStart": 929,
                         "state": 3
                     }
                 ]
             },
-            "data": [
-                {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "4975ad01-6919-4a02-f52d-6d903f379898",
-                    "rows": [
-                        {
-                            "0": 1,
-                            "1": 6,
-                            "2": "2019-01-30",
-                            "3": 1,
-                            "4": null,
-                            "5": null,
-                            "6": null,
-                            "7": 6,
-                            "8": "Elka",
-                            "9": "Twiddell",
-                            "10": "1991-09-04",
-                            "11": "312-480-8498",
-                            "12": "7 Manley Drive",
-                            "13": "Dhaka",
-                            "14": "IL",
-                            "15": 3073
-                        },
-                        {
-                            "0": 2,
-                            "1": 7,
-                            "2": "2018-08-02",
-                            "3": 2,
-                            "4": null,
-                            "5": "2018-08-03",
-                            "6": 4,
-                            "7": 7,
-                            "8": "Ilene",
-                            "9": "Dowson",
-                            "10": "1964-08-30",
-                            "11": "615-641-4759",
-                            "12": "50 Lillian Crossing",
-                            "13": "Nashville",
-                            "14": "TN",
-                            "15": 1672
-                        },
-                        {
-                            "0": 3,
-                            "1": 8,
-                            "2": "2017-12-01",
-                            "3": 1,
-                            "4": null,
-                            "5": null,
-                            "6": null,
-                            "7": 8,
-                            "8": "Thacher",
-                            "9": "By",
-                            "10": "1993-07-17",
-                            "11": "941-527-3977",
-                            "12": "538 Mosinee Center",
-                            "13": "Sarasota",
-                            "14": "FL",
-                            "15": 205
-                        },
-                        {
-                            "0": 4,
-                            "1": 2,
-                            "2": "2017-01-22",
-                            "3": 1,
-                            "4": null,
-                            "5": null,
-                            "6": null,
-                            "7": 2,
-                            "8": "Ines",
-                            "9": "Brushfield",
-                            "10": "1986-04-13",
-                            "11": "804-427-9456",
-                            "12": "14187 Commercial Trail",
-                            "13": "Sylhet",
-                            "14": "VA",
-                            "15": 947
-                        },
-                        {
-                            "0": 5,
-                            "1": 5,
-                            "2": "2017-08-25",
-                            "3": 2,
-                            "4": "",
-                            "5": "2017-08-26",
-                            "6": 3,
-                            "7": 5,
-                            "8": "Clemmie",
-                            "9": "Betchley",
-                            "10": "1973-11-07",
-                            "11": null,
-                            "12": "5 Spohn Circle",
-                            "13": "Arlington",
-                            "14": "TX",
-                            "15": 3675
-                        },
-                        {
-                            "0": 6,
-                            "1": 10,
-                            "2": "2018-11-18",
-                            "3": 1,
-                            "4": "Aliquam erat volutpat. In congue.",
-                            "5": null,
-                            "6": null,
-                            "7": 10,
-                            "8": "Levy",
-                            "9": "Mynett",
-                            "10": "1969-10-13",
-                            "11": "404-246-3370",
-                            "12": "68 Lawn Avenue",
-                            "13": "Atlanta",
-                            "14": "GA",
-                            "15": 796
-                        },
-                        {
-                            "0": 7,
-                            "1": 2,
-                            "2": "2018-09-22",
-                            "3": 2,
-                            "4": null,
-                            "5": "2018-09-23",
-                            "6": 4,
-                            "7": 2,
-                            "8": "Ines",
-                            "9": "Brushfield",
-                            "10": "1986-04-13",
-                            "11": "804-427-9456",
-                            "12": "14187 Commercial Trail",
-                            "13": "Sylhet",
-                            "14": "VA",
-                            "15": 947
-                        },
-                        {
-                            "0": 8,
-                            "1": 5,
-                            "2": "2018-06-08",
-                            "3": 1,
-                            "4": "Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis.",
-                            "5": null,
-                            "6": null,
-                            "7": 5,
-                            "8": "Clemmie",
-                            "9": "Betchley",
-                            "10": "1973-11-07",
-                            "11": null,
-                            "12": "5 Spohn Circle",
-                            "13": "Arlington",
-                            "14": "TX",
-                            "15": 3675
-                        },
-                        {
-                            "0": 9,
-                            "1": 10,
-                            "2": "2017-07-05",
-                            "3": 2,
-                            "4": "Nulla mollis molestie lorem. Quisque ut erat.",
-                            "5": "2017-07-06",
-                            "6": 1,
-                            "7": 10,
-                            "8": "Levy",
-                            "9": "Mynett",
-                            "10": "1969-10-13",
-                            "11": "404-246-3370",
-                            "12": "68 Lawn Avenue",
-                            "13": "Atlanta",
-                            "14": "GA",
-                            "15": 796
-                        },
-                        {
-                            "0": 10,
-                            "1": 6,
-                            "2": "2018-04-22",
-                            "3": 2,
-                            "4": null,
-                            "5": "2018-04-23",
-                            "6": 2,
-                            "7": 6,
-                            "8": "Elka",
-                            "9": "Twiddell",
-                            "10": "1991-09-04",
-                            "11": "312-480-8498",
-                            "12": "7 Manley Drive",
-                            "13": "Dhaka",
-                            "14": "IL",
-                            "15": 3073
-                        }
-                    ],
-                    "columns": [
-                        {
-                            "title": "order_id",
-                            "field": "0",
-                            "dataType": {
-                                "type": 4
-                            }
-                        },
-                        {
-                            "title": "customer_id",
-                            "field": "1",
-                            "dataType": {
-                                "type": 4
-                            }
-                        },
-                        {
-                            "title": "order_date",
-                            "field": "2",
-                            "dataType": {
-                                "type": 28
-                            }
-                        },
-                        {
-                            "title": "status",
-                            "field": "3",
-                            "dataType": {
-                                "type": 1
-                            }
-                        },
-                        {
-                            "title": "comments",
-                            "field": "4",
-                            "dataType": {
-                                "type": 17
-                            }
-                        },
-                        {
-                            "title": "shipped_date",
-                            "field": "5",
-                            "dataType": {
-                                "type": 28
-                            }
-                        },
-                        {
-                            "title": "shipper_id",
-                            "field": "6",
-                            "dataType": {
-                                "type": 2
-                            }
-                        },
-                        {
-                            "title": "customer_id",
-                            "field": "7",
-                            "dataType": {
-                                "type": 4
-                            }
-                        },
-                        {
-                            "title": "first_name",
-                            "field": "8",
-                            "dataType": {
-                                "type": 17
-                            }
-                        },
-                        {
-                            "title": "last_name",
-                            "field": "9",
-                            "dataType": {
-                                "type": 17
-                            }
-                        },
-                        {
-                            "title": "birth_date",
-                            "field": "10",
-                            "dataType": {
-                                "type": 28
-                            }
-                        },
-                        {
-                            "title": "phone",
-                            "field": "11",
-                            "dataType": {
-                                "type": 17
-                            }
-                        },
-                        {
-                            "title": "address",
-                            "field": "12",
-                            "dataType": {
-                                "type": 17
-                            }
-                        },
-                        {
-                            "title": "city",
-                            "field": "13",
-                            "dataType": {
-                                "type": 17
-                            }
-                        },
-                        {
-                            "title": "state",
-                            "field": "14",
-                            "dataType": {
-                                "type": 17
-                            }
-                        },
-                        {
-                            "title": "points",
-                            "field": "15",
-                            "dataType": {
-                                "type": 4
-                            }
-                        }
-                    ],
-                    "executionInfo": {
-                        "text": "OK, 10 records retrieved in 1.01ms"
-                    },
-                    "totalRowCount": 10,
-                    "hasMoreRows": false,
-                    "currentPage": 0,
-                    "index": 0,
-                    "sql": "-- INNER JOIN\nSELECT * \nFROM orders \n-- INNER is optiinal \nINNER JOIN customers \nON orders.customer_id = customers.customer_id;"
-                }
-            ]
+            "data": []
         },
         {
             "state": {
-                "start": 219,
-                "end": 235,
+                "start": 218,
+                "end": 234,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "921168fd-f1e2-4187-96d9-d96a134933a6"
+                        "355ef761-40d4-4ba2-ff28-3f24296d327a"
                     ]
                 },
                 "currentHeight": 36,
@@ -2264,8 +2425,8 @@
             },
             "data": [
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "921168fd-f1e2-4187-96d9-d96a134933a6",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "355ef761-40d4-4ba2-ff28-3f24296d327a",
                     "rows": [
                         {
                             "0": 2,
@@ -2519,13 +2680,13 @@
         },
         {
             "state": {
-                "start": 236,
+                "start": 235,
                 "end": 255,
                 "language": "mysql",
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "34f34d8c-140f-4473-ec71-a04a3685819b"
+                        "0a2763b1-e4f9-4502-b84e-8c7a466fde2d"
                     ]
                 },
                 "currentHeight": 36,
@@ -2535,35 +2696,35 @@
                         "delimiter": ";",
                         "span": {
                             "start": 0,
-                            "length": 296
+                            "length": 297
                         },
-                        "contentStart": 285,
+                        "contentStart": 286,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 296,
+                            "start": 297,
                             "length": 81
                         },
-                        "contentStart": 301,
+                        "contentStart": 302,
                         "state": 0
                     },
                     {
                         "delimiter": ";",
                         "span": {
-                            "start": 377,
+                            "start": 378,
                             "length": 146
                         },
-                        "contentStart": 379,
+                        "contentStart": 380,
                         "state": 3
                     }
                 ]
             },
             "data": [
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "34f34d8c-140f-4473-ec71-a04a3685819b",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "0a2763b1-e4f9-4502-b84e-8c7a466fde2d",
                     "rows": [
                         {
                             "0": 33391,
@@ -2703,7 +2864,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "ff2b8f0b-fe4a-4dcd-e72c-8688781e6f6f"
+                        "5d48d1e8-dd16-4573-d9c1-21e1d9d98346"
                     ]
                 },
                 "currentHeight": 295,
@@ -2740,8 +2901,8 @@
             },
             "data": [
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "ff2b8f0b-fe4a-4dcd-e72c-8688781e6f6f",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "5d48d1e8-dd16-4573-d9c1-21e1d9d98346",
                     "rows": [
                         {
                             "0": 8,
@@ -3091,8 +3252,8 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "215774e1-03cd-4c4b-d482-1171bcdb81d2",
-                        "dca794f2-7f21-4975-cc91-780afed8cac2"
+                        "291af5e8-e7bd-466d-9f79-5d063ff7a1a8",
+                        "74ccd786-66e7-4c72-87c4-bc9714b3b8c1"
                     ]
                 },
                 "currentHeight": 36,
@@ -3138,8 +3299,8 @@
             },
             "data": [
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "215774e1-03cd-4c4b-d482-1171bcdb81d2",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "291af5e8-e7bd-466d-9f79-5d063ff7a1a8",
                     "rows": [
                         {
                             "0": 1,
@@ -3446,8 +3607,8 @@
                     "sql": "\n\n\nSELECT *  \nFROM orders o\nJOIN customers c \nON o.customer_id = c.customer_id"
                 },
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "dca794f2-7f21-4975-cc91-780afed8cac2",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "74ccd786-66e7-4c72-87c4-bc9714b3b8c1",
                     "rows": [
                         {
                             "0": 1,
@@ -3763,7 +3924,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "bf82cfbb-135f-4652-a847-6b50531349e8"
+                        "2e2212cd-efbc-4123-e410-44380da5880a"
                     ]
                 },
                 "currentHeight": 36,
@@ -3800,8 +3961,8 @@
             },
             "data": [
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "bf82cfbb-135f-4652-a847-6b50531349e8",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "2e2212cd-efbc-4123-e410-44380da5880a",
                     "rows": [
                         {
                             "0": 1,
@@ -3916,7 +4077,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "b9d70c3c-0dcf-4da8-a83a-f6189b07dda5"
+                        "23f85f2c-a6b2-4fb5-85e7-7baeb84d67b9"
                     ]
                 },
                 "currentHeight": 36,
@@ -3935,8 +4096,8 @@
             },
             "data": [
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "b9d70c3c-0dcf-4da8-a83a-f6189b07dda5",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "23f85f2c-a6b2-4fb5-85e7-7baeb84d67b9",
                     "rows": [
                         {
                             "0": null,
@@ -4051,7 +4212,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "3114fe9c-ae2e-4242-865d-8c4b2399efef"
+                        "8b7a9f3e-7f0d-4e31-82f7-4e1294699c30"
                     ]
                 },
                 "currentHeight": 36,
@@ -4070,8 +4231,8 @@
             },
             "data": [
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "3114fe9c-ae2e-4242-865d-8c4b2399efef",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "8b7a9f3e-7f0d-4e31-82f7-4e1294699c30",
                     "rows": [
                         {
                             "0": 2,
@@ -4198,8 +4359,8 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "c76c49fe-e646-4c14-83a1-3ba037008e86",
-                        "ed83b296-f868-491a-d5cd-21eefaa10646"
+                        "8295d343-ad0e-4f84-ab0e-34f49d14ec29",
+                        "d4fa73d7-9a4f-4151-bbc4-3f098c20f6b1"
                     ]
                 },
                 "currentHeight": 36,
@@ -4227,8 +4388,8 @@
             },
             "data": [
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "c76c49fe-e646-4c14-83a1-3ba037008e86",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "8295d343-ad0e-4f84-ab0e-34f49d14ec29",
                     "rows": [
                         {
                             "0": 2,
@@ -4289,8 +4450,8 @@
                     "sql": "-- OUTER JOIN BETWEEN MULTIPLE TABLE\nSELECT \n    c.customer_id, \n    c.first_name,\n    o.order_id\n\nFROM customers c \nLEFT JOIN orders o \n   ON o.customer_id = c.customer_id\nJOIN shippers sh \n   ON o.shipper_id = sh.shipper_id\nORDER BY c.customer_id"
                 },
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "ed83b296-f868-491a-d5cd-21eefaa10646",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "d4fa73d7-9a4f-4151-bbc4-3f098c20f6b1",
                     "rows": [
                         {
                             "0": 1,
@@ -4447,7 +4608,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "ef5349dd-5ff3-4cc3-cef3-172da199bc7d"
+                        "9a73a8ae-62c8-4a0a-dc99-a8f2664e3819"
                     ]
                 },
                 "currentHeight": 36,
@@ -4466,8 +4627,8 @@
             },
             "data": [
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "ef5349dd-5ff3-4cc3-cef3-172da199bc7d",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "9a73a8ae-62c8-4a0a-dc99-a8f2664e3819",
                     "rows": [
                         {
                             "0": 8,
@@ -4596,7 +4757,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "bb919568-bfb4-4517-85e2-01620aec2927"
+                        "7ac20b1a-99bb-4d54-f52d-e1c655a8e150"
                     ]
                 },
                 "currentHeight": 133,
@@ -4615,8 +4776,8 @@
             },
             "data": [
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "bb919568-bfb4-4517-85e2-01620aec2927",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "7ac20b1a-99bb-4d54-f52d-e1c655a8e150",
                     "rows": [
                         {
                             "0": 33391,
@@ -4761,7 +4922,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "f69347fb-9a5e-4e0e-8663-ece84d732d20"
+                        "e4e85522-298e-4538-cc46-7fd0faed9beb"
                     ]
                 },
                 "currentHeight": 307.9375,
@@ -4780,8 +4941,8 @@
             },
             "data": [
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "f69347fb-9a5e-4e0e-8663-ece84d732d20",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "e4e85522-298e-4538-cc46-7fd0faed9beb",
                     "rows": [
                         {
                             "0": 1,
@@ -4876,7 +5037,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "0b2a26c7-8c7f-4da8-e111-b4085a965206"
+                        "7ad585c0-86f1-45a5-b569-6e18b8937d50"
                     ]
                 },
                 "currentHeight": 36,
@@ -4967,8 +5128,8 @@
             },
             "data": [
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "0b2a26c7-8c7f-4da8-e111-b4085a965206",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "7ad585c0-86f1-45a5-b569-6e18b8937d50",
                     "rows": [
                         {
                             "0": 63196,
@@ -5077,7 +5238,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "c98cfc0a-c07a-41d9-d627-9e179dafd127"
+                        "1dc5f607-89d0-4a7a-c827-6f024b50ea73"
                     ]
                 },
                 "currentHeight": 313,
@@ -5132,8 +5293,8 @@
             },
             "data": [
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "c98cfc0a-c07a-41d9-d627-9e179dafd127",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "1dc5f607-89d0-4a7a-c827-6f024b50ea73",
                     "rows": [
                         {
                             "0": 33391,
@@ -5386,9 +5547,9 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "186c6cba-dd6b-43f9-fc2d-f76531fe7c60",
-                        "7a66b420-c6da-4c62-efab-6db071e9a9b3",
-                        "9189bca0-36af-4e63-8a33-741c7ed1f026"
+                        "f27a413d-33f3-4d96-b35e-9b4767a3f5a9",
+                        "88869bf7-ab36-4135-9c01-81b817061486",
+                        "a1e3903e-529c-40fe-f393-560b7af06ecd"
                     ]
                 },
                 "currentHeight": 36,
@@ -5443,8 +5604,8 @@
             },
             "data": [
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "186c6cba-dd6b-43f9-fc2d-f76531fe7c60",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "f27a413d-33f3-4d96-b35e-9b4767a3f5a9",
                     "rows": [
                         {
                             "0": 1
@@ -5493,8 +5654,8 @@
                     "fullTableName": ""
                 },
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "7a66b420-c6da-4c62-efab-6db071e9a9b3",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "88869bf7-ab36-4135-9c01-81b817061486",
                     "rows": [
                         {
                             "0": "4.0000"
@@ -5563,8 +5724,8 @@
                     "fullTableName": ""
                 },
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "9189bca0-36af-4e63-8a33-741c7ed1f026",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "a1e3903e-529c-40fe-f393-560b7af06ecd",
                     "rows": [
                         {
                             "0": 10
@@ -5613,7 +5774,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "57404c6a-a799-43e1-e09f-dc9a0301550d"
+                        "9b7291d7-a671-4fdb-a009-8256cfb547a4"
                     ]
                 },
                 "currentHeight": 36,
@@ -5659,8 +5820,8 @@
             },
             "data": [
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "57404c6a-a799-43e1-e09f-dc9a0301550d",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "9b7291d7-a671-4fdb-a009-8256cfb547a4",
                     "rows": [
                         {
                             "0": "Foam Dinner Plate"
@@ -5856,8 +6017,8 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "4b7cbc60-a85b-4a8e-da70-fc49276e78fc",
-                        "29b1bcb3-6a5b-419d-dce1-5532d74cf609"
+                        "fa377693-392f-42ec-a816-f84a82b3f75d",
+                        "668ff7c1-d8db-4c3d-8fe9-15d58b8dd1d8"
                     ]
                 },
                 "currentHeight": 319,
@@ -5894,8 +6055,8 @@
             },
             "data": [
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "4b7cbc60-a85b-4a8e-da70-fc49276e78fc",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "fa377693-392f-42ec-a816-f84a82b3f75d",
                     "rows": [
                         {
                             "0": 1,
@@ -5990,8 +6151,8 @@
                     "fullTableName": ""
                 },
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "29b1bcb3-6a5b-419d-dce1-5532d74cf609",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "668ff7c1-d8db-4c3d-8fe9-15d58b8dd1d8",
                     "rows": [
                         {
                             "0": 3,
@@ -6083,7 +6244,7 @@
                 "result": {
                     "type": "resultIds",
                     "list": [
-                        "fff6c775-5428-4161-beb5-da37b1139b26"
+                        "1b35675d-dfcb-4789-baa4-efc32be9e549"
                     ]
                 },
                 "currentHeight": 36,
@@ -6102,8 +6263,8 @@
             },
             "data": [
                 {
-                    "tabId": "f875959d-6e76-4844-f4c4-5c9987274ffd",
-                    "resultId": "fff6c775-5428-4161-beb5-da37b1139b26",
+                    "tabId": "f2a47b47-16ef-4fb9-c00b-870667d81645",
+                    "resultId": "1b35675d-dfcb-4789-baa4-efc32be9e549",
                     "rows": [
                         {
                             "0": "Brocolinni - Gaylan, Chinese"
