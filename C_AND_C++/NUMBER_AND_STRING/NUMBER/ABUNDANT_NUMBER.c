@@ -17,7 +17,7 @@ int isAbundant(int n)
         }
     }
 
-    return sum > n;
+    return sum > n; 
 }
 
 int main(void)
