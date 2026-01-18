@@ -19,7 +19,7 @@ int equilibriumIndex(int a[], int n)
 
 int main(void)
 {
-    int a[] = {-7, 1, 5, 2, -4, 3, 0};
+    int a[] = {0,-4,7, -4, -2,6-3, 0};
     int n = sizeof(a) / sizeof(a[0]);
 
     int idx = equilibriumIndex(a, n);
