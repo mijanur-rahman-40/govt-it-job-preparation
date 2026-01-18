@@ -15,6 +15,7 @@ void rearrange(int arr[], int n)
     }
 
     // Update the array to the rearranged values
+    // Divide each element by n to get the new value
     for (int i = 0; i < n; i++)
         arr[i] /= n;
 }
