@@ -10,7 +10,8 @@ int equilibriumIndex(int a[], int n)
     for (int i = 0; i < n; i++)
     {
         total -= a[i]; // now total = right sum
-        if (left == total)
+        printf("Index %d: Left Sum = %d, Right Sum = %d\n", i, left, total);
+        if (left == total && i != 0)
             return i;
         left += a[i];
     }
@@ -19,7 +20,7 @@ int equilibriumIndex(int a[], int n)
 
 int main(void)
 {
-    int a[] = {0,-4,7, -4, -2,6-3, 0};
+    int a[] = {0, -4, 7, -4, -2, 6 - 3, 0};
     int n = sizeof(a) / sizeof(a[0]);
 
     int idx = equilibriumIndex(a, n);
